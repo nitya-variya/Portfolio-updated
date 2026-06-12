@@ -1,0 +1,498 @@
+// ── Design Tokens ──────────────────────────────────────────────
+$color-warm-white: #F5F0E8;
+$color-secondary: #CFCBC2;
+$color-accent: #C96121;
+$color-dark: #0C0C0C;
+$color-glass-bg: rgba(255, 255, 255, 0.05);
+$color-glass-border: rgba(255, 255, 255, 0.10);
+
+$font-heading: 'Instrument Serif', Georgia, serif;
+$font-body: 'DM Sans', Arial, sans-serif;
+
+$ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+// ── Hero Container ─────────────────────────────────────────────
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+
+  // ── Background Video ───────────────────────────────────────
+  &__video-container {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0; // animated via GSAP
+  }
+
+  &__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  // ── Dark Cinematic Overlay ─────────────────────────────────
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg,
+        rgba($color-dark, 0.60) 0%,
+        rgba($color-dark, 0.30) 35%,
+        rgba($color-dark, 0.35) 55%,
+        rgba($color-dark, 0.80) 100%);
+
+    // Warm filmic tint
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 30% 60%,
+          rgba($color-accent, 0.06) 0%,
+          transparent 70%);
+      pointer-events: none;
+    }
+
+    // Subtle film grain
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+      pointer-events: none;
+      z-index: 1;
+    }
+  }
+
+  // ── Top Header Bar ─────────────────────────────────────────
+  &__header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem clamp(2rem, 5vw, 4rem);
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+
+  &__wordmark {
+    font-family: $font-heading;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: $color-secondary;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    min-width: 120px;
+  }
+
+  // ── Center Nav ─────────────────────────────────────────────
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &__nav-link {
+    font-family: $font-body;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-secondary;
+    transition: color 0.3s ease;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: $color-accent;
+      transition: width 0.35s $ease-out-expo;
+    }
+
+    &:hover {
+      color: $color-warm-white;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  &__nav-logo {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($color-accent, 0.12);
+    border-radius: 8px;
+    padding: 4px;
+    transition: background 0.3s ease;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      background: rgba($color-accent, 0.22);
+    }
+  }
+
+  // ── Social Links (Right) ───────────────────────────────────
+  &__social {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-width: 120px;
+    justify-content: flex-end;
+  }
+
+  &__social-link {
+    font-family: $font-body;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: $color-secondary;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $color-warm-white;
+    }
+  }
+
+  // ── Role Label (Middle-Left) ───────────────────────────────
+  &__role-label {
+    position: relative;
+    z-index: 5;
+    padding: 0 clamp(2rem, 5vw, 4rem);
+    margin-top: clamp(4rem, 14vh, 12rem);
+    opacity: 0;
+    transform: translateX(-30px);
+
+    span {
+      display: block;
+      font-family: $font-body;
+      font-size: clamp(0.85rem, 1.1vw, 1rem);
+      font-weight: 600;
+      color: $color-warm-white;
+      line-height: 1.55;
+      letter-spacing: 0.01em;
+    }
+  }
+
+  // ── Bottom Section ─────────────────────────────────────────
+  &__bottom {
+    position: relative;
+    z-index: 5;
+    margin-top: auto;
+    padding: 0 clamp(1rem, 3vw, 3rem);
+    padding-bottom: clamp(1.5rem, 4vh, 3.5rem);
+  }
+
+  // ── Name Row ───────────────────────────────────────────────
+  &__name-row {
+    width: 100%;
+  }
+
+  &__name {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    // Initial state for cinematic reveal
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(0.95) translateY(30px);
+    text-shadow: 0 0 0px rgba(201, 97, 33, 0);
+    will-change: transform, opacity, filter, text-shadow;
+  }
+
+  &__float,
+  .hero-name__float {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    will-change: transform;
+  }
+
+  &__name-first,
+  &__name-last {
+    font-family: $font-heading;
+    font-size: clamp(4.5rem, 11.5vw, 14rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 0.85;
+    color: $color-warm-white;
+    letter-spacing: -0.01em;
+    // Removed overflow: hidden to allow glow shadow to spread cleanly
+  }
+
+  &__name-inner {
+    display: block;
+    will-change: transform;
+  }
+
+  &__name-first {
+    flex: 1;
+    text-align: right;
+    padding-right: clamp(0.5rem, 1.2vw, 1.5rem);
+  }
+
+  &__name-last {
+    flex: 1;
+    text-align: left;
+    padding-left: clamp(0.5rem, 1.2vw, 1.5rem);
+  }
+
+  // ── Showcase Card ──────────────────────────────────────────
+  &__showcase {
+    flex-shrink: 0;
+    width: clamp(160px, 17vw, 260px);
+    height: clamp(120px, 12vw, 190px);
+    border-radius: 14px;
+    background:
+      linear-gradient(145deg,
+        rgba($color-accent, 0.10) 0%,
+        rgba(255, 255, 255, 0.03) 45%,
+        rgba($color-accent, 0.07) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(28px) saturate(1.5);
+    -webkit-backdrop-filter: blur(28px) saturate(1.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: clamp(0.8rem, 1.5vw, 2rem);
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+    overflow: hidden;
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    position: relative;
+    transition: transform 0.5s $ease-out-expo, box-shadow 0.5s ease;
+
+    // Shimmer sweep
+    &::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -100%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(105deg,
+          transparent 40%,
+          rgba(255, 255, 255, 0.04) 45%,
+          rgba(255, 255, 255, 0.08) 50%,
+          rgba(255, 255, 255, 0.04) 55%,
+          transparent 60%);
+      animation: shimmer 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    // Accent glow edge
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba($color-accent, 0.5),
+          transparent);
+      pointer-events: none;
+    }
+
+    &:hover {
+      transform: scale(1) translateY(-4px);
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__showcase-img {
+    width: 48%;
+    height: auto;
+    opacity: 0.75;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+    transition: opacity 0.4s ease;
+  }
+
+  &__showcase:hover &__showcase-img {
+    opacity: 0.95;
+  }
+
+  // ── Designation ─────────────────────────────────────────────
+  &__designation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    padding-top: clamp(1.2rem, 2vw, 2rem);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  &__designation-dash {
+    width: clamp(2rem, 4vw, 4rem);
+    height: 1px;
+    background: $color-accent;
+    flex-shrink: 0;
+  }
+
+  &__designation-text {
+    font-family: $font-body;
+    font-size: clamp(0.72rem, 0.95vw, 0.88rem);
+    font-weight: 500;
+    color: $color-secondary;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+}
+
+// ── Keyframes ──────────────────────────────────────────────────
+@keyframes shimmer {
+
+  0%,
+  100% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+// ── Responsive: Tablet ─────────────────────────────────────────
+@media (max-width: 1024px) {
+  .hero {
+
+    &__name-first,
+    &__name-last {
+      font-size: clamp(3.5rem, 10vw, 8rem);
+    }
+
+    &__showcase {
+      width: clamp(140px, 20vw, 200px);
+      height: clamp(100px, 14vw, 150px);
+    }
+
+    &__social {
+      display: none;
+    }
+
+    &__header {
+      justify-content: space-between;
+    }
+  }
+}
+
+// ── Responsive: Mobile ─────────────────────────────────────────
+@media (max-width: 768px) {
+  .hero {
+    &__header {
+      padding: 1.5rem clamp(1.2rem, 4vw, 2rem);
+    }
+
+    &__wordmark {
+      font-size: 0.8rem;
+    }
+
+    &__nav-link {
+      display: none;
+    }
+
+    &__nav {
+      gap: 0;
+    }
+
+    &__role-label {
+      margin-top: clamp(3rem, 10vh, 6rem);
+      padding: 0 clamp(1.2rem, 4vw, 2rem);
+    }
+
+    &__bottom {
+      padding: 0 clamp(1rem, 3vw, 2rem);
+      padding-bottom: clamp(1.5rem, 3vh, 2.5rem);
+    }
+
+    &__name {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    &__name-first,
+    &__name-last {
+      flex: unset;
+      width: 100%;
+      text-align: center;
+      padding: 0;
+      font-size: clamp(3.2rem, 15vw, 5.5rem);
+    }
+
+    &__showcase {
+      order: -1;
+      width: clamp(180px, 55vw, 260px);
+      height: clamp(110px, 30vw, 170px);
+      margin-bottom: 1rem;
+    }
+
+    &__subtitle {
+      justify-content: center;
+    }
+  }
+}
+
+// ── Responsive: Small Mobile ───────────────────────────────────
+@media (max-width: 480px) {
+  .hero {
+
+    &__name-first,
+    &__name-last {
+      font-size: clamp(2.8rem, 17vw, 4rem);
+    }
+
+    &__nav-logo {
+      width: 28px;
+      height: 28px;
+    }
+
+    &__showcase {
+      width: 65%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+    }
+
+    &__role-label span {
+      font-size: 0.82rem;
+    }
+  }
+}
