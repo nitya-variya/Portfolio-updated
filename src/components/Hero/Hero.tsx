@@ -1,25 +1,25 @@
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { useHeroAnimation } from '../../hooks/useHeroAnimation';
-import video from './Hero_video.mp4';
-import logoSvg from '../../assets/logo.svg';
-import './Hero.scss';
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { useHeroAnimation } from "../../hooks/useHeroAnimation";
+import video from "./Hero_video.mp4";
+import logoSvg from "../../assets/logo.svg";
+import "./Hero.scss";
 
 // ── Data ───────────────────────────────────────────────────────
 const NAV_LEFT = [
-  { label: 'About', href: '#about' },
-  { label: 'Work', href: '#work' },
+  { label: "Journey", href: "#about" },
+  { label: "Craft", href: "#work" },
 ];
 
 const NAV_RIGHT = [
-  { label: 'Journal', href: '#journal' },
-  { label: 'Contact', href: '#contact' },
+  { label: "Work", href: "#journal" },
+  { label: "Connect", href: "#contact" },
 ];
 
 const SOCIAL = [
-  { label: 'Email', href: 'mailto:hello@nitya.dev' },
-  { label: 'In', href: '#' },
-  { label: 'X', href: '#' },
+  { label: "Email", href: "mailto:hello@nitya.dev" },
+  { label: "In", href: "#" },
+  { label: "X", href: "#" },
 ];
 
 const VIDEO_SRC = video;
@@ -30,43 +30,60 @@ export default function Hero() {
     heroRef,
     videoRef,
     headerRef,
-    roleLabelRef,
     subtitleRef,
     nameRef,
     floatRef,
   } = useHeroAnimation();
 
-  // Gentle hover transitions for scale and glowing shadow
-  const handleMouseEnter = () => {
-    if (nameRef.current) {
-      gsap.to(nameRef.current, {
-        scale: 1.02,
-        textShadow: '0 0 45px rgba(201, 97, 33, 0.45), 0 0 90px rgba(201, 97, 33, 0.20)',
-        duration: 0.6,
-        ease: 'power2.out',
-        overwrite: 'auto',
-      });
-    }
-  };
+  useEffect(() => {
+    const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!isDesktop) return;
 
-  const handleMouseLeave = () => {
-    if (nameRef.current) {
-      gsap.to(nameRef.current, {
-        scale: 1.0,
-        textShadow: '0 0 30px rgba(201, 97, 33, 0.25), 0 0 60px rgba(201, 97, 33, 0.10)',
-        duration: 0.6,
-        ease: 'power2.out',
-        overwrite: 'auto',
+    const el = nameRef.current;
+    if (!el) return;
+
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let currentX = targetX;
+    let currentY = targetY;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+    const tick = () => {
+      const ease = 0.07;
+      currentX += (targetX - currentX) * ease;
+      currentY += (targetY - currentY) * ease;
+
+      // ✅ FIX: Convert viewport coords → element-relative coords
+      const rect = el.getBoundingClientRect();
+      const relX = currentX - rect.left;
+      const relY = currentY - rect.top;
+
+      gsap.set(el, {
+        "--light-x": `${relX}px`,
+        "--light-y": `${relY}px`,
       });
-    }
-  };
+    };
+
+    gsap.ticker.add(tick);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      gsap.ticker.remove(tick);
+    };
+  }, [nameRef]);
 
   return (
     <section
       ref={heroRef}
       className="hero"
       id="hero"
-      aria-label="Hero — Nitya Variya, Freelance Design Director"
+      aria-label="Hero — Crafting Digital Worlds With Purpose"
     >
       {/* ── Background Video ──────────────────────────────────── */}
       <div ref={videoRef} className="hero__video-container">
@@ -76,7 +93,7 @@ export default function Hero() {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           aria-hidden="true"
         >
           <source src={VIDEO_SRC} type="video/mp4" />
@@ -92,15 +109,13 @@ export default function Hero() {
 
         <nav className="hero__nav" aria-label="Primary navigation">
           {NAV_LEFT.map((link) => (
-            <motion.a
+            <a
               key={link.label}
               href={link.href}
               className="hero__nav-link"
-              whileHover={{ y: -2 }}
-              transition={{ duration: 0.2 }}
             >
               {link.label}
-            </motion.a>
+            </a>
           ))}
 
           <div className="hero__nav-logo">
@@ -108,15 +123,13 @@ export default function Hero() {
           </div>
 
           {NAV_RIGHT.map((link) => (
-            <motion.a
+            <a
               key={link.label}
               href={link.href}
               className="hero__nav-link"
-              whileHover={{ y: -2 }}
-              transition={{ duration: 0.2 }}
             >
               {link.label}
-            </motion.a>
+            </a>
           ))}
         </nav>
 
@@ -129,42 +142,30 @@ export default function Hero() {
         </div>
       </header>
 
-      {/* ── Role Label ────────────────────────────────────────── */}
-      <div ref={roleLabelRef} className="hero__role-label">
-        <span>Brand & Web</span>
-        <span>Design Specialist</span>
-      </div>
-
-      {/* ── Bottom: Name + Showcase ───────────────────────────── */}
+      {/* ── Bottom: Headline + Subheadline ────────────────────── */}
       <div className="hero__bottom">
         <div className="hero__name-row">
           <h1
             ref={nameRef}
             className="hero__name hero-name"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
           >
             <span ref={floatRef} className="hero-name__float">
-              <span className="hero__name-first">
-                <span className="hero__name-inner">
-                  NITYA
-                </span>
-              </span>
-
-              <span className="hero__name-last">
-                <span className="hero__name-inner">
-                  VARIYA
+              <span className="hero__headline">
+                <span className="hero__headline-line">Exploring New</span>
+                <span className="hero__headline-line">
+                  Realms Through <em>Code</em>
                 </span>
               </span>
             </span>
           </h1>
         </div>
 
-        {/* ── Designation ─────────────────────────────────────── */}
+        {/* ── Subheadline ──────────────────────────────────────── */}
         <div ref={subtitleRef} className="hero__designation">
           <span className="hero__designation-dash" />
           <span className="hero__designation-text">
-            Designing Digital Experiences That Drive Business Growth
+            Helping ambitious brands transform ideas into digital experiences
+            that people remember.
           </span>
           <span className="hero__designation-dash" />
         </div>

@@ -9,8 +9,6 @@ export interface UseHeroAnimationReturn {
   heroRef:      React.RefObject<HTMLElement | null>;
   videoRef:     React.RefObject<HTMLDivElement | null>;
   headerRef:    React.RefObject<HTMLElement | null>;
-  roleLabelRef: React.RefObject<HTMLDivElement | null>;
-  showcaseRef:  React.RefObject<HTMLDivElement | null>;
   subtitleRef:  React.RefObject<HTMLDivElement | null>;
   nameRef:      React.RefObject<HTMLHeadingElement | null>;
   floatRef:     React.RefObject<HTMLSpanElement | null>;
@@ -21,8 +19,6 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
   const heroRef      = useRef<HTMLElement | null>(null);
   const videoRef     = useRef<HTMLDivElement | null>(null);
   const headerRef    = useRef<HTMLElement | null>(null);
-  const roleLabelRef = useRef<HTMLDivElement | null>(null);
-  const showcaseRef  = useRef<HTMLDivElement | null>(null);
   const subtitleRef  = useRef<HTMLDivElement | null>(null);
   const nameRef      = useRef<HTMLHeadingElement | null>(null);
   const floatRef     = useRef<HTMLSpanElement | null>(null);
@@ -31,53 +27,60 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
     const ctx = gsap.context(() => {
       // ── Intro Timeline ───────────────────────────────────────
       const tl = gsap.timeline({
-        defaults: { ease: 'power3.out' },
-        delay: 0.3,
+        defaults: {
+          ease: 'power3.out',
+          force3D: true,          // GPU-accelerate all transforms
+        },
+        delay: 0.2,
       });
 
-      // 1. Video fade-in
+      // 1. Video fade-in — use autoAlpha for GPU-composited visibility
       if (videoRef.current) {
+        gsap.set(videoRef.current, { willChange: 'opacity' });
         tl.to(videoRef.current, {
-          opacity: 1,
-          duration: 2,
+          autoAlpha: 1,
+          duration: 1.6,
           ease: 'power2.inOut',
+          onComplete: () => {
+            // Clean up will-change after animation completes
+            gsap.set(videoRef.current, { willChange: 'auto' });
+          },
         });
       }
 
-      // 2. Header slides down
+      // 2. Header slides down — autoAlpha for smooth compositing
       if (headerRef.current) {
         tl.to(
           headerRef.current,
           {
             y: 0,
-            opacity: 1,
-            duration: 1.2,
+            autoAlpha: 1,
+            duration: 1,
             ease: 'power3.out',
           },
-          '-=1.4'
+          '-=1.2'
         );
       }
 
-      // 3. Name reveal with cinematic zoom, fade, blur removal, and soft glow
+      // 3. Headline reveal — NO filter:blur animation (major perf killer)
+      //    Use only GPU-friendly: transform, opacity
       if (nameRef.current) {
         tl.fromTo(
           nameRef.current,
           {
-            opacity: 0,
-            scale: 0.95,
-            filter: 'blur(20px)',
-            y: 30,
-            textShadow: '0 0 0px rgba(201, 97, 33, 0)'
+            autoAlpha: 0,
+            scale: 0.96,
+            y: 25,
           },
           {
-            opacity: 1,
+            autoAlpha: 1,
             scale: 1,
-            filter: 'blur(0px)',
             y: 0,
-            textShadow: '0 0 30px rgba(201, 97, 33, 0.25), 0 0 60px rgba(201, 97, 33, 0.1)',
             duration: 1.2,
             ease: 'power4.out',
+            clearProps: 'will-change',
             onComplete: () => {
+              // Start the gentle float after reveal completes
               if (floatRef.current) {
                 gsap.to(floatRef.current, {
                   y: -3,
@@ -85,86 +88,44 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
                   ease: 'sine.inOut',
                   yoyo: true,
                   repeat: -1,
+                  force3D: true,
                 });
               }
-            }
+            },
           },
-          '-=0.7'
+          '-=0.6'
         );
       }
 
-      // 4. Showcase card scales up
-      if (showcaseRef.current) {
-        tl.to(
-          showcaseRef.current,
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 1.1,
-            ease: 'power3.out',
-          },
-          '-=1.1'
-        );
-      }
-
-      // 5. Role label fades in from left
-      if (roleLabelRef.current) {
-        tl.to(
-          roleLabelRef.current,
-          {
-            opacity: 1,
-            x: 0,
-            duration: 1,
-            ease: 'power3.out',
-          },
-          '-=0.9'
-        );
-      }
-
-      // 6. Subtitle fades up
+      // 4. Subtitle fades up
       if (subtitleRef.current) {
         tl.to(
           subtitleRef.current,
           {
-            opacity: 1,
+            autoAlpha: 1,
             y: 0,
-            duration: 0.9,
+            duration: 0.8,
             ease: 'power3.out',
           },
-          '-=0.7'
+          '-=0.6'
         );
       }
 
       // ── Scroll-triggered parallax & fade ─────────────────────
       if (heroRef.current) {
         const bottomEl = heroRef.current.querySelector('.hero__bottom');
-        const roleLabelEl = heroRef.current.querySelector('.hero__role-label');
 
         if (bottomEl) {
           gsap.to(bottomEl, {
-            y: -80,
-            opacity: 0,
+            y: -60,
+            autoAlpha: 0,
             ease: 'none',
+            force3D: true,
             scrollTrigger: {
               trigger: heroRef.current,
               start: 'top top',
               end: 'bottom top',
-              scrub: 0.8,
-            },
-          });
-        }
-
-        if (roleLabelEl) {
-          gsap.to(roleLabelEl, {
-            y: -40,
-            opacity: 0,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: heroRef.current,
-              start: '5% top',
-              end: '50% top',
-              scrub: 0.8,
+              scrub: true,       // true = native requestAnimationFrame, smoother than scrub: 0.8
             },
           });
         }
@@ -178,8 +139,6 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
     heroRef,
     videoRef,
     headerRef,
-    roleLabelRef,
-    showcaseRef,
     subtitleRef,
     nameRef,
     floatRef,

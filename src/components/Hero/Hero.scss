@@ -5,11 +5,10 @@ $color-accent: #C96121;
 $color-dark: #0C0C0C;
 $color-glass-bg: rgba(255, 255, 255, 0.05);
 $color-glass-border: rgba(255, 255, 255, 0.10);
-
 $font-heading: 'Instrument Serif', Georgia, serif;
 $font-body: 'DM Sans', Arial, sans-serif;
-
 $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
 // ── Hero Container ─────────────────────────────────────────────
 .hero {
@@ -22,12 +21,26 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   flex-direction: column;
   z-index: 1;
 
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: -40px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+    height: 60px;
+    width: 100%;
+    filter: blur(11px);
+  }
+
   // ── Background Video ───────────────────────────────────────
   &__video-container {
     position: absolute;
     inset: 0;
     z-index: 0;
-    opacity: 0; // animated via GSAP
+    visibility: hidden; // GSAP autoAlpha controls both opacity + visibility
+    opacity: 0;
+    transform: translateZ(0); // Force GPU layer
   }
 
   &__video {
@@ -42,6 +55,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     position: absolute;
     inset: 0;
     z-index: 1;
+    transform: translateZ(0); // Own compositing layer
     background:
       linear-gradient(180deg,
         rgba($color-dark, 0.60) 0%,
@@ -60,7 +74,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
     }
 
-    // Subtle film grain
+    // Subtle film grain — use a tiny static image, no SVG filter
     &::before {
       content: '';
       position: absolute;
@@ -81,8 +95,9 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     align-items: center;
     justify-content: space-between;
     padding: 2rem clamp(2rem, 5vw, 4rem);
+    visibility: hidden; // GSAP autoAlpha
     opacity: 0;
-    transform: translateY(-40px);
+    transform: translateY(-40px) translateZ(0);
   }
 
   &__wordmark {
@@ -93,6 +108,11 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     letter-spacing: 0.05em;
     white-space: nowrap;
     min-width: 120px;
+    transition: color 0.4s $ease-smooth;
+
+    &:hover {
+      color: $color-warm-white;
+    }
   }
 
   // ── Center Nav ─────────────────────────────────────────────
@@ -109,9 +129,30 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: $color-secondary;
-    transition: color 0.3s ease;
     position: relative;
+    opacity: 0.85;
+    // Only transition compositor-friendly + color
+    transition: color 0.35s $ease-smooth,
+      opacity 0.35s $ease-smooth,
+      transform 0.3s $ease-out-expo;
 
+    // Active indicator dot
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: $color-accent;
+      opacity: 0;
+      transform: translateX(-50%) scale(0);
+      transition: transform 0.4s $ease-out-expo,
+        opacity 0.35s $ease-smooth;
+    }
+
+    // Underline sweep
     &::after {
       content: '';
       position: absolute;
@@ -120,37 +161,38 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
       width: 0;
       height: 1px;
       background: $color-accent;
-      transition: width 0.35s $ease-out-expo;
+      transition: width 0.4s $ease-out-expo;
     }
 
     &:hover {
       color: $color-warm-white;
+      opacity: 1;
+      transform: translateY(-2px);
 
       &::after {
         width: 100%;
+      }
+
+      &::before {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
       }
     }
   }
 
   &__nav-logo {
-    width: 34px;
-    height: 34px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba($color-accent, 0.12);
-    border-radius: 8px;
-    padding: 4px;
-    transition: background 0.3s ease;
+    transition: background 0.4s $ease-smooth,
+      transform 0.35s $ease-out-expo;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-    }
-
-    &:hover {
-      background: rgba($color-accent, 0.22);
     }
   }
 
@@ -169,30 +211,31 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     font-weight: 400;
     letter-spacing: 0.06em;
     color: $color-secondary;
-    transition: color 0.3s ease;
+    opacity: 0.75;
+    position: relative;
+    transition: color 0.3s $ease-smooth,
+      opacity 0.3s $ease-smooth,
+      transform 0.3s $ease-out-expo;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: rgba($color-warm-white, 0.3);
+      transition: width 0.35s $ease-out-expo;
+    }
 
     &:hover {
       color: $color-warm-white;
-    }
-  }
+      opacity: 1;
+      transform: translateY(-1px);
 
-  // ── Role Label (Middle-Left) ───────────────────────────────
-  &__role-label {
-    position: relative;
-    z-index: 5;
-    padding: 0 clamp(2rem, 5vw, 4rem);
-    margin-top: clamp(4rem, 14vh, 12rem);
-    opacity: 0;
-    transform: translateX(-30px);
-
-    span {
-      display: block;
-      font-family: $font-body;
-      font-size: clamp(0.85rem, 1.1vw, 1rem);
-      font-weight: 600;
-      color: $color-warm-white;
-      line-height: 1.55;
-      letter-spacing: 0.01em;
+      &::after {
+        width: 100%;
+      }
     }
   }
 
@@ -203,6 +246,7 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     margin-top: auto;
     padding: 0 clamp(1rem, 3vw, 3rem);
     padding-bottom: clamp(1.5rem, 4vh, 3.5rem);
+    transform: translateZ(0); // Own GPU layer for scroll parallax
   }
 
   // ── Name Row ───────────────────────────────────────────────
@@ -217,13 +261,11 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     width: 100%;
     margin: 0;
     padding: 0;
-
-    // Initial state for cinematic reveal
+    cursor: default;
+    position: relative;
+    visibility: hidden;
     opacity: 0;
-    filter: blur(20px);
-    transform: scale(0.95) translateY(30px);
-    text-shadow: 0 0 0px rgba(201, 97, 33, 0);
-    will-change: transform, opacity, filter, text-shadow;
+    transform: scale(0.96) translateY(25px) translateZ(0);
   }
 
   &__float,
@@ -232,131 +274,58 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     align-items: flex-end;
     justify-content: center;
     width: 100%;
-    will-change: transform;
+    transform: translateZ(0);
   }
 
-  &__name-first,
-  &__name-last {
+  &__headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+  }
+
+  &__headline-line {
+    display: block;
     font-family: $font-heading;
-    font-size: clamp(4.5rem, 11.5vw, 14rem);
+    font-size: clamp(3.5rem, 9vw, 5.5rem);
     font-style: italic;
     font-weight: 400;
-    line-height: 0.85;
-    color: $color-warm-white;
-    letter-spacing: -0.01em;
-    // Removed overflow: hidden to allow glow shadow to spread cleanly
-  }
+    line-height: 1;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+    text-shadow:
+      0 0 6px rgba(255, 255, 255, 0.5),
+      0 0 15px rgba(255, 245, 220, 0.3),
+      4px 0 35px rgba(255, 210, 130, 0.1),
+      6px 0 60px rgba(220, 165, 70, 0),
+      8px 0 100px rgba(180, 120, 30, 0.10);
+    background: none;
+    -webkit-text-fill-color: unset;
 
-  &__name-inner {
-    display: block;
-    will-change: transform;
-  }
-
-  &__name-first {
-    flex: 1;
-    text-align: right;
-    padding-right: clamp(0.5rem, 1.2vw, 1.5rem);
-  }
-
-  &__name-last {
-    flex: 1;
-    text-align: left;
-    padding-left: clamp(0.5rem, 1.2vw, 1.5rem);
-  }
-
-  // ── Showcase Card ──────────────────────────────────────────
-  &__showcase {
-    flex-shrink: 0;
-    width: clamp(160px, 17vw, 260px);
-    height: clamp(120px, 12vw, 190px);
-    border-radius: 14px;
-    background:
-      linear-gradient(145deg,
-        rgba($color-accent, 0.10) 0%,
-        rgba(255, 255, 255, 0.03) 45%,
-        rgba($color-accent, 0.07) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(28px) saturate(1.5);
-    -webkit-backdrop-filter: blur(28px) saturate(1.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: clamp(0.8rem, 1.5vw, 2rem);
-    opacity: 0;
-    transform: scale(0.85) translateY(20px);
-    overflow: hidden;
-    box-shadow:
-      0 12px 40px rgba(0, 0, 0, 0.35),
-      0 0 0 1px rgba(255, 255, 255, 0.04),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    position: relative;
-    transition: transform 0.5s $ease-out-expo, box-shadow 0.5s ease;
-
-    // Shimmer sweep
-    &::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -100%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(105deg,
-          transparent 40%,
-          rgba(255, 255, 255, 0.04) 45%,
-          rgba(255, 255, 255, 0.08) 50%,
-          rgba(255, 255, 255, 0.04) 55%,
-          transparent 60%);
-      animation: shimmer 5s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    // Accent glow edge
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 10%;
-      right: 10%;
-      height: 1px;
-      background: linear-gradient(90deg,
-          transparent,
-          rgba($color-accent, 0.5),
-          transparent);
-      pointer-events: none;
-    }
-
-    &:hover {
-      transform: scale(1) translateY(-4px);
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(255, 255, 255, 0.06),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    em {
+      font-style: normal;
+      color: #fff;
+      text-shadow:
+        0 0 6px rgba(255, 255, 255, 0.5),
+        0 0 15px rgba(255, 245, 220, 0.3),
+        4px 0 35px rgba(255, 210, 130, 0.1),
+        6px 0 60px rgba(220, 165, 70, 0.0),
+        8px 0 100px rgba(180, 120, 30, 0.10);
     }
   }
 
-  &__showcase-img {
-    width: 48%;
-    height: auto;
-    opacity: 0.75;
-    position: relative;
-    z-index: 1;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
-    transition: opacity 0.4s ease;
-  }
 
-  &__showcase:hover &__showcase-img {
-    opacity: 0.95;
-  }
 
-  // ── Designation ─────────────────────────────────────────────
   &__designation {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
-    padding-top: clamp(1.2rem, 2vw, 2rem);
+    padding-top: clamp(1.5rem, 2.5vw, 2.5rem);
+    visibility: hidden;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(20px) translateZ(0);
   }
 
   &__designation-dash {
@@ -364,44 +333,29 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     height: 1px;
     background: $color-accent;
     flex-shrink: 0;
+    opacity: 0.6;
   }
 
   &__designation-text {
     font-family: $font-body;
     font-size: clamp(0.72rem, 0.95vw, 0.88rem);
-    font-weight: 500;
-    color: $color-secondary;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    font-weight: 400;
+    color: #fff;
+    letter-spacing: 0.12em;
+    text-transform: none;
     white-space: nowrap;
+    opacity: 0.75;
+    line-height: 1.7;
   }
 }
 
-// ── Keyframes ──────────────────────────────────────────────────
-@keyframes shimmer {
-
-  0%,
-  100% {
-    transform: translateX(-100%);
-  }
-
-  50% {
-    transform: translateX(100%);
-  }
-}
 
 // ── Responsive: Tablet ─────────────────────────────────────────
 @media (max-width: 1024px) {
   .hero {
 
-    &__name-first,
-    &__name-last {
-      font-size: clamp(3.5rem, 10vw, 8rem);
-    }
-
-    &__showcase {
-      width: clamp(140px, 20vw, 200px);
-      height: clamp(100px, 14vw, 150px);
+    &__headline-line {
+      font-size: clamp(3rem, 8vw, 6rem);
     }
 
     &__social {
@@ -433,40 +387,19 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
       gap: 0;
     }
 
-    &__role-label {
-      margin-top: clamp(3rem, 10vh, 6rem);
-      padding: 0 clamp(1.2rem, 4vw, 2rem);
-    }
-
     &__bottom {
       padding: 0 clamp(1rem, 3vw, 2rem);
       padding-bottom: clamp(1.5rem, 3vh, 2.5rem);
     }
 
-    &__name {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
+    &__headline-line {
+      font-size: clamp(2.5rem, 10vw, 4.5rem);
     }
 
-    &__name-first,
-    &__name-last {
-      flex: unset;
-      width: 100%;
+    &__designation-text {
+      white-space: normal;
       text-align: center;
-      padding: 0;
-      font-size: clamp(3.2rem, 15vw, 5.5rem);
-    }
-
-    &__showcase {
-      order: -1;
-      width: clamp(180px, 55vw, 260px);
-      height: clamp(110px, 30vw, 170px);
-      margin-bottom: 1rem;
-    }
-
-    &__subtitle {
-      justify-content: center;
+      letter-spacing: 0.06em;
     }
   }
 }
@@ -475,24 +408,13 @@ $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 @media (max-width: 480px) {
   .hero {
 
-    &__name-first,
-    &__name-last {
-      font-size: clamp(2.8rem, 17vw, 4rem);
+    &__headline-line {
+      font-size: clamp(2rem, 11vw, 3.2rem);
     }
 
     &__nav-logo {
       width: 28px;
       height: 28px;
-    }
-
-    &__showcase {
-      width: 65%;
-      height: auto;
-      aspect-ratio: 16 / 10;
-    }
-
-    &__role-label span {
-      font-size: 0.82rem;
     }
   }
 }

@@ -4,7 +4,6 @@ function App() {
   return (
     <>
       <Hero />
-      {/* Placeholder next section for scroll-triggered fade */}
       <section
         className="next-section"
         aria-label="Featured work"
