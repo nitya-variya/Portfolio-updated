@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 import gsap from "gsap";
 import { useHeroAnimation } from "../../hooks/useHeroAnimation";
 import video from "./Hero_video.mp4";
