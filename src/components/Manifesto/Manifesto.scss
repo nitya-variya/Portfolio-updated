@@ -1,0 +1,70 @@
+// ── Minimalist Kinetic Manifesto Styling ──────────────────────────────
+// Strictly using px units for all sizing, margins, padding, and gaps.
+
+
+.manifesto-section {
+  position: relative;
+  z-index: 1;
+  width: 100%; // 100% width wrapper allowed exception
+  height: 1000px;
+  overflow: hidden;
+  background-color: #050505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // ── Layer 2: The Hidden Architect ──────────────────────────────────
+  &__architect {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 550px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(100%) contrast(120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  // ── Layer 3: The Manifesto Content ─────────────────────────────────
+  &__content {
+    position: relative;
+    z-index: 3;
+    max-width: 1300px;
+    width: 100%;
+  }
+}
+
+.manifesto-text {
+  margin: 0px;
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 72px;
+  letter-spacing: 0px;
+  color: #1A1A1A;
+  text-align: center;
+}
+
+
+// ── Interactive Hover & Scrub Spans ─────────────────────────────────
+
+.scrub-word {
+  color: #1A1A1A;
+  transition: color 0.2s ease;
+}
+
+.hover-target {
+  cursor: pointer;
+  color: #1A1A1A;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #FFFFFF;
+  }
+}

@@ -1,191 +1,223 @@
-// ── Footer ─────────────────────────────────────────────────────
+$font-heading: 'Instrument Serif', Georgia, serif;
 
-$footer-bg: #050505;
-$footer-golden: #d4a757;
-$footer-text: #f5f1e8;
-$footer-muted: rgba(255, 255, 255, 0.3);
-$footer-border: rgba(255, 255, 255, 0.07);
-$footer-stroke: #333;
+// ── Parallax Footer — Midnight Oasis ─────────────────────────────────
+// All measurements in px. No rem/em/vh/vw except 100% where required.
 
-.footer {
+// ── Keyframe Animations ─────────────────────────────────────────────
+@keyframes pulseGlow {
+  0% {
+    filter: brightness(1);
+  }
+
+  100% {
+    filter: brightness(1.1);
+  }
+}
+
+.parallax-footer {
   position: relative;
-  background: $footer-bg;
-  color: $footer-text;
+  width: 100%;
+  height: 800px;
+  margin-top: -2px;
   overflow: hidden;
+  // Note: Adjust the starting color stop (#000000) if the section above uses a different dark hex code (e.g. #050505)
+  background: linear-gradient(180deg, #000000 0px, #000000 150px, #080C16 450px, #0D1322 800px);
+  z-index: 1;
 
-  // ── Top Grid ──────────────────────────────────────────────
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    padding: 5rem clamp(2rem, 5vw, 4rem) 4rem;
-    border-top: 1px solid $footer-border;
-  }
-
-  &__col {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  &__col-label {
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: $footer-muted;
-    font-weight: 500;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid $footer-border;
-  }
-
-  &__col-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  // ── Link — Magnetic Hover ─────────────────────────────────
-  &__link {
-    display: inline-block;
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: rgba($footer-text, 0.5);
-    text-decoration: none;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  &__mountains {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    left: 0;
+    height: 500px;
+    object-position: top;
+    object-fit: cover;
+    z-index: 2;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     will-change: transform;
-    transition: color 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-    &:hover {
-      color: $footer-text;
-    }
   }
 
-  // ── Local Time ────────────────────────────────────────────
-  &__time {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  &__time-value {
-    font-size: 1.05rem;
-    font-weight: 300;
-    color: rgba($footer-text, 0.6);
-    letter-spacing: 0.08em;
-    font-variant-numeric: tabular-nums;
-  }
-
-  &__time-zone {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: $footer-muted;
-    font-weight: 400;
-  }
-
-  // ── Massive Signature ─────────────────────────────────────
-  &__signature {
-    padding: 4rem 0 0;
-    overflow: hidden;
-  }
-
-  &__name-wrapper {
-    position: relative;
-    width: 100%;
-    line-height: 0;
-  }
-
-  &__name {
-    display: block;
-    font-size: 15vw;
-    letter-spacing: -2vw;
-    line-height: 0.85;
-    text-transform: uppercase;
-    font-weight: 600;
-    text-align: center;
+  &__headline {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    font-family: $font-heading;
+    font-style: italic;
+    font-size: 250px;
+    letter-spacing: 0px;
+    color: #FFFFFF;
     white-space: nowrap;
-    margin: 0;
-    padding: 0;
     user-select: none;
-
-    &--outline {
-      color: transparent;
-      -webkit-text-stroke: 1.5px $footer-stroke;
-    }
-
-    &--fill {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      color: $footer-golden;
-      -webkit-text-stroke: 0;
-      clip-path: inset(100% 0 0 0);
-    }
+    pointer-events: none;
+    text-shadow:
+      0 0 120px rgba(255, 255, 255, 0.04),
+      0 0 60px rgba(255, 255, 255, 0.03);
   }
 
-  // ── Bottom Bar ────────────────────────────────────────────
-  &__bar {
+
+  &__flowers {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    height: 450px;
+    z-index: 4;
+    background-size: cover;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    will-change: transform;
+    animation: pulseGlow 4s ease-in-out infinite alternate;
+  }
+
+  &__hud {
+    position: absolute;
+    z-index: 10;
+    top: 40px;
+    left: 40px;
+    right: 40px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem clamp(2rem, 5vw, 4rem);
-    margin-top: 1.5rem;
-    border-top: 1px solid $footer-border;
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: $footer-muted;
+    align-items: flex-start;
+    pointer-events: none;
+  }
+
+  &__hud-left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    padding-left: 24px;
+    pointer-events: none;
+  }
+
+  &__hud-right {
+    display: flex;
+    gap: 40px;
+    pointer-events: auto;
   }
 }
 
-// ── Responsive ──────────────────────────────────────────────
-@media (max-width: 1024px) {
-  .footer {
-    &__grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 3rem 2rem;
-      padding: 4rem clamp(1.5rem, 4vw, 3rem) 3rem;
+
+.hud-viewport-label {
+  display: block;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.hud-narrative {
+  margin: 0;
+  font-family: 'DM Sans', 'Georgia', sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 32px;
+  color: #FFFFFF;
+  letter-spacing: 0.5px;
+}
+
+
+.hud-grid-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: right;
+
+  &__header {
+    display: block;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 12px;
+    color: #A0A0A0;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  &__value {
+    display: block;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 12px;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+  }
+
+  &__link {
+    display: block;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 12px;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+
+    &:hover {
+      color: #C8B8FF;
+      text-shadow: 0 0 12px rgba(200, 184, 255, 0.5);
     }
   }
 }
 
-@media (max-width: 768px) {
-  .footer {
-    &__grid {
-      padding: 3rem clamp(1.2rem, 4vw, 2rem) 2.5rem;
+// ── Responsive Breakpoints ───────────────────────────────────────────
+
+@media (max-width: 900px) {
+  .parallax-footer {
+    height: 600px;
+
+    &__headline {
+      font-size: 100px;
+      letter-spacing: -3px;
     }
 
-    &__name {
-      font-size: 18vw;
-      letter-spacing: -1.5vw;
-    }
-
-    &__bar {
+    &__hud {
       flex-direction: column;
-      gap: 0.5rem;
-      text-align: center;
-      padding: 1.25rem;
+      gap: 20px;
+    }
+
+    &__hud-right {
+      gap: 20px;
+    }
+
+    &__mountains {
+      height: 380px;
+    }
+
+    &__flowers {
+      height: 260px;
     }
   }
 }
 
-@media (max-width: 480px) {
-  .footer {
-    &__grid {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
+@media (max-width: 600px) {
+  .parallax-footer {
+    height: 500px;
+
+    &__headline {
+      font-size: 56px;
+      letter-spacing: -2px;
     }
 
-    &__name {
-      font-size: 20vw;
-      letter-spacing: -1vw;
+    &__hud {
+      left: 20px;
+      right: 20px;
+      top: 24px;
+    }
 
-      &--outline {
-        -webkit-text-stroke-width: 1px;
-      }
+    &__hud-right {
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    &__mountains {
+      height: 280px;
+    }
+
+    &__flowers {
+      height: 200px;
     }
   }
 }

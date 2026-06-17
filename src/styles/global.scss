@@ -111,3 +111,11 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+// ── App Content Wrap (Curtain Reveal Sibling) ──────────────────────
+.app-content {
+  position: relative;
+  z-index: 10;
+  background-color: #050505; // Deep cinematic black
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); // Adds depth above the footer
+}

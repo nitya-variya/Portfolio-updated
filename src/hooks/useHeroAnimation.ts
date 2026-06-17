@@ -4,37 +4,32 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── Types ────────────────────────────────────────────────────────
 export interface UseHeroAnimationReturn {
-  heroRef:      React.RefObject<HTMLElement | null>;
-  videoRef:     React.RefObject<HTMLDivElement | null>;
-  headerRef:    React.RefObject<HTMLElement | null>;
-  subtitleRef:  React.RefObject<HTMLDivElement | null>;
-  nameRef:      React.RefObject<HTMLHeadingElement | null>;
-  floatRef:     React.RefObject<HTMLSpanElement | null>;
+  heroRef: React.RefObject<HTMLElement | null>;
+  videoRef: React.RefObject<HTMLDivElement | null>;
+  headerRef: React.RefObject<HTMLElement | null>;
+  subtitleRef: React.RefObject<HTMLDivElement | null>;
+  nameRef: React.RefObject<HTMLHeadingElement | null>;
+  floatRef: React.RefObject<HTMLSpanElement | null>;
 }
-
-// ── Hook ─────────────────────────────────────────────────────────
 export function useHeroAnimation(): UseHeroAnimationReturn {
-  const heroRef      = useRef<HTMLElement | null>(null);
-  const videoRef     = useRef<HTMLDivElement | null>(null);
-  const headerRef    = useRef<HTMLElement | null>(null);
-  const subtitleRef  = useRef<HTMLDivElement | null>(null);
-  const nameRef      = useRef<HTMLHeadingElement | null>(null);
-  const floatRef     = useRef<HTMLSpanElement | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
+  const videoRef = useRef<HTMLDivElement | null>(null);
+  const headerRef = useRef<HTMLElement | null>(null);
+  const subtitleRef = useRef<HTMLDivElement | null>(null);
+  const nameRef = useRef<HTMLHeadingElement | null>(null);
+  const floatRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // ── Intro Timeline ───────────────────────────────────────
       const tl = gsap.timeline({
         defaults: {
           ease: 'power3.out',
-          force3D: true,          // GPU-accelerate all transforms
+          force3D: true,
         },
         delay: 0.2,
       });
 
-      // 1. Video fade-in — use autoAlpha for GPU-composited visibility
       if (videoRef.current) {
         gsap.set(videoRef.current, { willChange: 'opacity' });
         tl.to(videoRef.current, {
@@ -42,13 +37,11 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
           duration: 1.6,
           ease: 'power2.inOut',
           onComplete: () => {
-            // Clean up will-change after animation completes
             gsap.set(videoRef.current, { willChange: 'auto' });
           },
         });
       }
 
-      // 2. Header slides down — autoAlpha for smooth compositing
       if (headerRef.current) {
         tl.to(
           headerRef.current,
@@ -62,8 +55,6 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
         );
       }
 
-      // 3. Headline reveal — NO filter:blur animation (major perf killer)
-      //    Use only GPU-friendly: transform, opacity
       if (nameRef.current) {
         tl.fromTo(
           nameRef.current,
@@ -80,7 +71,6 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
             ease: 'power4.out',
             clearProps: 'will-change',
             onComplete: () => {
-              // Start the gentle float after reveal completes
               if (floatRef.current) {
                 gsap.to(floatRef.current, {
                   y: -3,
@@ -97,7 +87,6 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
         );
       }
 
-      // 4. Subtitle fades up
       if (subtitleRef.current) {
         tl.to(
           subtitleRef.current,
@@ -111,7 +100,6 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
         );
       }
 
-      // ── Scroll-triggered parallax & fade ─────────────────────
       if (heroRef.current) {
         const bottomEl = heroRef.current.querySelector('.hero__bottom');
 
@@ -125,7 +113,7 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
               trigger: heroRef.current,
               start: 'top top',
               end: 'bottom top',
-              scrub: true,       // true = native requestAnimationFrame, smoother than scrub: 0.8
+              scrub: true,
             },
           });
         }
