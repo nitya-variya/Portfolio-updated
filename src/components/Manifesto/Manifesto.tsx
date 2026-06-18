@@ -71,13 +71,11 @@ export default function Manifesto() {
     });
 
     // ── GSAP ScrollTrigger Sequence (Pinning & Gradient Reveal) ──────
-    const words = container.find('.scrub-word');
-
     gsap.to('.scrub-word', {
       scrollTrigger: {
         trigger: '.manifesto-section',
         start: 'top top',
-        end: '+=1500px',
+        end: '+=1000px',
         scrub: 1,
         pin: true,
       },

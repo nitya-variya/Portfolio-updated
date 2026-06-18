@@ -64,9 +64,9 @@ export default function Footer() {
       />
 
       {/* ── Layer 4: Massive Typography (z-index 3) ────────────────── */}
-      <div className="parallax-footer__headline" aria-hidden="true">
+      {/* <div className="parallax-footer__headline" aria-hidden="true">
         THE FINAL PIXEL.
-      </div>
+      </div> */}
 
       {/* ── Layer 5: Foreground Flowers (z-index 4) ────────────────── */}
       <div
