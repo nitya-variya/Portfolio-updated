@@ -1,0 +1,247 @@
+// ── Assembly Story Section ──────────────────────────────────────────
+// Value Story: sticky split-screen with abstract UI card and text pillars.
+// Strictly px units. width: 100% allowed on container wrappers.
+
+.assembly-story-section {
+  background-color: #050505;
+  width: 100%;
+  position: relative;
+}
+
+.assembly-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 1200px;
+  margin: 0px auto;
+
+  @media (max-width: 1200px) {
+    width: 960px;
+  }
+
+  @media (max-width: 1024px) {
+    width: 720px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%; // Allowed exception
+    padding: 0px 24px;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+}
+
+// ── Left Side: Sticky Card Wrapper ──────────────────────────────────
+
+.card-sticky-wrapper {
+  width: 500px;
+  height: 100vh;
+  position: sticky;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 1200px) {
+    width: 440px;
+  }
+
+  @media (max-width: 1024px) {
+    width: 340px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 500px;
+    position: relative;
+    top: 0px;
+  }
+}
+
+// ── Abstract UI Card (Wireframe Base State) ─────────────────────────
+
+.abstract-ui-card {
+  width: 400px;
+  height: 500px;
+  border: 1px dashed #333333;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  transition: box-shadow 0.3s ease;
+
+  @media (max-width: 1200px) {
+    width: 360px;
+    height: 460px;
+  }
+
+  @media (max-width: 1024px) {
+    width: 300px;
+    height: 400px;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    width: 320px;
+    height: 420px;
+  }
+}
+
+.ui-header {
+  width: 100%;
+  height: 24px;
+  border: 1px dashed #444444;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.ui-hero-image {
+  width: 100%;
+  height: 200px;
+  border: 1px dashed #444444;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  @media (max-width: 1024px) {
+    height: 160px;
+  }
+}
+
+.hero-mask {
+  width: 100%;
+  height: 100%;
+  background-color: #1a1a1a;
+  transform: translateY(100%);
+}
+
+.ui-grid {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  flex-shrink: 0;
+
+  @media (max-width: 1024px) {
+    gap: 12px;
+  }
+}
+
+.ui-item {
+  flex: 1;
+  height: 120px;
+  border: 1px dashed #444444;
+  border-radius: 8px;
+  transform: scale(0.95);
+  opacity: 0.5;
+
+  @media (max-width: 1024px) {
+    height: 100px;
+  }
+}
+
+.ui-golden-sweep {
+  position: absolute;
+  top: 0px;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(249, 193, 118, 0.1),
+    transparent
+  );
+  pointer-events: none;
+}
+
+// ── Right Side: Scrolling Pillars ───────────────────────────────────
+
+.assembly-story-section .story-scroll-content {
+  width: 500px;
+  padding: 50vh 0px 50vh 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 400px;
+
+  @media (max-width: 1200px) {
+    width: 440px;
+    padding: 40vh 0px 40vh 0px;
+    gap: 300px;
+  }
+
+  @media (max-width: 1024px) {
+    width: 340px;
+    padding: 30vh 0px 30vh 0px;
+    gap: 200px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 40px 0px 100px 0px;
+    gap: 80px;
+  }
+}
+
+.assembly-story-section .story-pillar {
+  opacity: 0;
+}
+
+.assembly-story-section .pillar-number {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  color: #a3652a;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.assembly-story-section .pillar-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  line-height: 56px;
+  color: #ffffff;
+  margin: 0px 0px 24px 0px;
+  font-weight: 700;
+
+  @media (max-width: 1200px) {
+    font-size: 38px;
+    line-height: 46px;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 26px;
+    line-height: 32px;
+    margin-bottom: 16px;
+  }
+}
+
+.assembly-story-section .pillar-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  line-height: 32px;
+  color: #a0a0a0;
+  margin: 0px;
+  font-weight: 500;
+
+  @media (max-width: 1024px) {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}

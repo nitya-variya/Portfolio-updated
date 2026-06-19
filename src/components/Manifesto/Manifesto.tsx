@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import jQuery from 'jquery';
-import profileImg from '../../assets/profile.png';
 import './Manifesto.scss';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -63,12 +62,6 @@ export default function Manifesto() {
       }
     });
 
-    // ── jQuery Hover State Setup for Profile Reveal ──────────────────
-    jQuery('.hover-target').on('mouseenter', function () {
-      jQuery('.manifesto-section__architect').css('opacity', '0.4');
-    }).on('mouseleave', function () {
-      jQuery('.manifesto-section__architect').css('opacity', '0');
-    });
 
     // ── GSAP ScrollTrigger Sequence (Pinning & Gradient Reveal) ──────
     gsap.to('.scrub-word', {
@@ -86,10 +79,7 @@ export default function Manifesto() {
       stagger: 0.1
     });
 
-    return () => {
-      jQuery('.hover-target').off('mouseenter mouseleave');
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
+
   }, []);
 
   return (
@@ -98,18 +88,10 @@ export default function Manifesto() {
       className="manifesto-section"
       aria-label="Kinetic manifesto section"
     >
-      {/* ── Layer 2: The Hidden Architect ──────────────────────────── */}
-      <div
-        className="manifesto-section__architect"
-        style={{ backgroundImage: `url(${profileImg})` }}
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 3: The Manifesto Content ─────────────────────────── */}
       <div className="manifesto-section__content">
         <p ref={textRef} className="manifesto-text">
-          Engineering the front-end. Backing massive ambitions with uncompromising execution. I am{' '}
-          <span className="hover-target">Nitya</span>. For three years, I have built highly
+          Engineering the front-end. Backing massive ambitions with uncompromising execution. I am
+          Nitya. For three years, I have built highly
           interactive realms through pure technical execution. Whether orchestrating complex web
           interfaces or structuring custom digital architecture, my confidence is built on control.
           Premium quality. Zero compromise. Absolute precision.
