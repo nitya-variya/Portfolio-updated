@@ -10,7 +10,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
   useEffect(() => {
-    // ── GSAP ScrollTrigger Parallax with jQuery selectors ────────────
     const mountainEl = jQuery('.parallax-footer__mountains').get(0);
     const flowerEl = jQuery('.parallax-footer__flowers').get(0);
 

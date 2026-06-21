@@ -1,85 +1,55 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import jQuery from 'jquery';
 import './Manifesto.scss';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Manifesto() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    const textEl = textRef.current;
-    if (!textEl) return;
+    const spark = jQuery('.interactive-spark');
 
-    // ── jQuery Word Wrapping Logic (Ignoring Inline Icons) ──────────
-    const container = jQuery(textEl);
-    const contents = container.contents();
-    const wrappedNodes: (string | HTMLElement)[] = [];
+    const handleMouseEnter = function (this: HTMLElement) {
+      gsap.killTweensOf(this);
 
-    contents.each(function () {
-      if (this.nodeType === Node.TEXT_NODE) {
-        // Text node: split words and wrap them
-        const textVal = this.textContent || '';
-        const words = textVal.split(/(\s+)/); // Preserve whitespace
-        words.forEach((word) => {
-          if (word.trim() === '') {
-            wrappedNodes.push(word);
-          } else {
-            const span = document.createElement('span');
-            span.className = 'scrub-word';
-            span.textContent = word;
-            wrappedNodes.push(span);
-          }
-        });
-      } else if (this.nodeType === Node.ELEMENT_NODE) {
-        const $el = jQuery(this);
-        // Span or other element (e.g. hover-target)
-        const textVal = $el.text();
-        const words = textVal.split(/(\s+)/);
-        words.forEach((word) => {
-          if (word.trim() === '') {
-            wrappedNodes.push(word);
-          } else {
-            const span = document.createElement('span');
-            span.className = `scrub-word ${$el.attr('class') || ''}`;
-            span.textContent = word;
-            wrappedNodes.push(span);
-          }
-        });
-      }
-    });
+      gsap.set(this, {
+        backgroundImage: 'linear-gradient(to right, #A3652A, #EFB06E, #FEFBF2, #F9C176, #E77B33, #DC702A, #733D19)',
+        backgroundSize: '400px 100px',
+        backgroundClip: 'text',
+        webkitBackgroundClip: 'text',
+        webkitTextFillColor: 'transparent',
+        color: 'transparent'
+      });
 
-    // Replace original content with wrapped structure
-    container.empty();
-    wrappedNodes.forEach((node) => {
-      if (typeof node === 'string') {
-        container.append(document.createTextNode(node));
-      } else {
-        container.append(node);
-      }
-    });
+      gsap.fromTo(this,
+        { backgroundPositionX: '0px' },
+        { backgroundPositionX: '400px', duration: 1.2, ease: 'power2.out' }
+      );
+    };
 
+    const handleMouseLeave = function (this: HTMLElement) {
+      gsap.killTweensOf(this);
 
-    // ── GSAP ScrollTrigger Sequence (Pinning & Gradient Reveal) ──────
-    gsap.to('.scrub-word', {
-      scrollTrigger: {
-        trigger: '.manifesto-section',
-        start: 'top top',
-        end: '+=1000px',
-        scrub: 1,
-        pin: true,
-      },
-      keyframes: [
-        { color: '#FFFFFF', textShadow: '0px 0px 24px rgba(247, 180, 118, 1)', duration: 0.2, ease: 'power2.out' },
-        { color: '#FFFFFF', textShadow: '0px 0px 0px rgba(255, 255, 255, 0)', duration: 0.8, ease: 'power2.inOut' }
-      ],
-      stagger: 0.1
-    });
+      gsap.to(this, {
+        color: '#555555',
+        webkitTextFillColor: '#555555',
+        duration: 0.4,
+        ease: 'power2.out',
+        onComplete: () => {
+          gsap.set(this, {
+            backgroundImage: 'none'
+          });
+        }
+      });
+    };
 
+    spark.on('mouseenter', handleMouseEnter);
+    spark.on('mouseleave', handleMouseLeave);
 
+    return () => {
+      spark.off('mouseenter', handleMouseEnter);
+      spark.off('mouseleave', handleMouseLeave);
+    };
   }, []);
 
   return (
@@ -88,15 +58,17 @@ export default function Manifesto() {
       className="manifesto-section"
       aria-label="Kinetic manifesto section"
     >
-      <div className="manifesto-section__content">
-        <p ref={textRef} className="manifesto-text">
-          Engineering the front-end. Backing massive ambitions with uncompromising execution. I am
-          Nitya. For three years, I have built highly
-          interactive realms through pure technical execution. Whether orchestrating complex web
-          interfaces or structuring custom digital architecture, my confidence is built on control.
-          Premium quality. Zero compromise. Absolute precision.
-        </p>
+      <div className="hook-container">
+        <h2 className="minimal-hook">
+          3 years <br /> engineering
+          <span className="interactive-pill">
+            <span className="pill-text">scalable</span>
+            <span className="px-measure top-measure">&lt; cleanly structured &gt;</span>
+          </span>{' '}
+          architecture. Zero technical debt.<br /> Absolute polish.
+        </h2>
       </div>
     </section>
   );
 }
+

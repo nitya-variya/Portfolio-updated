@@ -104,60 +104,61 @@ $font-heading: 'Instrument Serif', Georgia, serif;
 
 .hud-viewport-label {
   display: block;
-  font-family: 'Inter', 'Arial', sans-serif;
-  font-size: 11px;
-  letter-spacing: 4px;
-  color: rgba(255, 255, 255, 0.4);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: rgba(255, 255, 255, 0.35);
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 12px;
 }
 
 .hud-narrative {
-  margin: 0;
-  font-family: 'DM Sans', 'Georgia', sans-serif;
-  font-size: 22px;
-  font-weight: 300;
-  line-height: 32px;
+  margin: 0px;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 42px;
   color: #FFFFFF;
-  letter-spacing: 0.5px;
+  letter-spacing: 0px;
 }
 
 
 .hud-grid-col {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   text-align: right;
 
   &__header {
     display: block;
-    font-family: 'Inter', 'Arial', sans-serif;
-    font-size: 12px;
-    color: #A0A0A0;
-    letter-spacing: 1px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #C96121;
+    letter-spacing: 2px;
     margin-bottom: 2px;
   }
 
   &__value {
     display: block;
     font-family: 'Inter', 'Arial', sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     color: #FFFFFF;
-    letter-spacing: 0.5px;
+    letter-spacing: 0px;
   }
 
   &__link {
     display: block;
     font-family: 'Inter', 'Arial', sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     color: #FFFFFF;
-    letter-spacing: 0.5px;
+    letter-spacing: 0px;
     text-decoration: none;
     transition: color 0.3s ease, text-shadow 0.3s ease;
 
     &:hover {
-      color: #C8B8FF;
-      text-shadow: 0 0 12px rgba(200, 184, 255, 0.5);
+      color: #C96121;
+      text-shadow: 0px 0px 12px rgba(201, 97, 33, 0.5);
     }
   }
 }
