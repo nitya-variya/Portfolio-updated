@@ -1,4 +1,5 @@
-// ── Design Tokens ──────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
 $color-warm-white: #F5F0E8;
 $color-secondary: #CFCBC2;
 $color-accent: #C96121;
@@ -83,8 +84,10 @@ $ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   &__header {
-    position: relative;
-    z-index: 10;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -173,17 +176,11 @@ $ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   &__nav-logo {
     width: 50px;
     height: 50px;
-    display: flex;
+    position: relative;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.4s $ease-smooth,
-      transform 0.35s $ease-out-expo;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+    flex-shrink: 0;
   }
 
   &__social {
@@ -334,6 +331,75 @@ $ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     opacity: 0.75;
     line-height: 1.7;
   }
+}
+
+// ── Preloader: SVG Logo Reveal + FLIP ──────────────────────────────
+
+/*
+ * z-index stack during preloader:
+ *   9998: fs_loader_bg (dark overlay)
+ *   9999: hero__header (all children opacity:0 during preload)
+ *  10000: fs_logo_center_wrap (the animated SVG — above everything)
+ */
+
+/* Dark full-screen backdrop */
+.fs_loader_bg {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #050505;
+  z-index: 9998;
+  pointer-events: none;
+
+  /* Ensure the container centers items properly with a tight gap */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  /* Pulls the counter right under the logo */
+}
+
+
+.fs_logo_center_wrap {
+  position: fixed;
+  top: calc(50% - 80px);
+  left: calc(50% - 80px);
+  width: 160px;
+  height: 160px;
+  z-index: 10000;
+  pointer-events: none;
+
+  .fs_actual_logo {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+}
+
+.fs_loader_counter {
+  font-family: 'Space Mono', monospace;
+  font-size: 16px;
+  color: #FFFFFF;
+  letter-spacing: 2px;
+  transform: translateY(-20px);
+  display: flex;
+  align-items: baseline;
+}
+
+.fs_count_sym {
+  color: #F9C176;
+  margin-left: 4px;
+}
+
+.hero__nav-link,
+.hero__wordmark,
+.hero__social {
+  opacity: 0;
+  pointer-events: none;
 }
 
 

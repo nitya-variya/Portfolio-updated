@@ -29,7 +29,6 @@ export default function Manifesto() {
 
     const handleMouseLeave = function (this: HTMLElement) {
       gsap.killTweensOf(this);
-
       gsap.to(this, {
         color: '#555555',
         webkitTextFillColor: '#555555',
