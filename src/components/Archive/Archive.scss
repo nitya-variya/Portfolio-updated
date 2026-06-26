@@ -1,0 +1,301 @@
+// ── Brutalist Archive Section ─────────────────────────────────────────────────
+//    Strict px-only measurements. 100vw only on the master wrapper.
+// ─────────────────────────────────────────────────────────────────────────────
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+// ── Tokens ────────────────────────────────────────────────────────────────────
+$bg      : #050505;
+$fg      : #FFFFFF;
+$accent  : #C96121;   // brand orange
+$gold    : #F9C176;   // warm highlight
+$rule    : #333333;
+$rule-dim: #222222;
+$label   : #666666;
+$mono    : 'Space Mono', monospace;
+$serif   : 'Instrument Serif', serif;
+$sans    : 'Syne', sans-serif;
+
+// ── Section ───────────────────────────────────────────────────────────────────
+.fs_archive_section {
+  width: 100vw;
+  padding: 150px 80px;
+  background-color: $bg;
+  position: relative;
+  color: $fg;
+  box-sizing: border-box;
+  // Subtle top-edge separator from the Works section above
+  border-top: 1px solid $rule-dim;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+.fs_archive_header {
+  margin-bottom: 60px;
+  border-bottom: 1px solid $rule;
+  padding-bottom: 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.fs_archive_title {
+  font-family: $serif;
+  font-size: 80px;
+  font-style: italic;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: $fg;
+}
+
+// ── Table shell ───────────────────────────────────────────────────────────────
+.fs_archive_table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+// ── Row base ─────────────────────────────────────────────────────────────────
+// 4-column grid: narrow ID | flex client name | flex role | narrow year
+.fs_archive_row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr 100px;
+  padding: 32px 0px;
+  border-bottom: 1px solid $rule-dim;
+  align-items: center;
+  transition: background-color 0.3s ease,
+              padding-left 0.3s ease,
+              padding-right 0.3s ease,
+              border-bottom-color 0.3s ease;
+}
+
+// ── Label row ─────────────────────────────────────────────────────────────────
+.fs_archive_labels {
+  color: $label;
+  font-family: $mono;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #555555;
+  padding-bottom: 16px;
+  pointer-events: none;
+}
+
+// ── Cell typography ───────────────────────────────────────────────────────────
+.fs_col_id,
+.fs_col_year {
+  font-family: $mono;
+  font-size: 14px;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.fs_col_client {
+  font-family: $serif;
+  font-size: 48px;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1;
+  color: $fg;
+  transition: color 0.3s ease, font-style 0.3s ease;
+}
+
+.fs_col_role {
+  font-family: $sans;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: $fg;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+// ── Interactive row hover ─────────────────────────────────────────────────────
+.fs_interactive_row {
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom-color: $gold;
+
+    .fs_col_client {
+      color: $gold;
+      font-style: italic;
+    }
+
+    .fs_col_id,
+    .fs_col_year {
+      opacity: 1;
+    }
+
+    .fs_col_role {
+      opacity: 1;
+    }
+  }
+}
+
+// ── Magnetic floating preview image ──────────────────────────────────────────
+// Fixed to viewport, centered on the cursor tip via negative margins.
+// GSAP drives x/y (translate) on this element.
+// Initial state: opacity:0, scale:0.5 — toggled by GSAP on row enter/leave.
+.fs_cursor_img_wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: 250px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transform: scale(0.5);
+  transform-origin: center center;
+  // Offset so the image is centered on the cursor, not top-left-anchored
+  margin-left: -175px;
+  margin-top: -125px;
+  will-change: transform, opacity;
+  // Crisp edge
+  border-radius: 4px;
+  overflow: hidden;
+  // Subtle depth shadow
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6),
+              0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.fs_cursor_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+}
+
+// ── Responsive ───────────────────────────────────────────────────────────────
+
+// Hide magnetic cursor on touch devices — it's pointer-only UX
+@media (hover: none) {
+  .fs_cursor_img_wrapper {
+    display: none !important;
+  }
+}
+
+// 1280px — tighten section padding, reduce title size
+@media (max-width: 1280px) {
+  .fs_archive_section {
+    padding: 120px 60px;
+  }
+
+  .fs_archive_title {
+    font-size: 64px;
+  }
+
+  .fs_col_client {
+    font-size: 38px;
+  }
+}
+
+// 1024px — compress further
+@media (max-width: 1024px) {
+  .fs_archive_section {
+    padding: 100px 48px;
+  }
+
+  .fs_archive_title {
+    font-size: 52px;
+  }
+
+  .fs_col_client {
+    font-size: 30px;
+  }
+
+  .fs_archive_row {
+    grid-template-columns: 60px 1fr 1fr 80px;
+    padding: 24px 0px;
+  }
+
+  .fs_interactive_row:hover {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+// 768px — drop the Role column, 3-col grid
+@media (max-width: 768px) {
+  .fs_archive_section {
+    padding: 80px 24px;
+  }
+
+  .fs_archive_title {
+    font-size: 40px;
+    letter-spacing: -0.5px;
+  }
+
+  .fs_archive_header {
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+  }
+
+  // 3-col grid: ID | Client | Year
+  .fs_archive_row {
+    grid-template-columns: 44px 1fr 64px;
+    padding: 20px 0px;
+  }
+
+  // Hide Role column at this breakpoint
+  .fs_col_role {
+    display: none;
+  }
+
+  .fs_col_client {
+    font-size: 24px;
+  }
+
+  .fs_col_id,
+  .fs_col_year {
+    font-size: 12px;
+  }
+
+  .fs_interactive_row:hover {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+// 480px — minimal 2-col: Client | Year, very tight
+@media (max-width: 480px) {
+  .fs_archive_section {
+    padding: 64px 16px;
+  }
+
+  .fs_archive_title {
+    font-size: 32px;
+  }
+
+  .fs_archive_row {
+    grid-template-columns: 1fr 56px;
+    padding: 18px 0px;
+  }
+
+  // Hide ID column — pure client + year
+  .fs_col_id {
+    display: none;
+  }
+
+  .fs_col_client {
+    font-size: 20px;
+  }
+
+  .fs_col_year {
+    font-size: 11px;
+    text-align: right;
+  }
+
+  .fs_interactive_row:hover {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+

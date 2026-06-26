@@ -3,6 +3,7 @@ import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import Manifesto from './components/Manifesto/Manifesto';
 import WorksSection from './components/Works/Works';
+import BrutalistArchive from './components/Archive/Archive';
 import SmoothScroll from './components/SmoothScroll';
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
           <Hero />
           <Manifesto />
           <WorksSection />
-          <Contact />
+          <BrutalistArchive />
+          {/* <Contact /> */}
         </div>
         <Footer />
       </SmoothScroll>

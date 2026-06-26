@@ -127,8 +127,8 @@ export default function Hero() {
           ease: "power2.inOut",
           onComplete: () => {
             loaderBg.style.display = "none";
-            document.body.style.overflow = ""; // Restore native scrolling
-            lenis?.start(); // Restore lenis scrolling
+            document.body.style.overflow = "";
+            lenis?.start();
             triggerHeroReveal();
           },
         });

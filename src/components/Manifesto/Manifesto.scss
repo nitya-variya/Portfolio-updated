@@ -83,3 +83,86 @@
   color: #555555;
   transition: color 0.4s ease;
 }
+
+// ── Responsive ──────────────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .manifesto-section {
+    padding: 80px 0px;
+  }
+
+  .hook-container {
+    width: 90%;
+    max-width: 900px;
+  }
+
+  .minimal-hook {
+    font-size: 60px;
+    line-height: 76px;
+  }
+
+  .pill-text {
+    font-size: 32px;
+  }
+
+  .interactive-pill {
+    height: 64px;
+    padding: 0px 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .manifesto-section {
+    padding: 64px 0px;
+  }
+
+  .hook-container {
+    width: 88%;
+  }
+
+  .minimal-hook {
+    font-size: 44px;
+    line-height: 58px;
+    letter-spacing: -0.5px;
+  }
+
+  .interactive-pill {
+    height: 54px;
+    padding: 0px 20px;
+    margin-left: 10px;
+    border-radius: 60px;
+  }
+
+  .pill-text {
+    font-size: 24px;
+  }
+
+  .px-measure {
+    font-size: 11px;
+  }
+
+  .top-measure {
+    top: -24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hook-container {
+    width: 90%;
+  }
+
+  .minimal-hook {
+    font-size: 32px;
+    line-height: 44px;
+    letter-spacing: 0px;
+  }
+
+  .interactive-pill {
+    height: 44px;
+    padding: 0px 16px;
+    margin-left: 8px;
+  }
+
+  .pill-text {
+    font-size: 18px;
+  }
+}

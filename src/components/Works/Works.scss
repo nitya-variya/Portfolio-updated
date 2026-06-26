@@ -1,69 +1,362 @@
-.fs_works_section {
+// ── Staggered Editorial Track — Works Section ─────────────────────────────────
+//    Strict rules: px everywhere, 100vh/100vw only for the master wrapper.
+//    currentColor is used on reticles + SVG so GSAP's single color-inversion
+//    tween cascades through every decorative element automatically.
+// ─────────────────────────────────────────────────────────────────────────────
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+// ── Tokens ────────────────────────────────────────────────────────────────────
+$bg-dark   : #050505;
+$fg-dark   : #FFFFFF;
+$bg-light  : #F0F0F0;
+$fg-light  : #050505;
+$accent    : #C96121;   // brand amber
+
+$mono      : 'Space Mono', monospace;
+$serif     : 'Instrument Serif', serif;
+$sans      : 'Syne', sans-serif;
+
+// ── Section master wrapper ─────────────────────────────────────────────────────
+// GSAP will tween background-color and color from dark → light at midpoint.
+// Because reticles use `border-color: currentColor` and the SVG uses
+// `stroke="currentColor"`, a single tween updates everything.
+.fs_editorial_master {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: #050505;
+  background-color: $bg-dark;
+  color: $fg-dark;
   position: relative;
-  display: flex;
-  align-items: center;
+
+  // Fine-grain film grain overlay
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
 }
 
-.fs_works_track {
+
+
+// ── Horizontal track ─────────────────────────────────────────────────────────
+.fs_editorial_track {
   display: flex;
-  height: 100%;
+  height: 100vh;
   width: max-content;
-  padding: 0px 300px;
-  align-items: center;
-  gap: 150px;
+  // Generous leading/trailing padding = visual breathing room at start & end
+  padding: 0px 400px;
+  gap: 200px;
+  box-sizing: border-box;
+  align-items: stretch; // let cards fill the track height so margin-top/bottom stagger works
+  will-change: transform;
 }
 
-.fs_project_card {
-  width: 800px;
+// ── Card base ─────────────────────────────────────────────────────────────────
+.fs_ed_card {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
   flex-shrink: 0;
+
+  // Hover: de-grayscale the image
+  &:hover .fs_ed_img {
+    filter: grayscale(0%);
+  }
+
+  // Hover: subtle scale on the arrow button
+  &:hover .fs_ed_btn {
+    transform: scale(1.1);
+  }
 }
 
-.fs_project_img_wrapper {
-  width: 100%;
-  height: 500px;
-  overflow: hidden;
-  border-radius: 8px;
+// ── Stagger alignments ───────────────────────────────────────────────────────
+// Each card is placed in the flex column at different vertical anchors.
+.fs_align_top {
+  margin-top: 100px;
+}
+
+.fs_align_center {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.fs_align_bottom {
+  margin-bottom: 100px;
+  margin-top: auto;
+}
+
+// ── Card shapes (varying aspect ratios) ──────────────────────────────────────
+.fs_shape_tall {
+  width: 450px;
+
+  .fs_ed_img_wrapper {
+    height: 650px;
+  }
+}
+
+.fs_shape_wide {
+  width: 700px;
+
+  .fs_ed_img_wrapper {
+    height: 450px;
+  }
+}
+
+.fs_shape_square {
+  width: 500px;
+
+  .fs_ed_img_wrapper {
+    height: 500px;
+  }
+}
+
+// ── Image wrapper + precision reticle crosshairs ──────────────────────────────
+// padding: 20px creates the gap between image edge and the corner brackets.
+// currentColor inheritance means GSAP's color inversion updates the brackets
+// for free with a single tween on the parent section.
+.fs_ed_img_wrapper {
   position: relative;
+  width: 100%;
+  padding: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.fs_project_img {
-  width: 130%;
+.fs_ed_img {
+  width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  top: 0px;
-  left: -15%;
-  transform-origin: center;
+  display: block;
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
+  position: relative;
+  // Extra width to allow the x parallax to not show edges
+  width: 116%;
+  margin-left: -8%;
 }
 
-.fs_project_info {
+// ── Crosshair reticles at each corner ────────────────────────────────────────
+// 15 × 15 px L-brackets, using currentColor so they invert automatically
+.fs_reticle {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-color: currentColor;
+  z-index: 2;
+  pointer-events: none;
+  // Smooth opacity on inversion
+  transition: border-color 0.3s ease;
+}
+
+.fs_reticle_tl {
+  top: 0;
+  left: 0;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.fs_reticle_tr {
+  top: 0;
+  right: 0;
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+
+.fs_reticle_bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.fs_reticle_br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+// ── Index stamp ───────────────────────────────────────────────────────────────
+// Small monospace number overlaid on image bottom-right
+.fs_ed_index {
+  position: absolute;
+  bottom: 28px;
+  right: 28px;
+  font-family: $mono;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: difference;
+}
+
+// ── Card footer ───────────────────────────────────────────────────────────────
+.fs_ed_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+}
+
+.fs_ed_meta {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  border-top: 1px solid #333333;
-  padding-top: 24px;
+  gap: 6px;
 }
 
-.fs_project_title {
-  font-family: 'Instrument Serif', serif;
-  font-size: 48px;
-  color: #FFFFFF;
-  margin: 0px;
+.fs_ed_title {
+  font-family: $serif;
+  font-size: 32px;
   font-weight: 400;
   font-style: italic;
+  margin: 0;
+  color: currentColor;
+  line-height: 1.1;
+  letter-spacing: -0.3px;
 }
 
-.fs_project_type {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
-  color: #F9C176;
-  letter-spacing: 2px;
+.fs_ed_type {
+  font-family: $mono;
+  font-size: 11px;
   text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  color: currentColor;
 }
+
+// ── CTA arrow button ──────────────────────────────────────────────────────────
+// Uses the brand orange $accent; icon stays white for contrast
+.fs_ed_btn {
+  width: 48px;
+  height: 48px;
+  background-color: $accent;
+  color: #FFFFFF;          // always white icon — btn-red is not inverted
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.12);
+  }
+
+  svg {
+    display: block;
+  }
+}
+
+// ── Bottom progress rule ──────────────────────────────────────────────────────
+// A thin line anchored to bottom-center. GSAP could be used later
+// to animate its scale-x as the user scrolls.
+.fs_ed_progress_wrap {
+  position: absolute;
+  bottom: 36px;
+  left: 64px;
+  right: 64px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.fs_ed_progress_rule {
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.12;
+  transform-origin: left center;
+}
+
+// ── Responsive ───────────────────────────────────────────────────────────────
+// 1024px — reduce card gaps and stagger margins
+@media (max-width: 1024px) {
+  .fs_editorial_track {
+    padding: 0px 200px;
+    gap: 120px;
+  }
+
+  .fs_shape_tall  { width: 360px; .fs_ed_img_wrapper { height: 520px; } }
+  .fs_shape_wide  { width: 560px; .fs_ed_img_wrapper { height: 360px; } }
+  .fs_shape_square{ width: 400px; .fs_ed_img_wrapper { height: 400px; } }
+
+  .fs_align_top    { margin-top: 80px; }
+  .fs_align_bottom { margin-bottom: 80px; }
+
+  .fs_ed_title { font-size: 26px; }
+}
+
+// 768px — collapse to vertical scroll, disable horizontal GSAP (handled in TSX)
+@media (max-width: 768px) {
+  // Section no longer needs to be a fixed-height 3D stage
+  .fs_editorial_master {
+    height: auto;
+    overflow: visible;
+  }
+
+  // Track becomes a normal vertical flex column
+  .fs_editorial_track {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    padding: 60px 24px 80px;
+    gap: 60px;
+    will-change: unset;
+    transform: none !important; // override any residual GSAP x transform
+  }
+
+  // All cards go full-width
+  .fs_shape_tall,
+  .fs_shape_wide,
+  .fs_shape_square {
+    width: 100%;
+
+    .fs_ed_img_wrapper {
+      height: 280px;
+    }
+  }
+
+  // Alignment stagger is irrelevant in vertical layout
+  .fs_align_top,
+  .fs_align_center,
+  .fs_align_bottom {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .fs_ed_title { font-size: 22px; }
+  .fs_ed_type  { font-size: 10px; }
+
+  // Hide the decorative bottom rule (was absolutely positioned for horizontal layout)
+  .fs_ed_progress_wrap { display: none; }
+}
+
+// 480px — tighter padding, smaller footer button
+@media (max-width: 480px) {
+  .fs_editorial_track {
+    padding: 48px 16px 64px;
+    gap: 48px;
+  }
+
+  .fs_shape_tall,
+  .fs_shape_wide,
+  .fs_shape_square {
+    .fs_ed_img_wrapper {
+      height: 220px;
+    }
+  }
+
+  .fs_ed_title { font-size: 20px; }
+
+  .fs_ed_btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
