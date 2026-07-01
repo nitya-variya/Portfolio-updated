@@ -48,11 +48,11 @@ $sans      : 'Syne', sans-serif;
   display: flex;
   height: 100vh;
   width: max-content;
-  // Generous leading/trailing padding = visual breathing room at start & end
-  padding: 0px 400px;
-  gap: 200px;
+  // Viewport-relative padding & gaps for fluid responsiveness
+  padding: 0px 12vw;
+  gap: 12vw;
   box-sizing: border-box;
-  align-items: stretch; // let cards fill the track height so margin-top/bottom stagger works
+  align-items: center; // Center items vertically by default
   will-change: transform;
 }
 
@@ -60,7 +60,7 @@ $sans      : 'Syne', sans-serif;
 .fs_ed_card {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   flex-shrink: 0;
 
   // Hover: de-grayscale the image
@@ -75,43 +75,43 @@ $sans      : 'Syne', sans-serif;
 }
 
 // ── Stagger alignments ───────────────────────────────────────────────────────
-// Each card is placed in the flex column at different vertical anchors.
+// Align individual cards to the top, center, or bottom of the horizontal track
 .fs_align_top {
-  margin-top: 100px;
+  align-self: flex-start;
+  margin-top: clamp(60px, 12vh, 120px);
 }
 
 .fs_align_center {
-  margin-top: auto;
-  margin-bottom: auto;
+  align-self: center;
 }
 
 .fs_align_bottom {
-  margin-bottom: 100px;
-  margin-top: auto;
+  align-self: flex-end;
+  margin-bottom: clamp(60px, 12vh, 120px);
 }
 
-// ── Card shapes (varying aspect ratios) ──────────────────────────────────────
+// ── Card shapes (varying aspect ratios clamped by viewport height/width) ─────
 .fs_shape_tall {
-  width: 450px;
+  width: clamp(280px, 24vw, 420px);
 
   .fs_ed_img_wrapper {
-    height: 650px;
+    height: clamp(360px, 50vh, 580px);
   }
 }
 
 .fs_shape_wide {
-  width: 700px;
+  width: clamp(380px, 36vw, 660px);
 
   .fs_ed_img_wrapper {
-    height: 450px;
+    height: clamp(240px, 34vh, 400px);
   }
 }
 
 .fs_shape_square {
-  width: 500px;
+  width: clamp(300px, 28vw, 460px);
 
   .fs_ed_img_wrapper {
-    height: 500px;
+    height: clamp(300px, 40vh, 460px);
   }
 }
 
@@ -278,21 +278,21 @@ $sans      : 'Syne', sans-serif;
 // 1024px — reduce card gaps and stagger margins
 @media (max-width: 1024px) {
   .fs_editorial_track {
-    padding: 0px 200px;
-    gap: 120px;
+    padding: 0px 8vw;
+    gap: 8vw;
   }
 
-  .fs_shape_tall  { width: 360px; .fs_ed_img_wrapper { height: 520px; } }
-  .fs_shape_wide  { width: 560px; .fs_ed_img_wrapper { height: 360px; } }
-  .fs_shape_square{ width: 400px; .fs_ed_img_wrapper { height: 400px; } }
+  .fs_shape_tall  { width: clamp(260px, 26vw, 340px); .fs_ed_img_wrapper { height: clamp(340px, 45vh, 480px); } }
+  .fs_shape_wide  { width: clamp(360px, 38vw, 520px); .fs_ed_img_wrapper { height: clamp(220px, 32vh, 320px); } }
+  .fs_shape_square{ width: clamp(280px, 30vw, 380px); .fs_ed_img_wrapper { height: clamp(280px, 38vh, 380px); } }
 
-  .fs_align_top    { margin-top: 80px; }
-  .fs_align_bottom { margin-bottom: 80px; }
+  .fs_align_top    { margin-top: clamp(40px, 8vh, 80px); }
+  .fs_align_bottom { margin-bottom: clamp(40px, 8vh, 80px); }
 
   .fs_ed_title { font-size: 26px; }
 }
 
-// 768px — collapse to vertical scroll, disable horizontal GSAP (handled in TSX)
+// 768px — collapse to vertical scroll, disable horizontal GSAP
 @media (max-width: 768px) {
   // Section no longer needs to be a fixed-height 3D stage
   .fs_editorial_master {
@@ -300,63 +300,90 @@ $sans      : 'Syne', sans-serif;
     overflow: visible;
   }
 
-  // Track becomes a normal vertical flex column
+  // Track becomes a normal vertical flex column with centered layout
   .fs_editorial_track {
     flex-direction: column;
     width: 100%;
     height: auto;
-    padding: 60px 24px 80px;
-    gap: 60px;
+    padding: 100px 24px 80px;
+    gap: 80px;
     will-change: unset;
     transform: none !important; // override any residual GSAP x transform
+    align-items: center;
   }
 
-  // All cards go full-width
-  .fs_shape_tall,
-  .fs_shape_wide,
-  .fs_shape_square {
+  // All cards centered and limited to max-width for tablet readability
+  .fs_ed_card {
     width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
+  }
 
+  // Maintain distinct editorial shape heights on mobile/tablet
+  .fs_shape_tall {
     .fs_ed_img_wrapper {
-      height: 280px;
+      height: clamp(280px, 45vh, 420px);
     }
   }
 
-  // Alignment stagger is irrelevant in vertical layout
+  .fs_shape_wide {
+    .fs_ed_img_wrapper {
+      height: clamp(180px, 28vh, 260px);
+    }
+  }
+
+  .fs_shape_square {
+    .fs_ed_img_wrapper {
+      height: clamp(220px, 35vh, 320px);
+    }
+  }
+
+  // Reset stagger alignments for clean vertical stack
   .fs_align_top,
   .fs_align_center,
   .fs_align_bottom {
     margin-top: 0;
     margin-bottom: 0;
+    align-self: center;
   }
 
-  .fs_ed_title { font-size: 22px; }
+  .fs_ed_title { font-size: 24px; }
   .fs_ed_type  { font-size: 10px; }
 
-  // Hide the decorative bottom rule (was absolutely positioned for horizontal layout)
+  // Hide the decorative bottom rule on vertical layouts
   .fs_ed_progress_wrap { display: none; }
 }
 
-// 480px — tighter padding, smaller footer button
+// 480px — tighter padding, mobile font adjustments
 @media (max-width: 480px) {
   .fs_editorial_track {
-    padding: 48px 16px 64px;
-    gap: 48px;
+    padding: 80px 16px 60px;
+    gap: 60px;
   }
 
-  .fs_shape_tall,
-  .fs_shape_wide,
+  .fs_shape_tall {
+    .fs_ed_img_wrapper {
+      height: clamp(240px, 40vh, 340px);
+    }
+  }
+
+  .fs_shape_wide {
+    .fs_ed_img_wrapper {
+      height: clamp(150px, 24vh, 200px);
+    }
+  }
+
   .fs_shape_square {
     .fs_ed_img_wrapper {
-      height: 220px;
+      height: clamp(200px, 30vh, 260px);
     }
   }
 
   .fs_ed_title { font-size: 20px; }
 
   .fs_ed_btn {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
   }
 }
 

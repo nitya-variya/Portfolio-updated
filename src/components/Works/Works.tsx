@@ -64,57 +64,59 @@ export default function WorksSection() {
     const track = trackRef.current;
     if (!section || !track) return;
 
-    // ── Skip horizontal scroll on mobile — CSS handles vertical layout ────────
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) return;
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
 
-    // ── Measure total horizontal travel ──────────────────────────────────────
-    const getScrollW = () => track.scrollWidth - window.innerWidth;
+      // ── Desktop Horizontal Scroll & Pinning ───────────────────────────────
+      mm.add("(min-width: 769px)", () => {
+        const getScrollW = () => track.scrollWidth - window.innerWidth;
 
-    // ── Image parallax — each image counter-scrolls slightly ─────────────────
-    const images = gsap.utils.toArray<HTMLImageElement>('.fs_ed_img');
-    const imgParallaxTweens = images.map((img) =>
-      gsap.fromTo(
-        img,
-        { x: '-8%' },
-        {
-          x: '8%',
-          ease: 'none',
+        // Image parallax
+        const images = gsap.utils.toArray<HTMLImageElement>('.fs_ed_img');
+        const imgParallaxTweens = images.map((img) =>
+          gsap.fromTo(
+            img,
+            { x: '-8%' },
+            {
+              x: '8%',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: () => '+=' + getScrollW(),
+                scrub: true,
+              },
+            }
+          )
+        );
+
+        // Master pinning and translation timeline
+        const master = gsap.timeline({
           scrollTrigger: {
             trigger: section,
+            pin: true,
+            scrub: 1,
             start: 'top top',
+            anticipatePin: 1,
             end: () => '+=' + getScrollW(),
-            scrub: true,
+            invalidateOnRefresh: true,
           },
-        }
-      )
-    );
+        });
 
-    // ── Master timeline: pin + horizontal scroll ──────────────────────────────
-    const master = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        pin: true,
-        scrub: 1,
-        start: 'top top',
-        anticipatePin: 1,
-        end: () => '+=' + getScrollW(),
-        invalidateOnRefresh: true,
-      },
-    });
+        master.to(
+          track,
+          { x: () => -getScrollW(), ease: 'none' },
+          0
+        );
 
-    // Tween 1 — the horizontal scroll
-    master.to(
-      track,
-      { x: () => -getScrollW(), ease: 'none' },
-      0
-    );
+        return () => {
+          master.scrollTrigger?.kill();
+          imgParallaxTweens.forEach((t) => t.scrollTrigger?.kill());
+        };
+      });
+    }, section);
 
-    return () => {
-      master.scrollTrigger?.kill();
-      imgParallaxTweens.forEach((t) => t.scrollTrigger?.kill());
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
 

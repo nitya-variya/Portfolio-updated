@@ -4,7 +4,6 @@ import Manifesto from './components/Manifesto/Manifesto';
 import WorksSection from './components/Works/Works';
 import BrutalistArchive from './components/Archive/Archive';
 import SmoothScroll from './components/SmoothScroll';
-import PinnedCreativeSlider from './components/PinnedSlider/PinnedSlider';
 
 function App() {
   return (
@@ -13,7 +12,6 @@ function App() {
         <div className="app-content">
           <Hero />
           <Manifesto />
-          <PinnedCreativeSlider />
           <WorksSection />
           <BrutalistArchive />
           {/* <Contact /> */}
