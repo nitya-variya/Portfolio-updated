@@ -15,6 +15,7 @@ const PROJECTS = [
     shape: 'fs_shape_tall',
     align: 'fs_align_bottom',
     num: '01',
+    url: '',
   },
   {
     id: 2,
@@ -24,6 +25,7 @@ const PROJECTS = [
     shape: 'fs_shape_wide',
     align: 'fs_align_top',
     num: '02',
+    url: '',
   },
   {
     id: 3,
@@ -33,24 +35,47 @@ const PROJECTS = [
     shape: 'fs_shape_square',
     align: 'fs_align_center',
     num: '03',
+    url: '',
   },
   {
     id: 4,
-    title: 'GlamAI Production',
-    type: 'Interactive Platform',
-    img: 'assets/glamai-mock.jpg',
-    shape: 'fs_shape_tall',
-    align: 'fs_align_bottom',
-    num: '04',
-  },
-  {
-    id: 5,
     title: 'Vino Zero',
     type: 'Campaign Media',
     img: 'assets/vino-mock.jpg',
     shape: 'fs_shape_wide',
     align: 'fs_align_top',
+    num: '04',
+    url: '',
+  },
+  {
+    id: 5,
+    title: 'Book My Farmhouse',
+    type: 'Luxury Rental & Booking Engine',
+    img: 'assets/bookmyfarmhouse-mock.png',
+    shape: 'fs_shape_tall',
+    align: 'fs_align_bottom',
     num: '05',
+    url: 'http://bookmyfarmhouse.com/',
+  },
+  {
+    id: 6,
+    title: 'Decornath',
+    type: 'DIY & Home Improvement Marketplace',
+    img: 'assets/decornath-mock.png',
+    shape: 'fs_shape_wide',
+    align: 'fs_align_top',
+    num: '06',
+    url: 'https://decornath.com/',
+  },
+  {
+    id: 7,
+    title: 'Skymaharaja',
+    type: 'Elite Private Jet Booking Platform',
+    img: 'assets/skymaharaja-mock.png',
+    shape: 'fs_shape_square',
+    align: 'fs_align_center',
+    num: '07',
+    url: 'https://skymaharaja.com/',
   },
 ];
 
@@ -58,40 +83,22 @@ const PROJECTS = [
 export default function WorksSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const bgTextRef = useRef<HTMLHeadingElement>(null);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
     const track = trackRef.current;
-    if (!section || !track) return;
+    const bgText = bgTextRef.current;
+    if (!section || !track || !bgText) return;
 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // ── Desktop Horizontal Scroll & Pinning ───────────────────────────────
-      mm.add("(min-width: 769px)", () => {
+      // ── Desktop: Horizontal Scroll, Inner Parallax, BG Text ────────────
+      mm.add('(min-width: 769px)', () => {
         const getScrollW = () => track.scrollWidth - window.innerWidth;
 
-        // Image parallax
-        const images = gsap.utils.toArray<HTMLImageElement>('.fs_ed_img');
-        const imgParallaxTweens = images.map((img) =>
-          gsap.fromTo(
-            img,
-            { x: '-8%' },
-            {
-              x: '8%',
-              ease: 'none',
-              scrollTrigger: {
-                trigger: section,
-                start: 'top top',
-                end: () => '+=' + getScrollW(),
-                scrub: true,
-              },
-            }
-          )
-        );
-
-        // Master pinning and translation timeline
-        const master = gsap.timeline({
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: section,
             pin: true,
@@ -103,15 +110,18 @@ export default function WorksSection() {
           },
         });
 
-        master.to(
-          track,
-          { x: () => -getScrollW(), ease: 'none' },
-          0
-        );
+        // 1. Move entire track left
+        tl.to(track, { x: () => -getScrollW(), ease: 'none' }, 0);
+
+        // 2. INNER PARALLAX — images pan right as track moves left
+        const images = track.querySelectorAll('.fs_ed_img');
+        tl.to(images, { x: 100, ease: 'none' }, 0);
+
+        // 3. Subtly drift the background title
+        tl.to(bgText, { x: -150, opacity: 0.02, ease: 'none' }, 0);
 
         return () => {
-          master.scrollTrigger?.kill();
-          imgParallaxTweens.forEach((t) => t.scrollTrigger?.kill());
+          tl.scrollTrigger?.kill();
         };
       });
     }, section);
@@ -119,74 +129,70 @@ export default function WorksSection() {
     return () => ctx.revert();
   }, []);
 
-
   return (
     <section className="fs_editorial_master" ref={sectionRef} id="work">
 
+      {/* ── Sticky Background Title ──────────────────────────────────────── */}
+      <div className="fs_sticky_context">
+        <h2 className="fs_bg_title" ref={bgTextRef}>
+          Selected<br />Works.
+        </h2>
+      </div>
 
-
-      {/* ── Horizontal Track ────────────────────────────────────────────────── */}
+      {/* ── Horizontal Track ─────────────────────────────────────────────── */}
       <div className="fs_editorial_track" ref={trackRef}>
         {PROJECTS.map((project) => (
           <div
             className={`fs_ed_card ${project.shape} ${project.align}`}
             key={project.id}
-            data-num={project.num}
           >
-            {/* Image wrapper with precision reticles */}
+            {/* Polished Image Container */}
             <div className="fs_ed_img_wrapper">
-              <div className="fs_reticle fs_reticle_tl" aria-hidden="true" />
-              <div className="fs_reticle fs_reticle_tr" aria-hidden="true" />
-              <div className="fs_reticle fs_reticle_bl" aria-hidden="true" />
-              <div className="fs_reticle fs_reticle_br" aria-hidden="true" />
+              <div className="fs_reticle fs_reticle_tl" />
+              <div className="fs_reticle fs_reticle_br" />
               <img
                 src={project.img}
                 alt={project.title}
                 className="fs_ed_img"
                 loading="lazy"
               />
-              {/* Project index stamp — sits over image */}
-              <span className="fs_ed_index" aria-hidden="true">{project.num}</span>
-            </div>
 
-            {/* Footer row */}
-            <div className="fs_ed_footer">
-              <div className="fs_ed_meta">
-                <h3 className="fs_ed_title">{project.title}</h3>
-                <span className="fs_ed_type">{project.type}</span>
-              </div>
-
+              {/* Hover Reveal Overlay */}
               <a
-                href={`/project/${project.id}`}
-                className="fs_ed_btn"
+                href={project.url || `/project/${project.id}`}
+                target={project.url ? '_blank' : undefined}
+                rel={project.url ? 'noopener noreferrer' : undefined}
+                className="fs_ed_overlay"
                 aria-label={`View ${project.title}`}
               >
-                {/* Arrow-out icon */}
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M1 13L13 1M13 1H4M13 1V10"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <div className="fs_ed_btn">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M1 13L13 1M13 1H4M13 1V10"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
               </a>
+            </div>
+
+            {/* Tightened Meta Footer */}
+            <div className="fs_ed_meta">
+              <h3 className="fs_ed_title">{project.title}</h3>
+              <span className="fs_ed_type">{project.type}</span>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* ── Bottom progress rule ─────────────────────────────────────────────── */}
-      <div className="fs_ed_progress_wrap" aria-hidden="true">
-        <div className="fs_ed_progress_rule" />
       </div>
     </section>
   );
