@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import './Loader.css';
 
 interface LoaderProps {
   onComplete?: () => void;

@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
-import './Archive.scss';
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 const ARCHIVE_DATA = [

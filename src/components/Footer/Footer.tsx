@@ -4,7 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import jQuery from 'jquery';
 import mountainImg from '../../assets/Mountain.png';
 import flowerImg from '../../assets/Flower.png';
-import './Footer.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 

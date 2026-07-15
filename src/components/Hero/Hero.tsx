@@ -3,7 +3,6 @@ import gsap from "gsap";
 import { useLenis } from "lenis/react";
 import { useHeroAnimation } from "../../hooks/useHeroAnimation";
 import video from "./Hero_video.mp4";
-import "./Hero.scss";
 
 // ── Data ───────────────────────────────────────────────────────
 const NAV_LEFT = [
@@ -206,26 +205,6 @@ export default function Hero() {
       gsap.ticker.remove(tick);
     };
   }, [nameRef]);
-
-  // ── Header scroll background ───────────────────────────────────
-  // Transparent by default; gains glass BG once scrollY > 40px
-  useEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
-
-    const THRESHOLD = 40;
-
-    const onScroll = () => {
-      if (window.scrollY > THRESHOLD) {
-        header.classList.add('is-scrolled');
-      } else {
-        header.classList.remove('is-scrolled');
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [headerRef]);
 
   return (
     <section

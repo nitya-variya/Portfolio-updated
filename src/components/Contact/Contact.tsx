@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import './Contact.scss';
 
 // ── Configuration ──────────────────────────────────────────────
 const EMAIL = 'hello@nitya.dev';
