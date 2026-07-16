@@ -3,7 +3,7 @@ import About from './components/About/About';
 import Footer from './components/Footer/Footer';
 import Manifesto from './components/Manifesto/Manifesto';
 import WorksSection from './components/Works/Works';
-import CinematicProcess from './components/Process/CinematicProcess';
+import MethodologySection from './components/Process/MethodologySection';
 import SmoothScroll from './components/SmoothScroll';
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
             <Hero />
             <Manifesto />
             <WorksSection />
-            <CinematicProcess />
+            <MethodologySection />
             <About />
           </div>
           <Footer />
