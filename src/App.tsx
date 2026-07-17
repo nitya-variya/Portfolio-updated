@@ -4,6 +4,7 @@ import Footer from './components/Footer/Footer';
 import Manifesto from './components/Manifesto/Manifesto';
 import WorksSection from './components/Works/Works';
 import MethodologySection from './components/Process/MethodologySection';
+import CircuitSection from './components/Process/CircuitSection';
 import SmoothScroll from './components/SmoothScroll';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Manifesto />
             <WorksSection />
             <MethodologySection />
+            <CircuitSection />
             <About />
           </div>
           <Footer />

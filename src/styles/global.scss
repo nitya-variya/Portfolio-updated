@@ -3059,3 +3059,313 @@ $ar-sans: 'Syne', sans-serif;
     font-size: 14px;
   }
 }
+
+// ─── CIRCUIT SECTION (Craft 03) ───────────────────────────────────────────────
+
+// Token aliases for the component
+// --cs-bg:        #050505
+// --cs-ink:       #f1ede6
+// --cs-ink-dim:   #8a8578
+// --cs-accent:    #c96121
+// --cs-wire-off:  #2a2620
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap');
+
+.cs_section {
+  width: 100%;
+  background-color: #050505;
+  color: #f1ede6;
+  padding: 120px clamp(24px, 6vw, 100px) 100px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  position: relative;
+}
+
+// ── Copy block ────────────────────────────────────────────────────────────────
+
+.cs_copy {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 700px;
+}
+
+.cs_index_label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: #f1ede6;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  letter-spacing: 0.08em;
+}
+
+.cs_index_dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #c96121;
+  box-shadow: 0 0 6px #c96121, 0 0 14px rgba(201, 97, 33, 0.5);
+  flex-shrink: 0;
+}
+
+.cs_heading {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(40px, 6vw, 84px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: #f1ede6;
+  margin: 0;
+}
+
+.cs_desc {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(17px, 1.6vw, 21px);
+  font-weight: 400;
+  line-height: 1.65;
+  color: #8a8578;
+  max-width: 52ch;
+  margin: 0;
+}
+
+.cs_hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: #8a8578;
+  margin: 4px 0 0 0;
+  border-left: 2px solid #c96121;
+  padding-left: 10px;
+  line-height: 1.4;
+}
+
+// ── Panel ─────────────────────────────────────────────────────────────────────
+
+.cs_panel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  background-color: #0a0a0a;
+  border: 1px solid rgba(241, 237, 230, 0.07);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+// Corner L-shaped brackets
+.cs_bracket {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 10;
+  pointer-events: none;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background-color: #c96121;
+  }
+
+  &::before {
+    width: 100%;
+    height: 1.5px;
+    top: 0;
+    left: 0;
+  }
+
+  &::after {
+    width: 1.5px;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  &--tl { top: 12px; left: 12px; }
+  &--tr { top: 12px; right: 12px; transform: scaleX(-1); }
+  &--bl { bottom: 12px; left: 12px; transform: scaleY(-1); }
+  &--br { bottom: 12px; right: 12px; transform: scale(-1); }
+}
+
+// ── Status readout ────────────────────────────────────────────────────────────
+
+.cs_status {
+  position: absolute;
+  top: 18px;
+  left: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.cs_status_led {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #3a3830;
+  flex-shrink: 0;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.cs_status_text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #8a8578;
+  text-transform: lowercase;
+}
+
+// ── SVG diagram ───────────────────────────────────────────────────────────────
+
+.cs_svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cs_wire {
+  transition: stroke 0.3s ease;
+  will-change: stroke-dashoffset;
+}
+
+.cs_pulse_dot {
+  will-change: transform;
+  pointer-events: none;
+}
+
+// Node group: hover/focus highlight
+.cs_node {
+  outline: none;
+
+  &:hover .cs_node_circle,
+  &:focus-visible .cs_node_circle {
+    stroke: #e07830 !important;
+    filter: drop-shadow(0 0 6px rgba(201, 97, 33, 0.7));
+  }
+
+  &:hover .cs_node_label,
+  &:focus-visible .cs_node_label {
+    opacity: 1 !important;
+  }
+}
+
+// ── Tooltip ───────────────────────────────────────────────────────────────────
+
+.cs_tooltip {
+  position: absolute;
+  z-index: 30;
+  background-color: rgba(10, 10, 10, 0.92);
+  border: 1px solid #c96121;
+  padding: 10px 14px;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 200px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+
+  &--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cs_tooltip_title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #c96121;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.cs_tooltip_body {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  color: #8a8578;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+// ── Blinking dot indicator next to logo ────────────────────────────────────────
+
+@keyframes cs-heartbeat-blink {
+  0%, 100% {
+    opacity: 0.35;
+    filter: drop-shadow(0 0 1px rgba(201, 97, 33, 0.4));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 5px rgba(201, 97, 33, 1)) drop-shadow(0 0 10px rgba(201, 97, 33, 0.8));
+  }
+}
+
+.cs_logo_blink_dot {
+  animation: cs-heartbeat-blink 1.4s infinite ease-in-out;
+  will-change: opacity, filter;
+}
+
+// Logo group hover styling
+.cs_node--hub {
+  &:hover .cs_logo_group,
+  &:focus-visible .cs_logo_group {
+    opacity: 1 !important;
+    filter: drop-shadow(0 0 4px rgba(201, 97, 33, 0.5));
+  }
+}
+
+// ── Mobile overrides ──────────────────────────────────────────────────────────
+
+@media (max-width: 860px) {
+  .cs_section {
+    padding: 80px clamp(20px, 5vw, 48px) 80px;
+    gap: 40px;
+  }
+
+  .cs_panel {
+    aspect-ratio: 9 / 13;
+  }
+
+  // Scale down SVG node label font sizes via CSS custom properties
+  // We can't set px directly on SVG text in CSS without targeting them,
+  // so we add a class-based approach + JS sets inline style on mount.
+  // These rules reduce specificity; the hub label font we handle with a data attr.
+  .cs_svg text.cs_node_label {
+    font-size: 11px; // leaf fallback — JS inline styles take precedence per node
+  }
+
+  .cs_node--hub text.cs_node_label {
+    font-size: 15px;
+  }
+
+  .cs_node--category text.cs_node_label {
+    font-size: 12px;
+  }
+
+  .cs_node--leaf text.cs_node_label {
+    font-size: 11px;
+  }
+
+  .cs_hint {
+    display: none; // "desktop only" hint hidden on mobile
+  }
+}
+
+@media (max-width: 480px) {
+  .cs_section {
+    padding: 64px 20px 64px;
+  }
+}

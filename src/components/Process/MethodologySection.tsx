@@ -41,11 +41,11 @@ const PROCESS_STEPS = [
 // --- COMPONENT ----------------------------------------------------------------
 
 export default function MethodologySection() {
-  const masterRef     = useRef<HTMLElement>(null);
-  const leftColRef    = useRef<HTMLDivElement>(null);
-  const stickyRef     = useRef<HTMLDivElement>(null);
-  const stepRefs      = useRef<(HTMLDivElement | null)[]>([]);
-  const imgRefs       = useRef<(HTMLImageElement | null)[]>([]);
+  const masterRef = useRef<HTMLElement>(null);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const imgRefs = useRef<(HTMLImageElement | null)[]>([]);
   const indicatorRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useLayoutEffect(() => {
