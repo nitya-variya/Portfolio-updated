@@ -4,249 +4,295 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── Data ─────────────────────────────────────────────────────────────────────
+// ── Data ──────────────────────────────────────────────────────────────────────
 const PROJECTS = [
   {
     id: 1,
     num: '01',
-    title: 'Canadian Food\nExporters',
-    type: 'Multilingual',
-    year: '2023',
-    img: 'assets/cfea-mock.jpg',
-    url: '',
+    title: 'Book My Farmhouse',
+    role: 'Luxury Rental & Booking',
+    tags: ['Travel Tech', 'Full-Stack'],
+    year: '2024',
+    img: 'assets/bookmyfarmhouse-mock.png',
+    url: 'http://bookmyfarmhouse.com/',
+    tall: true,
   },
   {
     id: 2,
     num: '02',
-    title: 'Global Soccer\nDev',
-    type: 'Digital Transformation',
-    year: '2023',
-    img: 'assets/gsd-mock.jpg',
-    url: '',
+    title: 'Skymaharaja',
+    role: 'Elite Private Jet Booking',
+    tags: ['Luxury Travel', 'UX'],
+    year: '2025',
+    img: 'assets/skymaharaja-mock.png',
+    url: 'https://skymaharaja.com/',
+    tall: false,
   },
   {
     id: 3,
     num: '03',
-    title: 'Quick Deli\nStyle',
-    type: 'Frontend Systems',
-    year: '2024',
-    img: 'assets/quickdeli-mock.jpg',
-    url: '',
+    title: 'Decornath',
+    role: 'Home Improvement Marketplace',
+    tags: ['Marketplace', 'Commerce'],
+    year: '2025',
+    img: 'assets/decornath-mock.png',
+    url: 'https://decornath.com/',
+    tall: false,
   },
   {
     id: 4,
     num: '04',
     title: 'Vino Zero',
-    type: 'Campaign Media',
+    role: 'Campaign Media',
+    tags: ['Brand Identity', 'Motion'],
     year: '2024',
     img: 'assets/vino-mock.jpg',
     url: '',
-  },
-  {
-    id: 5,
-    num: '05',
-    title: 'Book My\nFarmhouse',
-    type: 'Luxury Rental & Booking',
-    year: '2024',
-    img: 'assets/bookmyfarmhouse-mock.png',
-    url: 'http://bookmyfarmhouse.com/',
-  },
-  {
-    id: 6,
-    num: '06',
-    title: 'Decornath',
-    type: 'Home Improvement Marketplace',
-    year: '2025',
-    img: 'assets/decornath-mock.png',
-    url: 'https://decornath.com/',
-  },
-  {
-    id: 7,
-    num: '07',
-    title: 'Skymaharaja',
-    type: 'Elite Private Jet Booking',
-    year: '2025',
-    img: 'assets/skymaharaja-mock.png',
-    url: 'https://skymaharaja.com/',
+    tall: true,
   },
 ];
 
-// ── Crosshair SVG ─────────────────────────────────────────────────────────────
-function Crosshair({ position }: { position: 'tl' | 'tr' | 'bl' | 'br' }) {
+// ── Project Card ──────────────────────────────────────────────────────────────
+interface ProjectCardProps {
+  project: (typeof PROJECTS)[0];
+  colIndex: number;
+}
+
+function ProjectCard({ project, colIndex }: ProjectCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const curtainRef = useRef<HTMLDivElement>(null);
+  const metaRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const card = cardRef.current;
+    const img = imgRef.current;
+    const curtain = curtainRef.current;
+    const meta = metaRef.current;
+    if (!card || !img || !curtain || !meta) return;
+
+    const ctx = gsap.context(() => {
+      // ── Card entrance (slide up + fade) ────────────────────────────────────
+      gsap.set(card, { y: 70, opacity: 0 });
+      gsap.to(card, {
+        y: 0,
+        opacity: 1,
+        duration: 1.1,
+        ease: 'power3.out',
+        delay: colIndex * 0.12,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 88%',
+          once: true,
+        },
+      });
+
+      // ── Curtain image reveal ────────────────────────────────────────────────
+      gsap.set(curtain, { scaleY: 1, transformOrigin: 'top center' });
+      gsap.to(curtain, {
+        scaleY: 0,
+        duration: 1.5,
+        ease: 'power4.inOut',
+        delay: colIndex * 0.1 + 0.15,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+
+      // ── Image parallax (subtle upward drift on scroll) ─────────────────────
+      gsap.fromTo(
+        img,
+        { y: 30 },
+        {
+          y: -25,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.8,
+          },
+        }
+      );
+
+      // ── Meta fade in (slightly after card) ─────────────────────────────────
+      gsap.fromTo(
+        meta,
+        { y: 18, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: 'power2.out',
+          delay: colIndex * 0.1 + 0.35,
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 82%',
+            once: true,
+          },
+        }
+      );
+    }, card);
+
+    return () => ctx.revert();
+  }, [colIndex]);
+
   return (
-    <span className={`fs_rg_cross fs_rg_cross_${position}`} aria-hidden="true">
-      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-        <line x1="5" y1="0" x2="5" y2="10" stroke="#555" strokeWidth="1" />
-        <line x1="0" y1="5" x2="10" y2="5" stroke="#555" strokeWidth="1" />
-      </svg>
-    </span>
+    <div
+      className={`pw_card${project.tall ? ' pw_card--tall' : ''}`}
+      ref={cardRef}
+      id={`project-${project.id}`}
+    >
+      <a
+        href={project.url || `#project-${project.id}`}
+        target={project.url ? '_blank' : undefined}
+        rel={project.url ? 'noopener noreferrer' : undefined}
+        className="pw_card_link"
+        aria-label={`View ${project.title}`}
+      >
+        {/* Image */}
+        <div className="pw_img_wrap">
+          {/* Curtain overlay for reveal */}
+          <div className="pw_curtain" ref={curtainRef} aria-hidden="true" />
+          <img
+            ref={imgRef}
+            src={project.img}
+            alt={project.title}
+            className="pw_img"
+            loading="lazy"
+          />
+          {/* Hover overlay */}
+          <div className="pw_img_hover" aria-hidden="true">
+            <span className="pw_open_tag">↗ Open Case</span>
+          </div>
+        </div>
+
+        {/* Meta row */}
+        <div className="pw_card_meta" ref={metaRef}>
+          <div className="pw_meta_left">
+            <span className="pw_num">{project.num}</span>
+            <div className="pw_meta_body">
+              <h3 className="pw_title">{project.title}</h3>
+              <div className="pw_tags">
+                {project.tags.map((tag) => (
+                  <span key={tag} className="pw_tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="pw_meta_right">
+            <span className="pw_year">{project.year}</span>
+            <span className="pw_role">{project.role}</span>
+          </div>
+        </div>
+      </a>
+    </div>
   );
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
+// ── Section ───────────────────────────────────────────────────────────────────
 export default function WorksSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
-    const track = trackRef.current;
-    if (!section || !track) return;
+    const tagline = taglineRef.current;
+    if (!section || !tagline) return;
 
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      // ── Desktop: horizontal scroll pinning ───────────────────────────────
-      mm.add('(min-width: 769px)', () => {
-        const getScrollW = () => track.scrollWidth - window.innerWidth;
-
-        const tl = gsap.timeline({
+      // Tagline entrance
+      gsap.fromTo(
+        tagline,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.1,
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: section,
-            pin: true,
-            scrub: 1.2,
-            start: 'top top',
-            anticipatePin: 1,
-            end: () => '+=' + getScrollW(),
-            invalidateOnRefresh: true,
+            start: 'top 72%',
+            once: true,
           },
-        });
-
-        // Translate the entire track leftward
-        tl.to(track, { x: () => -getScrollW(), ease: 'none' }, 0);
-
-        // Inner parallax: images pan slightly right as track slides left
-        const images = track.querySelectorAll<HTMLElement>('.fs_rg_img');
-        tl.to(images, { x: 60, ease: 'none' }, 0);
-
-        return () => { tl.scrollTrigger?.kill(); };
-      });
+        }
+      );
     }, section);
 
     return () => ctx.revert();
   }, []);
 
+  const leftProjects = PROJECTS.filter((_, i) => i % 2 === 0);
+  const rightProjects = PROJECTS.filter((_, i) => i % 2 !== 0);
+
   return (
-    <section className="fs_rg_section" ref={sectionRef} id="work" aria-label="Selected Works">
+    <section
+      className="pw_section"
+      ref={sectionRef}
+      id="work"
+      aria-label="Selected Works — Imprints"
+    >
+      {/* ── Header ──────────────────────────────────────────────────────────── */}
+      <header className="pw_header">
+        {/* Big gradient tagline — centered */}
+        <p className="pw_tagline" ref={taglineRef}>
+          Things I've shaped into existence.
+        </p>
+      </header>
 
-      {/* ── Horizontal Track ─────────────────────────────────────────────── */}
-      <div className="fs_rg_track" ref={trackRef}>
-
-        {/* ── INTRO BLOCK ──────────────────────────────────────────────────── */}
-        <div className="fs_rg_col fs_rg_intro">
-          <Crosshair position="tl" />
-          <Crosshair position="tr" />
-          <Crosshair position="bl" />
-          <Crosshair position="br" />
-          <div className="fs_rg_intro_inner">
-            <p className="fs_rg_label">Selected Works</p>
-            <h2 className="fs_rg_heading">
-              Crafted<br />
-              <em>with intent.</em>
-            </h2>
-            <p className="fs_rg_sub">
-              A curated index of digital<br />
-              products built end-to-end.
-            </p>
-            <div className="fs_rg_count">
-              <span className="fs_rg_count_num">{PROJECTS.length}</span>
-              <span className="fs_rg_count_lbl">Projects</span>
-            </div>
-          </div>
+      {/* ── Grid ────────────────────────────────────────────────────────────── */}
+      <div className="pw_grid" role="list" aria-label="Portfolio projects">
+        {/* Left column */}
+        <div className="pw_col pw_col--left" role="listitem">
+          {leftProjects.map((p, i) => (
+            <ProjectCard key={p.id} project={p} colIndex={i * 2} />
+          ))}
         </div>
 
-        {/* ── PROJECT CARDS ─────────────────────────────────────────────────── */}
-        {PROJECTS.map((project) => (
-          <div className="fs_rg_col fs_rg_card_col" key={project.id}>
-            <Crosshair position="tl" />
-            <Crosshair position="tr" />
-            <Crosshair position="bl" />
-            <Crosshair position="br" />
-            <a
-              href={project.url || `#project-${project.id}`}
-              target={project.url ? '_blank' : undefined}
-              rel={project.url ? 'noopener noreferrer' : undefined}
-              className="fs_rg_card"
-              aria-label={`View ${project.title}`}
+        {/* Right column (offset downward) */}
+        <div className="pw_col pw_col--right" role="listitem">
+          {rightProjects.map((p, i) => (
+            <ProjectCard key={p.id} project={p} colIndex={i * 2 + 1} />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Footer ──────────────────────────────────────────────────────────── */}
+      <footer className="pw_footer">
+        <div className="pw_footer_inner">
+          <p className="pw_footer_label">What's forming next</p>
+          <p className="pw_footer_copy">
+            Have a vision?<br />
+            <em>Let's make it impossible to ignore.</em>
+          </p>
+          <a
+            href="#contact"
+            className="pw_footer_cta"
+            id="works-contact-cta"
+            aria-label="Begin the conversation"
+          >
+            <span className="pw_cta_text">Begin the conversation</span>
+            <svg
+              className="pw_cta_arrow"
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              aria-hidden="true"
             >
-              {/* Image container */}
-              <div className="fs_rg_img_wrap">
-                <img
-                  src={project.img}
-                  alt={project.title}
-                  className="fs_rg_img"
-                  loading="lazy"
-                />
-                {/* Hover overlay */}
-                <div className="fs_rg_hover_overlay" aria-hidden="true">
-                  <div className="fs_rg_explore_btn">
-                    <span className="fs_rg_explore_text">EXPLORE PROJECT</span>
-                    <svg
-                      className="fs_rg_explore_arrow"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M1 13L13 1M13 1H4M13 1V10"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
-              {/* Meta */}
-              <div className="fs_rg_meta">
-                <span className="fs_rg_num">{project.num}</span>
-                <div className="fs_rg_meta_body">
-                  <h3 className="fs_rg_title">
-                    {project.title.split('\n').map((line, i) => (
-                      <span key={i}>{line}{i < project.title.split('\n').length - 1 && <br />}</span>
-                    ))}
-                  </h3>
-                  <div className="fs_rg_meta_row">
-                    <span className="fs_rg_type">{project.type}</span>
-                    <span className="fs_rg_year">{project.year}</span>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        ))}
-
-        {/* ── OUTRO BLOCK ──────────────────────────────────────────────────── */}
-        <div className="fs_rg_col fs_rg_outro">
-          <Crosshair position="tl" />
-          <Crosshair position="tr" />
-          <Crosshair position="bl" />
-          <Crosshair position="br" />
-          <div className="fs_rg_outro_inner">
-            <p className="fs_rg_outro_label">What's next</p>
-            <p className="fs_rg_outro_copy">
-              Have a project in mind?<br />Let's build something remarkable.
-            </p>
-            <a href="#contact" className="fs_rg_outro_cta" id="works-contact-cta">
-              <span>Get in touch</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path
-                  d="M1 13L13 1M13 1H4M13 1V10"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
+              <path
+                d="M1 13L13 1M13 1H4M13 1V10"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </a>
         </div>
-
-      </div>{/* /fs_rg_track */}
+      </footer>
     </section>
   );
 }

@@ -4,7 +4,7 @@
 .manifesto-section {
   position: relative;
   background-color: #050505;
-  padding: 100px 0px;
+  padding: 48px 0px;
 }
 
 .hook-container {
@@ -87,7 +87,7 @@
 // ── Responsive ──────────────────────────────────────────────────────────
 @media (max-width: 1024px) {
   .manifesto-section {
-    padding: 80px 0px;
+    padding: 36px 0px;
   }
 
   .hook-container {
@@ -112,7 +112,7 @@
 
 @media (max-width: 768px) {
   .manifesto-section {
-    padding: 64px 0px;
+    padding: 28px 0px;
   }
 
   .hook-container {

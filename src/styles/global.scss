@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
 
-// ─── DESIGN TOKENS ───────────────────────────────────────────────────────────
+// â”€â”€â”€ DESIGN TOKENS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $color-warm-white: #F5F1E8;
 $color-secondary: #CFCBC2;
 $color-accent: #C96121;
@@ -13,7 +13,7 @@ $font-body: 'DM Sans', Arial, sans-serif;
 $ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-// ─── RESET ───────────────────────────────────────────────────────────────────
+// â”€â”€â”€ RESET â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 *,
 *::before,
 *::after {
@@ -57,7 +57,7 @@ button {
   color: $color-warm-white;
 }
 
-// ─── LENIS SMOOTH SCROLL ─────────────────────────────────────────────────────
+// â”€â”€â”€ LENIS SMOOTH SCROLL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 html.lenis,
 html.lenis body {
   height: auto;
@@ -79,7 +79,7 @@ html.lenis body {
   pointer-events: none;
 }
 
-// ─── APP WRAPPER ─────────────────────────────────────────────────────────────
+// â”€â”€â”€ APP WRAPPER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .app-content {
   position: relative;
   z-index: 10;
@@ -91,7 +91,7 @@ html.lenis body {
   position: relative;
 }
 
-// ─── HERO ─────────────────────────────────────────────────────────────────────
+// â”€â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $h-warm: #F5F0E8;
 $h-secondary: #CFCBC2;
 $h-accent: #C96121;
@@ -544,7 +544,7 @@ $h-dark: #0C0C0C;
   }
 }
 
-// ─── LOADER ───────────────────────────────────────────────────────────────────
+// â”€â”€â”€ LOADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .fs_loader_master {
   position: fixed;
   top: 0px;
@@ -649,11 +649,11 @@ $h-dark: #0C0C0C;
   color: #F9C176;
 }
 
-// ─── MANIFESTO ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ MANIFESTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .manifesto-section {
   position: relative;
   background-color: #050505;
-  height: 100vh;
+  padding: 48px 0;
   width: 100%;
   display: flex;
   align-items: center;
@@ -739,7 +739,7 @@ $h-dark: #0C0C0C;
 
 @media (max-width: 1024px) {
   .manifesto-section {
-    padding: 80px 0px;
+    padding: 36px 0;
   }
 
   .hook-container {
@@ -764,7 +764,7 @@ $h-dark: #0C0C0C;
 
 @media (max-width: 768px) {
   .manifesto-section {
-    padding: 64px 0px;
+    padding: 28px 0;
   }
 
   .hook-container {
@@ -819,7 +819,7 @@ $h-dark: #0C0C0C;
   }
 }
 
-// ─── SHUTTER TRANSITION ───────────────────────────────────────────────────────
+// â”€â”€â”€ SHUTTER TRANSITION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .fs_shutter_master {
   width: 100vw;
   height: 100vh;
@@ -831,7 +831,7 @@ $h-dark: #0C0C0C;
   justify-content: center;
 }
 
-// ── Void / background layer ──────────────────────────────────────────────────
+// â”€â”€ Void / background layer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .fs_void_layer {
   position: absolute;
   inset: 0;
@@ -854,7 +854,7 @@ $h-dark: #0C0C0C;
   pointer-events: none;
 }
 
-// ── Proof text ───────────────────────────────────────────────────────────────
+// â”€â”€ Proof text â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .fs_proof_text {
   font-family: 'Instrument Serif', Georgia, serif;
   font-size: clamp(60px, 10vw, 140px);
@@ -877,7 +877,7 @@ $h-dark: #0C0C0C;
   will-change: transform, opacity;
 }
 
-// ── Curtains ─────────────────────────────────────────────────────────────────
+// â”€â”€ Curtains â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .fs_curtain {
   position: absolute;
   left: 0;
@@ -915,7 +915,7 @@ $h-dark: #0C0C0C;
   }
 }
 
-// ── Central pill ─────────────────────────────────────────────────────────────
+// â”€â”€ Central pill â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .fs_scalable_pill {
   position: absolute;
   z-index: 3;
@@ -941,7 +941,7 @@ $h-dark: #0C0C0C;
   will-change: opacity, transform;
 }
 
-// ── Responsive ───────────────────────────────────────────────────────────────
+// â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @media (max-width: 768px) {
   .fs_proof_text {
     font-size: clamp(40px, 13vw, 80px);
@@ -953,537 +953,423 @@ $h-dark: #0C0C0C;
   }
 }
 
-// ─── WORKS ────────────────────────────────────────────────────────────────────
-$rg-bg: #050505;
-$rg-fg: #F5F1E8;
-$rg-fg-dim: rgba(245, 241, 232, 0.55);
-$rg-accent: #C96121;
-$rg-grid: rgba(245, 241, 232, 0.12);
-$rg-cross: rgba(245, 241, 232, 0.4);
-$rg-mono: 'Space Mono', monospace;
-$rg-serif: 'Instrument Serif', Georgia, serif;
-$rg-ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
-$rg-ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-$rg-card-w: 480px;
-$rg-img-h: 350px;
-$rg-intro-w: 540px;
-$rg-outro-w: 480px;
-$rg-track-pad-l: 100px;
-$rg-track-pad-r: 140px;
-$rg-gap: 50px;
+// â”€â”€â”€ WORKS / IMPRINTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+$pw-bg:        #050505;
+$pw-fg:        #F5F1E8;
+$pw-fg-dim:    rgba(245, 241, 232, 0.45);
+$pw-fg-muted:  rgba(245, 241, 232, 0.28);
+$pw-accent:    #C96121;
+$pw-line:      rgba(245, 241, 232, 0.10);
+$pw-mono:      'Space Mono', monospace;
+$pw-serif:     'Instrument Serif', Georgia, serif;
+$pw-ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+$pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-.fs_rg_section {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  background-color: $rg-bg;
-  color: $rg-fg;
-  position: relative;
-}
+// â”€â”€ Section shell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-.fs_rg_track {
-  display: flex;
-  align-items: stretch;
-  height: 100vh;
-  width: max-content;
-  padding: 150px $rg-track-pad-r 90px $rg-track-pad-l;
-  gap: $rg-gap;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 1;
-  will-change: transform;
-}
-
-.fs_rg_col {
-  position: relative;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  border: 1px solid $rg-grid;
-}
-
-.fs_rg_cross {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  z-index: 10;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg line {
-    stroke: $rg-cross;
-    transition: stroke 0.3s ease;
-  }
-
-  .fs_rg_col:hover & svg line {
-    stroke: rgba(245, 241, 232, 0.35);
-  }
-}
-
-.fs_rg_cross_tl {
-  top: -5px;
-  left: -5px;
-}
-
-.fs_rg_cross_tr {
-  top: -5px;
-  right: -5px;
-}
-
-.fs_rg_cross_bl {
-  bottom: -5px;
-  left: -5px;
-}
-
-.fs_rg_cross_br {
-  bottom: -5px;
-  right: -5px;
-}
-
-.fs_rg_intro {
-  width: $rg-intro-w;
-  padding: 0 60px;
-}
-
-.fs_rg_intro_inner {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-.fs_rg_label {
-  font-family: $rg-mono;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: $rg-fg-dim;
-  margin: 0;
-}
-
-.fs_rg_heading {
-  font-family: $rg-serif;
-  font-size: 56px;
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: $rg-fg;
-  margin: 0;
-
-  em {
-    font-style: italic;
-    color: rgba(245, 241, 232, 0.65);
-  }
-}
-
-.fs_rg_sub {
-  font-family: $rg-mono;
-  font-size: 11px;
-  line-height: 1.8;
-  color: $rg-fg-dim;
-  margin: 0;
-  letter-spacing: 0.5px;
-}
-
-.fs_rg_count {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-top: 12px;
-}
-
-.fs_rg_count_num {
-  font-family: $rg-serif;
-  font-size: 72px;
-  font-weight: 400;
-  line-height: 1;
-  color: rgba(245, 241, 232, 0.15);
-  display: block;
-}
-
-.fs_rg_count_lbl {
-  font-family: $rg-mono;
-  font-size: 9px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: $rg-fg-dim;
-}
-
-.fs_rg_card_col {
-  width: $rg-card-w;
-  padding: 0;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-}
-
-.fs_rg_card {
-  display: flex;
-  flex-direction: column;
+.pw_section {
   width: 100%;
-  height: auto;
+  background-color: $pw-bg;
+  color: $pw-fg;
+  padding: 120px clamp(28px, 6.5vw, 120px) 100px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+// â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+.pw_header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 72px;
+}
+
+
+.pw_tagline {
+  font-family: $pw-serif;
+  font-style: italic;
+  font-size: clamp(36px, 5.5vw, 72px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-align: center;
+  margin: 0 auto 56px auto;
+  max-width: 18ch;
+  // Flesh-orange gradient: peach → amber → accent → burnt sienna
+  background: linear-gradient(
+    120deg,
+    #F4D0A8 0%,
+    #ECA06A 28%,
+    #D97535 55%,
+    #C96121 75%,
+    #9B3E0E 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  will-change: opacity, transform;
+}
+
+// â”€â”€ Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+.pw_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: clamp(20px, 3vw, 48px);
+  align-items: start;
+}
+
+.pw_col {
+  display: flex;
+  flex-direction: column;
+  gap: 160px;
+}
+
+.pw_col--right {
+  margin-top: clamp(60px, 10vw, 140px);
+}
+
+// â”€â”€ Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+.pw_card {
+  display: flex;
+  flex-direction: column;
+  will-change: transform, opacity;
+}
+
+.pw_card_link {
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: inherit;
-  position: relative;
-  justify-content: center;
-  margin: auto 0;
+  cursor: pointer;
 
-  &:hover .fs_rg_img {
-    transform: scale(1.06);
+  &:hover .pw_img {
+    transform: scale(1.04) translateY(-25px);
   }
 
-  &:hover .fs_rg_hover_overlay {
+  &:hover .pw_img_hover {
     opacity: 1;
   }
 
-  &:hover .fs_rg_explore_btn {
-    transform: translateY(0px);
+  &:hover .pw_open_tag {
+    transform: translateY(0);
     opacity: 1;
   }
 
-  &:hover~.fs_rg_cross svg line,
-  &:hover+.fs_rg_cross svg line {
-    stroke: rgba(245, 241, 232, 0.35);
+  &:hover .pw_title {
+    color: $pw-accent;
   }
 }
 
-.fs_rg_img_wrap {
+// â”€â”€ Image wrap â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+.pw_img_wrap {
   position: relative;
   width: 100%;
-  height: $rg-img-h;
   overflow: hidden;
-  flex-shrink: 0;
-  background-color: rgba(255, 255, 255, 0.05);
-  margin-top: auto;
-  margin-bottom: auto;
-}
+  background-color: #111;
+  height: clamp(260px, 36vw, 520px);
 
-.fs_rg_img {
-  width: calc(100% + 60px);
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  position: relative;
-  left: -30px;
-  filter: grayscale(20%) brightness(0.88);
-  transition:
-    transform 0.75s $rg-ease-expo,
-    filter 0.6s $rg-ease-expo;
-  will-change: transform;
-
-  .fs_rg_card:hover & {
-    filter: grayscale(0%) brightness(1);
+  .pw_card--tall & {
+    height: clamp(340px, 48vw, 680px);
   }
 }
 
-.fs_rg_hover_overlay {
+.pw_curtain {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.42);
-  opacity: 0;
-  transition: opacity 0.45s $rg-ease-smooth;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  padding: 28px 32px;
-  z-index: 5;
-}
-
-.fs_rg_explore_btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: $rg-fg;
-  color: $rg-bg;
-  padding: 10px 20px;
-  border-radius: 0px;
-  transform: translateY(14px);
-  opacity: 0;
-  transition:
-    transform 0.55s $rg-ease-expo,
-    opacity 0.45s $rg-ease-smooth;
+  background-color: $pw-bg;
+  z-index: 3;
+  transform-origin: top center;
   pointer-events: none;
 }
 
-.fs_rg_explore_text {
-  font-family: $rg-mono;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-weight: 700;
-  white-space: nowrap;
-}
+.pw_img {
+  width: 100%;
+  height: calc(100% + 55px);
+  margin-top: -28px;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.90) saturate(0.92);
+  transition:
+    transform 1.0s $pw-ease-expo,
+    filter 0.8s $pw-ease-smth;
+  will-change: transform;
 
-.fs_rg_explore_arrow {
-  flex-shrink: 0;
-  transition: transform 0.3s $rg-ease-expo;
-
-  .fs_rg_card:hover & {
-    transform: translate(2px, -2px);
+  .pw_card_link:hover & {
+    filter: brightness(1.0) saturate(1.05);
   }
 }
 
-.fs_rg_meta {
+.pw_img_hover {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.10) 60%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.5s $pw-ease-smth;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 24px 28px;
+}
+
+.pw_open_tag {
+  font-family: $pw-mono;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $pw-fg;
+  border: 1px solid rgba(245, 241, 232, 0.5);
+  padding: 8px 16px;
+  transform: translateY(10px);
+  opacity: 0;
+  transition:
+    transform 0.55s $pw-ease-expo,
+    opacity 0.45s $pw-ease-smth;
+}
+
+// â”€â”€ Card meta â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+.pw_card_meta {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   gap: 16px;
-  padding: 22px 32px 24px;
-  border-top: 1px solid $rg-grid;
+  padding: 20px 0 0 0;
+  border-top: 1px solid $pw-line;
+  will-change: transform, opacity;
+}
+
+.pw_meta_left {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+  flex: 1;
+}
+
+.pw_num {
+  font-family: $pw-mono;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: $pw-fg-muted;
+  padding-top: 7px;
   flex-shrink: 0;
 }
 
-.fs_rg_num {
-  font-family: $rg-mono;
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: $rg-fg-dim;
-  padding-top: 6px;
-  flex-shrink: 0;
-}
-
-.fs_rg_meta_body {
+.pw_meta_body {
   display: flex;
   flex-direction: column;
   gap: 8px;
   min-width: 0;
 }
 
-.fs_rg_title {
-  font-family: $rg-serif;
-  font-size: 30px;
+.pw_title {
+  font-family: $pw-serif;
+  font-size: clamp(20px, 2.2vw, 28px);
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: $rg-fg;
+  color: $pw-fg;
   margin: 0;
-  transition: color 0.3s ease;
+  transition: color 0.35s ease;
+}
 
-  .fs_rg_card:hover & {
-    color: $rg-accent;
+.pw_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pw_tag {
+  font-family: $pw-mono;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: $pw-accent;
+  border: 1px solid rgba(201, 97, 33, 0.35);
+  padding: 3px 8px;
+}
+
+.pw_meta_right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.pw_year {
+  font-family: $pw-mono;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: $pw-fg-dim;
+  white-space: nowrap;
+}
+
+.pw_role {
+  font-family: $pw-mono;
+  font-size: 8px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: $pw-fg-muted;
+  white-space: nowrap;
+  text-align: right;
+}
+
+// â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+.pw_footer {
+  margin-top: 100px;
+  padding-top: 60px;
+  border-top: 1px solid $pw-line;
+}
+
+.pw_footer_inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 560px;
+}
+
+.pw_footer_label {
+  font-family: $pw-mono;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $pw-fg-muted;
+  margin: 0;
+}
+
+.pw_footer_copy {
+  font-family: $pw-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: $pw-fg;
+  margin: 0;
+
+  em {
+    font-style: italic;
+    color: $pw-fg-dim;
   }
 }
 
-.fs_rg_meta_row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.fs_rg_type {
-  font-family: $rg-mono;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: $rg-accent;
-}
-
-.fs_rg_year {
-  font-family: $rg-mono;
-  font-size: 9px;
-  letter-spacing: 1px;
-  color: $rg-fg-dim;
-}
-
-.fs_rg_outro {
-  width: $rg-outro-w;
-  padding: 0 60px;
-}
-
-.fs_rg_outro_inner {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.fs_rg_outro_label {
-  font-family: $rg-mono;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: $rg-fg-dim;
-  margin: 0;
-}
-
-.fs_rg_outro_copy {
-  font-family: $rg-serif;
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1.3;
-  color: $rg-fg;
-  margin: 0;
-}
-
-.fs_rg_outro_cta {
+.pw_footer_cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  border: 1px solid $rg-grid;
-  color: $rg-fg;
+  gap: 12px;
+  padding: 14px 28px;
+  border: 1px solid $pw-line;
+  color: $pw-fg;
   text-decoration: none;
-  font-family: $rg-mono;
-  font-size: 11px;
-  letter-spacing: 2px;
+  font-family: $pw-mono;
+  font-size: 10px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  align-self: flex-start;
   transition:
-    background-color 0.35s $rg-ease-smooth,
-    border-color 0.35s $rg-ease-smooth,
-    color 0.35s $rg-ease-smooth;
-  cursor: pointer;
+    background-color 0.35s $pw-ease-smth,
+    border-color 0.35s $pw-ease-smth,
+    color 0.35s $pw-ease-smth;
 
   svg path {
-    transition: stroke 0.35s $rg-ease-smooth;
+    transition: stroke 0.35s $pw-ease-smth;
   }
 
   &:hover {
-    background-color: $rg-fg;
-    color: $rg-bg;
-    border-color: $rg-fg;
+    background-color: $pw-fg;
+    border-color: $pw-fg;
+    color: $pw-bg;
 
     svg path {
-      stroke: $rg-bg;
+      stroke: $pw-bg;
     }
   }
 }
 
-@media (max-width: 1024px) and (min-width: 769px) {
-  .fs_rg_intro {
-    width: 300px;
-    padding: 0 32px;
-  }
+.pw_cta_arrow {
+  flex-shrink: 0;
+  transition: transform 0.4s $pw-ease-expo;
 
-  .fs_rg_outro {
-    width: 280px;
-    padding: 0 32px;
-  }
-
-  .fs_rg_card_col {
-    width: 380px;
-  }
-
-  .fs_rg_img_wrap {
-    height: 460px;
-  }
-
-  .fs_rg_heading {
-    font-size: 40px;
-  }
-
-  .fs_rg_title {
-    font-size: 24px;
+  .pw_footer_cta:hover & {
+    transform: translate(3px, -3px);
   }
 }
+
+// â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @media (max-width: 768px) {
-  .fs_rg_section {
-    height: auto;
-    overflow: visible;
+  .pw_section {
+    padding: 80px clamp(20px, 5vw, 48px) 80px;
   }
 
-  .fs_rg_track {
+  .pw_grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .pw_col--right {
+    margin-top: 0;
+  }
+
+  .pw_col {
+    gap: 60px;
+  }
+
+  .pw_header_foot {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .pw_divider {
     width: 100%;
-    height: auto;
-    padding: 0;
-    border-top: 1px solid $rg-grid;
-    border-bottom: 1px solid $rg-grid;
-    will-change: unset;
-    transform: none !important;
+    flex: none;
   }
 
-  .fs_rg_col {
-    width: 100% !important;
-    border-right: none;
-    border-bottom: 1px solid $rg-grid;
-    padding: 60px 24px;
-
-    &:first-child {
-      border-left: none;
-    }
-  }
-
-  .fs_rg_intro,
-  .fs_rg_outro {
-    width: 100%;
-    padding: 60px 24px;
-  }
-
-  .fs_rg_intro_inner,
-  .fs_rg_outro_inner {
-    max-width: 480px;
-  }
-
-  .fs_rg_heading {
-    font-size: 36px;
-  }
-
-  .fs_rg_count_num {
-    font-size: 52px;
-  }
-
-  .fs_rg_card_col {
-    padding: 0;
-  }
-
-  .fs_rg_card {
-    cursor: pointer;
-  }
-
-  .fs_rg_img_wrap {
-    height: clamp(260px, 50vw, 400px);
-  }
-
-  .fs_rg_img {
-    width: 100%;
-    left: 0;
-  }
-
-  .fs_rg_title {
-    font-size: 22px;
-  }
-
-  .fs_rg_meta {
-    padding: 18px 20px 20px;
-  }
-
-  .fs_rg_explore_btn {
-    opacity: 0;
-  }
-
-  .fs_rg_cross {
-    display: none;
-  }
-
-  .fs_rg_outro_copy {
-    font-size: 22px;
+  .pw_tagline {
+    white-space: normal;
   }
 }
 
 @media (max-width: 480px) {
-  .fs_rg_heading {
-    font-size: 28px;
+  .pw_section {
+    padding: 64px 20px 64px;
   }
 
-  .fs_rg_title {
-    font-size: 20px;
+  .pw_heading {
+    font-size: clamp(64px, 18vw, 100px);
   }
 
-  .fs_rg_outro_copy {
-    font-size: 20px;
+  .pw_card_meta {
+    flex-direction: column;
+    gap: 8px;
   }
 
-  .fs_rg_img_wrap {
-    height: clamp(200px, 55vw, 320px);
+  .pw_meta_right {
+    align-items: flex-start;
   }
 
-  .fs_rg_outro_cta {
-    padding: 10px 18px;
-    font-size: 10px;
+  .pw_role {
+    text-align: left;
+  }
+
+  .pw_footer_copy {
+    font-size: clamp(24px, 8vw, 36px);
   }
 }
 
-// ─── ABOUT ────────────────────────────────────────────────────────────────────
+// â”€â”€â”€ ABOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $ab-ink: #ffffff;
 $ab-ink-soft: rgba(255, 255, 255, 0.82);
 $ab-ink-dim: rgba(255, 255, 255, 0.66);
@@ -1876,7 +1762,7 @@ $ab-sans: 'DM Sans', sans-serif;
   }
 }
 
-// ─── FOOTER ───────────────────────────────────────────────────────────────────
+// â”€â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @keyframes pulseGlow {
   0% {
     filter: brightness(1);
@@ -2090,7 +1976,7 @@ $ab-sans: 'DM Sans', sans-serif;
   }
 }
 
-// ─── CONTACT ─────────────────────────────────────────────────────────────────
+// â”€â”€â”€ CONTACT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $ct-bg: #050505;
 $ct-golden: #d4a757;
 $ct-text: #f5f1e8;
@@ -2213,7 +2099,7 @@ $ct-muted: rgba(207, 203, 194, 0.4);
   }
 }
 
-// ─── ARCHIVE ─────────────────────────────────────────────────────────────────
+// â”€â”€â”€ ARCHIVE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $ar-bg: #050505;
 $ar-fg: #FFFFFF;
 $ar-accent: #C96121;
@@ -2482,14 +2368,14 @@ $ar-sans: 'Syne', sans-serif;
   }
 }
 
-// ─── MANIFESTO TRANSITION ───────────────────────────────────────────────────
+// â”€â”€â”€ MANIFESTO TRANSITION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .manifesto-pin-wrapper {
   position: relative;
   width: 100%;
   overflow: visible;
 }
 
-// ─── CINEMATIC PROCESS SECTION ───────────────────────────────────────────────
+// â”€â”€â”€ CINEMATIC PROCESS SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 // -- Keyframe Animations ------------------------------------------------------
 @keyframes fs-spin         { 100% { transform: rotate(360deg); } }
@@ -2819,14 +2705,14 @@ $ar-sans: 'Syne', sans-serif;
   }
 }
 
-// ─── METHODOLOGY / SCROLLSPY SPLIT-SCREEN ────────────────────────────────────
+// â”€â”€â”€ METHODOLOGY / SCROLLSPY SPLIT-SCREEN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 .fs_methodology_master {
   width: 100vw;
   background-color: #050505;
   position: relative;
   color: #fff;
-  // NOTE: NO overflow:hidden here — it breaks position:sticky on descendants
+  // NOTE: NO overflow:hidden here â€” it breaks position:sticky on descendants
 }
 
 .fs_methodology_header {
@@ -2858,7 +2744,7 @@ $ar-sans: 'Syne', sans-serif;
   margin-top: 40px;
 }
 
-// ── Split layout ──────────────────────────────────────────────────────────────
+// â”€â”€ Split layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 .fs_split_container {
   display: flex;
@@ -2884,7 +2770,7 @@ $ar-sans: 'Syne', sans-serif;
   // sticky works because it scrolls relative to the nearest scroll ancestor
 }
 
-// ── Text step blocks ──────────────────────────────────────────────────────────
+// â”€â”€ Text step blocks â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 .fs_step_block {
   display: flex;
@@ -2945,7 +2831,7 @@ $ar-sans: 'Syne', sans-serif;
   max-width: 88%;
 }
 
-// ── Sticky image panel ────────────────────────────────────────────────────────
+// â”€â”€ Sticky image panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 .fs_sticky_wrapper {
   // GSAP ScrollTrigger pin manages the fixed position during scroll.
@@ -2995,7 +2881,7 @@ $ar-sans: 'Syne', sans-serif;
   transition: none; // GSAP owns transitions
 }
 
-// ── Mobile overrides ──────────────────────────────────────────────────────────
+// â”€â”€ Mobile overrides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @media (max-width: 900px) {
   .fs_split_container {
@@ -3060,7 +2946,7 @@ $ar-sans: 'Syne', sans-serif;
   }
 }
 
-// ─── CIRCUIT SECTION (Craft 03) ───────────────────────────────────────────────
+// â”€â”€â”€ CIRCUIT SECTION (Craft 03) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 // Token aliases for the component
 // --cs-bg:        #050505
@@ -3083,7 +2969,7 @@ $ar-sans: 'Syne', sans-serif;
   position: relative;
 }
 
-// ── Copy block ────────────────────────────────────────────────────────────────
+// â”€â”€ Copy block â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 .cs_copy {
   display: flex;
@@ -3144,7 +3030,7 @@ $ar-sans: 'Syne', sans-serif;
   line-height: 1.4;
 }
 
-// ── Panel ─────────────────────────────────────────────────────────────────────
+// â”€â”€ Panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 .cs_panel {
   position: relative;
@@ -3191,7 +3077,7 @@ $ar-sans: 'Syne', sans-serif;
   &--br { bottom: 12px; right: 12px; transform: scale(-1); }
 }
 
-// ── Status readout ────────────────────────────────────────────────────────────
+// â”€â”€ Status readout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 .cs_status {
   position: absolute;
@@ -3222,7 +3108,7 @@ $ar-sans: 'Syne', sans-serif;
   text-transform: lowercase;
 }
 
-// ── SVG diagram ───────────────────────────────────────────────────────────────
+// â”€â”€ SVG diagram â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 .cs_svg {
   position: absolute;
@@ -3258,7 +3144,7 @@ $ar-sans: 'Syne', sans-serif;
   }
 }
 
-// ── Tooltip ───────────────────────────────────────────────────────────────────
+// â”€â”€ Tooltip â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 .cs_tooltip {
   position: absolute;
@@ -3300,7 +3186,7 @@ $ar-sans: 'Syne', sans-serif;
   letter-spacing: 0.02em;
 }
 
-// ── Blinking dot indicator next to logo ────────────────────────────────────────
+// â”€â”€ Blinking dot indicator next to logo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @keyframes cs-heartbeat-blink {
   0%, 100% {
@@ -3327,7 +3213,7 @@ $ar-sans: 'Syne', sans-serif;
   }
 }
 
-// ── Mobile overrides ──────────────────────────────────────────────────────────
+// â”€â”€ Mobile overrides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @media (max-width: 860px) {
   .cs_section {
@@ -3344,7 +3230,7 @@ $ar-sans: 'Syne', sans-serif;
   // so we add a class-based approach + JS sets inline style on mount.
   // These rules reduce specificity; the hub label font we handle with a data attr.
   .cs_svg text.cs_node_label {
-    font-size: 11px; // leaf fallback — JS inline styles take precedence per node
+    font-size: 11px; // leaf fallback â€” JS inline styles take precedence per node
   }
 
   .cs_node--hub text.cs_node_label {
