@@ -1,0 +1,210 @@
+// ─── Rock Sequence – Redesigned with Luxury Background Marquee ────────────────
+//
+// Layout philosophy:
+//   Background Marquee: Low-opacity "CRAFT — PROCESS — INTENTION" slowly scrolling
+//   Stone owns the center viewport.
+//   Text lives bottom-left — present but not competing.
+//   Mono label acts as a chapter marker.
+//   Large serif body lines wipe in from below (clip-path reveal).
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Tokens ────────────────────────────────────────────────────────────────────
+$rs-bg:      #000000;
+$rs-fg:      #f0ece3;                       // warm off-white
+$rs-accent:  #b8956a;                       // warm amber — chapter marker
+$rs-mono:    'DM Mono', 'Space Mono', monospace;
+$rs-serif:   'Instrument Serif', Georgia, serif;
+
+// ── Section ───────────────────────────────────────────────────────────────────
+.rs_section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;          // GSAP pins to full viewport
+  background-color: $rs-bg;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+// ── Background Marquee ────────────────────────────────────────────────────────
+// Large, ultra-subtle luxury text scrolling continuously behind the rock
+.rs_marquee_wrapper {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  user-select: none;
+  opacity: 0.65;
+}
+
+.rs_marquee_track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.rs_marquee_content {
+  display: flex;
+  white-space: nowrap;
+  font-family: $rs-serif;
+  font-size: clamp(80px, 12vw, 170px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: rgba(240, 236, 227, 0.4);
+  -webkit-text-stroke: 1.5px rgba(240, 236, 227, 0.7);
+  animation: rs-marquee-loop 35s linear infinite;
+  will-change: transform;
+}
+
+@keyframes rs-marquee-loop {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+// ── Canvas ────────────────────────────────────────────────────────────────────
+// Sits above marquee (z-index 2).
+.rs_canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+  filter: contrast(1);
+  will-change: contents;
+}
+
+// ── Loader ────────────────────────────────────────────────────────────────────
+.rs_loader {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 48px;
+  background-color: $rs-bg;
+  pointer-events: none;
+}
+
+.rs_loader__bar {
+  width: clamp(160px, 20vw, 280px);
+  height: 1px;
+  background: rgba(240, 236, 227, 0.1);
+  overflow: hidden;
+}
+
+.rs_loader__fill {
+  height: 100%;
+  width: 0%;
+  background: rgba(240, 236, 227, 0.55);
+  animation: rs-progress-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes rs-progress-pulse {
+  0%   { width: 0%;   opacity: 1; }
+  50%  { width: 70%;  opacity: 1; }
+  100% { width: 100%; opacity: 0; }
+}
+
+// ── Text stage ────────────────────────────────────────────────────────────────
+// Full-viewport overlay — panels are positioned absolutely within it.
+.rs_text_stage {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+// ── Panel ─────────────────────────────────────────────────────────────────────
+.rs_panel {
+  position: absolute;
+  bottom: clamp(52px, 8vh, 96px);
+  left: clamp(36px, 6vw, 96px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.4vh, 18px);
+  max-width: clamp(280px, 46vw, 640px);
+  opacity: 0;                 // JS sets this — start hidden
+  will-change: opacity;
+  pointer-events: none;
+}
+
+// ── Chapter label ─────────────────────────────────────────────────────────────
+.rs_panel__label {
+  display: block;
+  font-family: $rs-mono;
+  font-size: clamp(10px, 0.85vw, 12px);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: $rs-accent;
+}
+
+// ── Lines container ───────────────────────────────────────────────────────────
+.rs_lines {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1px, 0.3vh, 5px);
+}
+
+// ── Per-line mask ─────────────────────────────────────────────────────────────
+.rs_line_wrap {
+  overflow: hidden;
+  padding-bottom: 0.1em;
+}
+
+// ── Per-line text (the animated element) ─────────────────────────────────────
+.rs_line_inner {
+  display: block;
+  font-family: $rs-serif;
+  font-style: italic;
+  font-size: clamp(26px, 3.6vw, 58px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  background: linear-gradient(120deg,
+      #F4D0A8 0%,
+      #ECA06A 28%,
+      #D97535 55%,
+      #C96121 75%,
+      #9B3E0E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: translateY(105%);  // initial hidden state
+  will-change: transform;
+}
+
+// ── Mobile ────────────────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .rs_panel {
+    left: 24px;
+    right: 24px;
+    bottom: clamp(72px, 12vh, 110px);
+    max-width: none;
+  }
+
+  .rs_line_inner {
+    font-size: clamp(22px, 6vw, 34px);
+  }
+
+  .rs_panel__label {
+    font-size: 10px;
+  }
+
+  .rs_marquee_content {
+    font-size: clamp(60px, 18vw, 120px);
+  }
+}
+
+@media (max-width: 480px) {
+  .rs_line_inner {
+    font-size: 20px;
+  }
+}

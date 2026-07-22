@@ -1,4 +1,4 @@
-﻿import { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -48,51 +48,95 @@ export default function MethodologySection() {
   const imgRefs = useRef<(HTMLImageElement | null)[]>([]);
   const indicatorRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  const activeStepRef = useRef<number>(-1);
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Activate a step: dim/highlight text, pop indicator, crossfade image
+      // Activate step logic: highlight text, show indicator, crossfade sticky image
       const activateStep = (index: number) => {
-        // 1. Text opacity
-        gsap.to(stepRefs.current, { opacity: 0.2, duration: 0.5, ease: 'power2.out' });
-        gsap.to(stepRefs.current[index], { opacity: 1, duration: 0.5, ease: 'power2.out' });
+        if (activeStepRef.current === index) return;
+        activeStepRef.current = index;
+
+        // 1. Text step opacity
+        stepRefs.current.forEach((step, i) => {
+          if (!step) return;
+          gsap.to(step, {
+            opacity: i === index ? 1 : 0.2,
+            duration: 0.4,
+            ease: 'power2.out',
+            overwrite: 'auto',
+          });
+        });
 
         // 2. Gold square indicator
-        gsap.to(indicatorRefs.current, { scale: 0, opacity: 0, duration: 0.3, ease: 'power2.in' });
-        gsap.to(indicatorRefs.current[index], { scale: 1, opacity: 1, duration: 0.45, ease: 'back.out(1.8)' });
+        indicatorRefs.current.forEach((ind, i) => {
+          if (!ind) return;
+          if (i === index) {
+            gsap.to(ind, {
+              scale: 1,
+              opacity: 1,
+              duration: 0.4,
+              ease: 'back.out(1.8)',
+              overwrite: 'auto',
+            });
+          } else {
+            gsap.to(ind, {
+              scale: 0,
+              opacity: 0,
+              duration: 0.25,
+              ease: 'power2.in',
+              overwrite: 'auto',
+            });
+          }
+        });
 
-        // 3. Cinematic crossfade
-        gsap.to(imgRefs.current, { opacity: 0, scale: 1.06, duration: 0.65, ease: 'power2.inOut' });
-        gsap.to(imgRefs.current[index], { opacity: 1, scale: 1, duration: 0.65, ease: 'power2.out' });
+        // 3. Cinematic image crossfade
+        imgRefs.current.forEach((img, i) => {
+          if (!img) return;
+          if (i === index) {
+            gsap.to(img, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.55,
+              ease: 'power2.out',
+              overwrite: 'auto',
+            });
+          } else {
+            gsap.to(img, {
+              opacity: 0,
+              scale: 1.05,
+              duration: 0.55,
+              ease: 'power2.out',
+              overwrite: 'auto',
+            });
+          }
+        });
       };
 
-      // Boot state
-      activateStep(0);
+      // Initial boot state setup
+      gsap.set(imgRefs.current, { opacity: 0, scale: 1.05 });
+      gsap.set(stepRefs.current, { opacity: 0.2 });
+      gsap.set(indicatorRefs.current, { scale: 0, opacity: 0 });
 
-      // GSAP PIN - required for Lenis compatibility.
-      // CSS position:sticky breaks because Lenis uses transform:translateY
-      // on the scroll container instead of native scrollTop.
-      ScrollTrigger.create({
-        trigger: stickyRef.current,
-        start: 'top 20%',
-        endTrigger: leftColRef.current,
-        end: 'bottom 80%',
-        pin: true,
-        pinSpacing: false,
-      });
+      // Activate initial step 0
+      activateStep(0);
 
       // Per-step ScrollTriggers
       stepRefs.current.forEach((step, i) => {
         if (!step) return;
         ScrollTrigger.create({
           trigger: step,
-          start: 'top 58%',
-          end: 'bottom 58%',
-          onEnter: () => activateStep(i),
-          onEnterBack: () => activateStep(i),
+          start: 'top 55%',
+          end: 'bottom 45%',
+          onToggle: (self) => {
+            if (self.isActive) {
+              activateStep(i);
+            }
+          },
         });
       });
 
-      // Double-RAF refresh after Lenis and images settle
+      // Refresh ScrollTrigger once DOM layout settles
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           ScrollTrigger.refresh();
@@ -105,27 +149,27 @@ export default function MethodologySection() {
 
   return (
     <section className="fs_methodology_master" ref={masterRef} id="methodology">
-
       <div className="fs_methodology_header">
-        <p className="fs_mh_eyebrow">METHODOLOGY</p>
         <h2 className="fs_mh_title">How we work.</h2>
-        <div className="fs_mh_line" />
       </div>
 
       <div className="fs_split_container">
-
         <div className="fs_split_left" ref={leftColRef}>
           {PROCESS_STEPS.map((step, index) => (
             <div
               className="fs_step_block"
               key={step.id}
-              ref={el => { stepRefs.current[index] = el; }}
+              ref={(el) => {
+                stepRefs.current[index] = el;
+              }}
             >
               <div className="fs_step_meta">
                 <span className="fs_step_num">{step.id}</span>
                 <div
                   className="fs_step_indicator"
-                  ref={el => { indicatorRefs.current[index] = el; }}
+                  ref={(el) => {
+                    indicatorRefs.current[index] = el;
+                  }}
                 />
               </div>
 
@@ -139,7 +183,6 @@ export default function MethodologySection() {
 
         <div className="fs_split_right">
           <div className="fs_sticky_wrapper" ref={stickyRef}>
-
             <div className="fs_sticky_corner fs_sticky_corner--tl" aria-hidden="true" />
             <div className="fs_sticky_corner fs_sticky_corner--tr" aria-hidden="true" />
             <div className="fs_sticky_corner fs_sticky_corner--bl" aria-hidden="true" />
@@ -151,12 +194,13 @@ export default function MethodologySection() {
                 src={step.img}
                 alt={step.title}
                 className="fs_sticky_img"
-                ref={el => { imgRefs.current[index] = el; }}
+                ref={(el) => {
+                  imgRefs.current[index] = el;
+                }}
               />
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );

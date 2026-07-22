@@ -383,13 +383,6 @@ $h-dark: #0C0C0C;
 
     em {
       font-style: normal;
-      color: #fff;
-      text-shadow:
-        0 0 6px rgba(255, 255, 255, 0.5),
-        0 0 15px rgba(255, 245, 220, 0.3),
-        4px 0 35px rgba(255, 210, 130, 0.1),
-        6px 0 60px rgba(220, 165, 70, 0.0),
-        8px 0 100px rgba(180, 120, 30, 0.10);
     }
   }
 
@@ -890,6 +883,7 @@ $h-dark: #0C0C0C;
 
 .fs_curtain_top {
   top: 0;
+
   // Hair-thin decorative line at the seam
   &::after {
     content: '';
@@ -904,6 +898,7 @@ $h-dark: #0C0C0C;
 
 .fs_curtain_bot {
   bottom: 0;
+
   &::before {
     content: '';
     position: absolute;
@@ -954,14 +949,14 @@ $h-dark: #0C0C0C;
 }
 
 // â”€â”€â”€ WORKS / IMPRINTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-$pw-bg:        #050505;
-$pw-fg:        #F5F1E8;
-$pw-fg-dim:    rgba(245, 241, 232, 0.45);
-$pw-fg-muted:  rgba(245, 241, 232, 0.28);
-$pw-accent:    #C96121;
-$pw-line:      rgba(245, 241, 232, 0.10);
-$pw-mono:      'Space Mono', monospace;
-$pw-serif:     'Instrument Serif', Georgia, serif;
+$pw-bg: #050505;
+$pw-fg: #F5F1E8;
+$pw-fg-dim: rgba(245, 241, 232, 0.45);
+$pw-fg-muted: rgba(245, 241, 232, 0.28);
+$pw-accent: #C96121;
+$pw-line: rgba(245, 241, 232, 0.10);
+$pw-mono: 'Space Mono', monospace;
+$pw-serif: 'Instrument Serif', Georgia, serif;
 $pw-ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
@@ -971,7 +966,7 @@ $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   width: 100%;
   background-color: $pw-bg;
   color: $pw-fg;
-  padding: 120px clamp(28px, 6.5vw, 120px) 100px;
+  padding: 0px clamp(28px, 6.5vw, 120px) 100px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -997,14 +992,12 @@ $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   margin: 0 auto 56px auto;
   max-width: 18ch;
   // Flesh-orange gradient: peach → amber → accent → burnt sienna
-  background: linear-gradient(
-    120deg,
-    #F4D0A8 0%,
-    #ECA06A 28%,
-    #D97535 55%,
-    #C96121 75%,
-    #9B3E0E 100%
-  );
+  background: linear-gradient(120deg,
+      #F4D0A8 0%,
+      #ECA06A 28%,
+      #D97535 55%,
+      #C96121 75%,
+      #9B3E0E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1016,21 +1009,21 @@ $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 .pw_grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: clamp(20px, 3vw, 48px);
+  column-gap: clamp(24px, 3.5vw, 52px);
   align-items: start;
 }
 
 .pw_col {
   display: flex;
   flex-direction: column;
-  gap: 160px;
+  gap: clamp(48px, 6.5vw, 80px);
 }
 
 .pw_col--right {
-  margin-top: clamp(60px, 10vw, 140px);
+  margin-top: clamp(48px, 6.5vw, 80px);
 }
 
-// â”€â”€ Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Card ─────────────────────────────────────────────────────────────────────
 
 .pw_card {
   display: flex;
@@ -1063,17 +1056,18 @@ $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 }
 
-// â”€â”€ Image wrap â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Image wrap ───────────────────────────────────────────────────────────────
 
 .pw_img_wrap {
   position: relative;
   width: 100%;
   overflow: hidden;
   background-color: #111;
-  height: clamp(260px, 36vw, 520px);
+  border-radius: 8px;
+  height: clamp(300px, 34vw, 480px);
 
   .pw_card--tall & {
-    height: clamp(340px, 48vw, 680px);
+    height: clamp(340px, 40vw, 560px);
   }
 }
 
@@ -1106,12 +1100,10 @@ $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 .pw_img_hover {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.72) 0%,
-    rgba(0, 0, 0, 0.10) 60%,
-    transparent 100%
-  );
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.10) 60%,
+      transparent 100%);
   opacity: 0;
   transition: opacity 0.5s $pw-ease-smth;
   z-index: 2;
@@ -2378,25 +2370,71 @@ $ar-sans: 'Syne', sans-serif;
 // â”€â”€â”€ CINEMATIC PROCESS SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 // -- Keyframe Animations ------------------------------------------------------
-@keyframes fs-spin         { 100% { transform: rotate(360deg); } }
-@keyframes fs-spin-reverse { 100% { transform: rotate(-360deg); } }
-@keyframes fs-pulse {
-  0%, 100% { transform: scale(1);    opacity: 1;   }
-  50%       { transform: scale(1.06); opacity: 0.75; }
-}
-@keyframes fs-float {
-  0%, 100% { transform: translateY(0);     }
-  50%       { transform: translateY(-18px); }
-}
-@keyframes fs-icon-glow {
-  0%, 100% { filter: drop-shadow(0 0 12px rgba(249, 193, 118, 0.15)); }
-  50%       { filter: drop-shadow(0 0 28px rgba(249, 193, 118, 0.35)); }
+@keyframes fs-spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.fs_anim_spin         { animation: fs-spin 20s linear infinite; }
-.fs_anim_spin_reverse { animation: fs-spin-reverse 15s linear infinite; }
-.fs_anim_pulse        { animation: fs-pulse 4s ease-in-out infinite; }
-.fs_anim_float        { animation: fs-float 6s ease-in-out infinite; }
+@keyframes fs-spin-reverse {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes fs-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.06);
+    opacity: 0.75;
+  }
+}
+
+@keyframes fs-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-18px);
+  }
+}
+
+@keyframes fs-icon-glow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 12px rgba(249, 193, 118, 0.15));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 28px rgba(249, 193, 118, 0.35));
+  }
+}
+
+.fs_anim_spin {
+  animation: fs-spin 20s linear infinite;
+}
+
+.fs_anim_spin_reverse {
+  animation: fs-spin-reverse 15s linear infinite;
+}
+
+.fs_anim_pulse {
+  animation: fs-pulse 4s ease-in-out infinite;
+}
+
+.fs_anim_float {
+  animation: fs-float 6s ease-in-out infinite;
+}
 
 // -- Master Section -----------------------------------------------------------
 .fs_process_master {
@@ -2717,6 +2755,10 @@ $ar-sans: 'Syne', sans-serif;
 
 .fs_methodology_header {
   padding: 10vh 5vw 0 5vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .fs_mh_eyebrow {
@@ -2726,15 +2768,27 @@ $ar-sans: 'Syne', sans-serif;
   color: #F9C176;
   margin: 0 0 24px 0;
   opacity: 0.75;
+  text-align: center;
 }
 
 .fs_mh_title {
   font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
   font-size: clamp(3rem, 6vw, 6.5rem);
   font-weight: 400;
-  margin: 0;
+  margin: 0 auto;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  text-align: center;
+  background: linear-gradient(120deg,
+      #F4D0A8 0%,
+      #ECA06A 28%,
+      #D97535 55%,
+      #C96121 75%,
+      #9B3E0E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .fs_mh_line {
@@ -2752,13 +2806,13 @@ $ar-sans: 'Syne', sans-serif;
   padding: 0 5vw;
   box-sizing: border-box;
   position: relative;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .fs_split_left {
   width: 50%;
   padding-right: 5vw;
-  padding-top: 10vh;    // visual breathing room before first step
+  padding-top: 10vh; // visual breathing room before first step
   padding-bottom: 20vh;
   box-sizing: border-box;
 }
@@ -2766,11 +2820,9 @@ $ar-sans: 'Syne', sans-serif;
 .fs_split_right {
   width: 50%;
   position: relative;
-  // The parent (.fs_split_right) must NOT have overflow:hidden
-  // sticky works because it scrolls relative to the nearest scroll ancestor
 }
 
-// â”€â”€ Text step blocks â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Text step blocks ─────────────────────────────────────────────────────────
 
 .fs_step_block {
   display: flex;
@@ -2831,13 +2883,12 @@ $ar-sans: 'Syne', sans-serif;
   max-width: 88%;
 }
 
-// â”€â”€ Sticky image panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Sticky image panel ───────────────────────────────────────────────────────
 
 .fs_sticky_wrapper {
-  // GSAP ScrollTrigger pin manages the fixed position during scroll.
-  // margin-top aligns the panel at 20vh from viewport top (matching GSAP start: 'top 20%').
-  // This ensures the panel appears vertically centered, not pushed to the top.
-  margin-top: 20vh;
+  position: sticky;
+  top: 18vh;
+  margin-top: 10vh;
   height: 60vh;
   width: 100%;
   clip-path: inset(0 round 6px);
@@ -2858,13 +2909,38 @@ $ar-sans: 'Syne', sans-serif;
       background-color: rgba(#F9C176, 0.55);
     }
 
-    &::before { width: 100%; height: 1.5px; }
-    &::after  { width: 1.5px; height: 100%; }
+    &::before {
+      width: 100%;
+      height: 1.5px;
+    }
 
-    &--tl { top: 12px; left: 12px; }
-    &--tr { top: 12px; right: 12px; transform: scaleX(-1); }
-    &--bl { bottom: 12px; left: 12px; transform: scaleY(-1); }
-    &--br { bottom: 12px; right: 12px; transform: scale(-1); }
+    &::after {
+      width: 1.5px;
+      height: 100%;
+    }
+
+    &--tl {
+      top: 12px;
+      left: 12px;
+    }
+
+    &--tr {
+      top: 12px;
+      right: 12px;
+      transform: scaleX(-1);
+    }
+
+    &--bl {
+      bottom: 12px;
+      left: 12px;
+      transform: scaleY(-1);
+    }
+
+    &--br {
+      bottom: 12px;
+      right: 12px;
+      transform: scale(-1);
+    }
   }
 }
 
@@ -3071,10 +3147,28 @@ $ar-sans: 'Syne', sans-serif;
     left: 0;
   }
 
-  &--tl { top: 12px; left: 12px; }
-  &--tr { top: 12px; right: 12px; transform: scaleX(-1); }
-  &--bl { bottom: 12px; left: 12px; transform: scaleY(-1); }
-  &--br { bottom: 12px; right: 12px; transform: scale(-1); }
+  &--tl {
+    top: 12px;
+    left: 12px;
+  }
+
+  &--tr {
+    top: 12px;
+    right: 12px;
+    transform: scaleX(-1);
+  }
+
+  &--bl {
+    bottom: 12px;
+    left: 12px;
+    transform: scaleY(-1);
+  }
+
+  &--br {
+    bottom: 12px;
+    right: 12px;
+    transform: scale(-1);
+  }
 }
 
 // â”€â”€ Status readout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -3189,10 +3283,13 @@ $ar-sans: 'Syne', sans-serif;
 // â”€â”€ Blinking dot indicator next to logo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @keyframes cs-heartbeat-blink {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.35;
     filter: drop-shadow(0 0 1px rgba(201, 97, 33, 0.4));
   }
+
   50% {
     opacity: 1;
     filter: drop-shadow(0 0 5px rgba(201, 97, 33, 1)) drop-shadow(0 0 10px rgba(201, 97, 33, 0.8));
@@ -3206,6 +3303,7 @@ $ar-sans: 'Syne', sans-serif;
 
 // Logo group hover styling
 .cs_node--hub {
+
   &:hover .cs_logo_group,
   &:focus-visible .cs_logo_group {
     opacity: 1 !important;
