@@ -80,7 +80,7 @@ export default function WorksSection() {
     return () => ctx.revert();
   }, []);
 
-  const leftProjects  = PROJECTS.filter((_, i) => i % 2 === 0);
+  const leftProjects = PROJECTS.filter((_, i) => i % 2 === 0);
   const rightProjects = PROJECTS.filter((_, i) => i % 2 !== 0);
 
   return (

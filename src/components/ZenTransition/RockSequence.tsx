@@ -19,7 +19,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useImageSequence, TOTAL_FRAMES } from '../../hooks/useImageSequence';
 import './RockSequence.scss';
 
-gsap.registerPlugin(ScrollTrigger);
+
 
 // ── Editorial copy ────────────────────────────────────────────────────────────
 const TEXT_PANELS = [
@@ -172,6 +172,12 @@ export default function RockSequence() {
           end: '+=300%',
           anticipatePin: 1,
 
+          onRefresh: () => {
+            // Once GSAP has inserted the pin spacer into the DOM,
+            // signal AboutSection that it can safely calculate its positions
+            window.dispatchEvent(new CustomEvent('rock-sequence-ready'));
+          },
+
           onUpdate: (self) => {
             const p = self.progress; // 0 → 1
 
@@ -289,7 +295,7 @@ export default function RockSequence() {
         {TEXT_PANELS.map((panel, i) => (
           <div
             key={panel.id}
-            ref={(el) => (panelRefs.current[i] = el)}
+            ref={(el) => { panelRefs.current[i] = el; }}
             className="rs_panel"
           >
             <span className="rs_panel__label">{panel.label}</span>
@@ -298,7 +304,7 @@ export default function RockSequence() {
               {panel.lines.map((line, li) => (
                 <div key={li} className="rs_line_wrap">
                   <span
-                    ref={(el) => (lineRefs.current[i][li] = el)}
+                    ref={(el) => { lineRefs.current[i][li] = el; }}
                     className="rs_line_inner"
                   >
                     {line}

@@ -77,25 +77,24 @@ const FRAG = `
   }
 `;
 
-const GRID_W  = 32;
-const GRID_H  = 32;
-const SIZE    = GRID_W * GRID_H;
+const GRID_W = 32;
+const GRID_H = 32;
+const SIZE = GRID_W * GRID_H;
 const DAMPING = 0.90;
-const RADIUS  = 5;
+const RADIUS = 5;
 
 export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 }: GLCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const wrapRef      = useRef<HTMLDivElement>(null);
-  const titleRef     = useRef<HTMLHeadingElement>(null);
-  const rafRef       = useRef<number>(0);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
     const container = containerRef.current;
-    const wrapper   = wrapRef.current;
+    const wrapper = wrapRef.current;
     if (!container || !wrapper) return;
 
     // ── Scene ─────────────────────────────────────────────────────────────────
-    const scene  = new THREE.Scene();
+    const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
     camera.position.z = 1;
 
@@ -106,9 +105,9 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
 
     // ── Uniforms ──────────────────────────────────────────────────────────────
     const uniforms = {
-      uTexture:         { value: new THREE.Texture() },
-      uDataTexture:     { value: new THREE.Texture() },
-      uImageAspect:     { value: 1.0 },
+      uTexture: { value: new THREE.Texture() },
+      uDataTexture: { value: new THREE.Texture() },
+      uImageAspect: { value: 1.0 },
       uContainerAspect: { value: wrapper.clientWidth / wrapper.clientHeight },
     };
 
@@ -148,20 +147,20 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
     // ── Mouse tracking ────────────────────────────────────────────────────────
     const mouse = { x: 0, y: 0, prevX: 0, prevY: 0, inside: false };
     const lerpMouse = { x: 0, y: 0 };
-    const rawMouse  = { x: 0, y: 0 };
+    const rawMouse = { x: 0, y: 0 };
     let titleStrength = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       mouse.x = (e.clientX - rect.left) / rect.width;
       mouse.y = 1.0 - (e.clientY - rect.top) / rect.height;
-      rawMouse.x = mouse.x *  2 - 1;
-      rawMouse.y = mouse.y *  2 - 1;
+      rawMouse.x = mouse.x * 2 - 1;
+      rawMouse.y = mouse.y * 2 - 1;
       mouse.inside = true;
     };
     const handleMouseLeave = () => { mouse.inside = false; };
 
-    container.addEventListener('mousemove',  handleMouseMove, { passive: true });
+    container.addEventListener('mousemove', handleMouseMove, { passive: true });
     container.addEventListener('mouseleave', handleMouseLeave, { passive: true });
 
     // ── RAF loop ──────────────────────────────────────────────────────────────
@@ -173,7 +172,7 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
 
       // Damp all cells
       for (let i = 0; i < SIZE; i++) {
-        pixelData[i * 4]     *= DAMPING;
+        pixelData[i * 4] *= DAMPING;
         pixelData[i * 4 + 1] *= DAMPING;
       }
 
@@ -186,9 +185,9 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
           for (let x = Math.max(0, gx - RADIUS); x < Math.min(GRID_W, gx + RADIUS); x++) {
             const dist = Math.hypot(x - gx, y - gy);
             if (dist < RADIUS) {
-              const idx     = 4 * (x + y * GRID_W);
+              const idx = 4 * (x + y * GRID_W);
               const falloff = 1.0 - dist / RADIUS;
-              pixelData[idx]     += vX * 25.0 * falloff;
+              pixelData[idx] += vX * 25.0 * falloff;
               pixelData[idx + 1] += vY * 25.0 * falloff;
             }
           }
@@ -207,12 +206,7 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
       lerpMouse.x += (rawMouse.x - lerpMouse.x) * lf;
       lerpMouse.y += (rawMouse.y - lerpMouse.y) * lf;
       const targetStr = mouse.inside ? 1.0 : 0.0;
-      titleStrength  += (targetStr - titleStrength) * (lf * 0.85);
-
-      if (titleRef.current) {
-        titleRef.current.style.transform =
-          `translate(${lerpMouse.x * 8 * titleStrength}px, ${lerpMouse.y * -5 * titleStrength}px)`;
-      }
+      titleStrength += (targetStr - titleStrength) * (lf * 0.85);
 
       renderer.render(scene, camera);
     }
@@ -232,7 +226,7 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
     return () => {
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener('resize', handleResize);
-      container.removeEventListener('mousemove',  handleMouseMove);
+      container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseleave', handleMouseLeave);
       geometry.dispose();
       material.dispose();
@@ -267,7 +261,7 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
         <div className="glc_meta">
           <span className="glc_num">{num}</span>
           <div className="glc_body">
-            <h3 className="glc_title" ref={titleRef}>{title}</h3>
+            <h3 className="glc_title" >{title}</h3>
             <div className="glc_tags">
               {tags.map(tag => <span key={tag} className="glc_tag">{tag}</span>)}
             </div>

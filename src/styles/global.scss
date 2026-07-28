@@ -83,7 +83,7 @@ html.lenis body {
 .app-content {
   position: relative;
   z-index: 10;
-  background-color: #050505;
+  background-color: #000;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -424,7 +424,7 @@ $h-dark: #0C0C0C;
   left: 0px;
   width: 100%;
   height: 100%;
-  background-color: #050505;
+  background-color: #000;
   z-index: 9998;
   pointer-events: none;
   display: flex;
@@ -555,7 +555,7 @@ $h-dark: #0C0C0C;
   position: absolute;
   left: 0px;
   width: 100%;
-  background-color: #050505;
+  background-color: #000;
 }
 
 .fs_door_top {
@@ -645,7 +645,7 @@ $h-dark: #0C0C0C;
 // â”€â”€â”€ MANIFESTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .manifesto-section {
   position: relative;
-  background-color: #050505;
+  background-color: #000;
   padding: 48px 0;
   width: 100%;
   display: flex;
@@ -818,7 +818,7 @@ $h-dark: #0C0C0C;
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: #050505;
+  background-color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -949,7 +949,7 @@ $h-dark: #0C0C0C;
 }
 
 // â”€â”€â”€ WORKS / IMPRINTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-$pw-bg: #050505;
+$pw-bg: #000;
 $pw-fg: #F5F1E8;
 $pw-fg-dim: rgba(245, 241, 232, 0.45);
 $pw-fg-muted: rgba(245, 241, 232, 0.28);
@@ -1223,13 +1223,18 @@ $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   margin-top: 100px;
   padding-top: 60px;
   border-top: 1px solid $pw-line;
+  display: flex;
+  justify-content: center;
 }
 
 .pw_footer_inner {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 20px;
   max-width: 560px;
+  margin: 0 auto;
 }
 
 .pw_footer_label {
@@ -1376,7 +1381,7 @@ $ab-sans: 'DM Sans', sans-serif;
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  background: #050505;
+  background: #000;
   color: $ab-ink;
   isolation: isolate;
   padding: 120px 0 180px;
@@ -1497,7 +1502,7 @@ $ab-sans: 'DM Sans', sans-serif;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  background: #050505;
+  background: #000;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -1969,7 +1974,7 @@ $ab-sans: 'DM Sans', sans-serif;
 }
 
 // â”€â”€â”€ CONTACT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-$ct-bg: #050505;
+$ct-bg: #000;
 $ct-golden: #d4a757;
 $ct-text: #f5f1e8;
 $ct-muted: rgba(207, 203, 194, 0.4);
@@ -2092,7 +2097,7 @@ $ct-muted: rgba(207, 203, 194, 0.4);
 }
 
 // â”€â”€â”€ ARCHIVE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-$ar-bg: #050505;
+$ar-bg: #000;
 $ar-fg: #FFFFFF;
 $ar-accent: #C96121;
 $ar-gold: #F9C176;
@@ -2441,7 +2446,7 @@ $ar-sans: 'Syne', sans-serif;
   position: relative;
   width: 100vw;
   height: 100vh;
-  background-color: #050505;
+  background-color: #000;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -2747,10 +2752,10 @@ $ar-sans: 'Syne', sans-serif;
 
 .fs_methodology_master {
   width: 100vw;
-  background-color: #050505;
+  background-color: #000;
   position: relative;
   color: #fff;
-  // NOTE: NO overflow:hidden here â€” it breaks position:sticky on descendants
+  margin-bottom: 100px;
 }
 
 .fs_methodology_header {
@@ -3025,7 +3030,7 @@ $ar-sans: 'Syne', sans-serif;
 // â”€â”€â”€ CIRCUIT SECTION (Craft 03) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 // Token aliases for the component
-// --cs-bg:        #050505
+// --cs-bg:        #000
 // --cs-ink:       #f1ede6
 // --cs-ink-dim:   #8a8578
 // --cs-accent:    #c96121
@@ -3035,7 +3040,7 @@ $ar-sans: 'Syne', sans-serif;
 
 .cs_section {
   width: 100%;
-  background-color: #050505;
+  background-color: #000;
   color: #f1ede6;
   padding: 120px clamp(24px, 6vw, 100px) 100px;
   box-sizing: border-box;

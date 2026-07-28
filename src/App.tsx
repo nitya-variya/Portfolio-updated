@@ -1,9 +1,9 @@
 import Hero from './components/Hero/Hero';
-import About from './components/About/About';
 import Footer from './components/Footer/Footer';
 import Manifesto from './components/Manifesto/Manifesto';
 import RockSequence from './components/ZenTransition/RockSequence';
 import WorksSection from './components/Works/Works';
+import AboutSection from './components/AboutSection/AboutSection';
 import MethodologySection from './components/Process/MethodologySection';
 import SmoothScroll from './components/SmoothScroll';
 
@@ -18,7 +18,7 @@ function App() {
             <RockSequence />
             <WorksSection />
             <MethodologySection />
-            {/* <About /> */}
+            <AboutSection />
           </div>
           <Footer />
         </main>
