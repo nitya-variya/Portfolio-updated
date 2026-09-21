@@ -25,31 +25,30 @@ import './RockSequence.scss';
 const TEXT_PANELS = [
   {
     id: 'begin',
-    label: 'Raw.',
+    label: 'Core.',
     lines: [
-      "I don't start with polish.",
-      "I start with an honest problem.",
+      "Layouts need a solid backbone.",
+      "Clean frameworks, zero visual debt.",
     ],
     enterAt: 0.0,
     exitAt: 0.34,
   },
   {
     id: 'middle',
-    label: 'Refined.',
+    label: 'Motion.',
     lines: [
-      "Then I shape it —",
-      "obsessively, quietly,",
-      "until it feels inevitable.",
+      "Micro-interactions build character.",
+      "Giving pixels weight and inertia.",
     ],
     enterAt: 0.34,
     exitAt: 0.68,
   },
   {
     id: 'end',
-    label: 'Done.',
+    label: 'Output.',
     lines: [
-      "The result speaks",
-      "without explanation.",
+      "Premium frontend execution",
+      "that performs and scales flawlessly.",
     ],
     enterAt: 0.68,
     exitAt: 1.0,
@@ -104,7 +103,7 @@ export default function RockSequence() {
     Array.from({ length: TEXT_PANELS.length }, () => [])
   );
 
-  const { imagesRef, isReady } = useImageSequence();
+  const { imagesRef, isReady, isInitialReady } = useImageSequence();
   const lastFrameRef = useRef<number>(-1);
 
   // ── DPR-aware canvas resize ───────────────────────────────────────────────
@@ -123,7 +122,7 @@ export default function RockSequence() {
 
   // ── Main effect ───────────────────────────────────────────────────────────
   useLayoutEffect(() => {
-    if (!isReady) return;
+    if (!isInitialReady) return;
 
     const section = sectionRef.current;
     const canvas  = canvasRef.current;
@@ -257,7 +256,7 @@ export default function RockSequence() {
       window.removeEventListener('resize', handleResize);
       gsapCtx.revert();
     };
-  }, [isReady, imagesRef, resizeCanvas]);
+  }, [isInitialReady, imagesRef, resizeCanvas]);
 
   return (
     <section

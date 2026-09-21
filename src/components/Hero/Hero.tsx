@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { useLenis } from "lenis/react";
 import { useHeroAnimation } from "../../hooks/useHeroAnimation";
@@ -16,9 +16,8 @@ const NAV_RIGHT = [
 ];
 
 const SOCIAL = [
-  { label: "Email", href: "mailto:hello@nitya.dev" },
-  { label: "In", href: "#" },
-  { label: "X", href: "#" },
+  { label: "Email", href: "mailto:nityavariya045@gmail.com" },
+  { label: "In", href: "https://www.linkedin.com/in/nitya-web-designer/" },
 ];
 
 const VIDEO_SRC = video;
@@ -59,6 +58,29 @@ export default function Hero() {
   // Get lenis instance for scroll locking
   const lenis = useLenis();
 
+  // ── Mobile nav menu ────────────────────────────────────────────
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = useCallback(() => {
+    setMobileMenuOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        lenis?.stop();
+        document.body.style.overflow = "hidden";
+      } else {
+        lenis?.start();
+        document.body.style.overflow = "";
+      }
+      return next;
+    });
+  }, [lenis]);
+
+  const closeMobileMenu = useCallback(() => {
+    setMobileMenuOpen(false);
+    lenis?.start();
+    document.body.style.overflow = "";
+  }, [lenis]);
+
   // ── GSAP SVG-Logo-Reveal + FLIP Preloader ─────────────────────
   useLayoutEffect(() => {
     const loaderBg = loaderBgRef.current;
@@ -84,7 +106,7 @@ export default function Hero() {
     if (headerRef.current) {
       gsap.set(headerRef.current, { autoAlpha: 1, y: 0 });
     }
-    gsap.set([".hero__nav-link", ".hero__wordmark", ".hero__social"], { opacity: 0 });
+    gsap.set([".hero__nav-link", ".hero__wordmark", ".hero__social-link", ".hero__social:not(.mobile-menu-btn)"], { opacity: 0 });
 
     // ── 1. Measure the FLIP destination ────────────────────────────
     const spacerRect = logoSpacer.getBoundingClientRect();
@@ -102,27 +124,27 @@ export default function Hero() {
     gsap.set(logoWrap, { x: 0, y: 0, scale: 1, transformOrigin: "center center" });
 
     // ── 3. Timing constants ────────────────────────────────────────
-    const REVEAL = 0.7;
-    const SQUARE = 0.35;
+    const REVEAL = 0.32;
+    const SQUARE = 0.22;
     const TOTAL = REVEAL * 3 + SQUARE;
 
     // ── 4. Build master timeline ───────────────────────────────────
     const tl = gsap.timeline({
       onComplete: () => {
         // ── FLIP / RELEASE ─────────────────────────────────────────
-        gsap.to(counterWrap, { opacity: 0, duration: 0.4, ease: "power2.out" });
+        gsap.to(counterWrap, { opacity: 0, duration: 0.3, ease: "power2.out" });
 
         gsap.to(logoWrap, {
           x: flipX,
           y: flipY,
           scale: flipScale,
-          duration: 1.5,
-          ease: "expo.inOut",
+          duration: 0.95,
+          ease: "power3.inOut",
         });
 
         gsap.to(loaderBg, {
           opacity: 0,
-          duration: 1.2,
+          duration: 0.7,
           ease: "power2.inOut",
           onComplete: () => {
             loaderBg.style.display = "none";
@@ -132,12 +154,12 @@ export default function Hero() {
           },
         });
 
-        gsap.to([".hero__nav-link", ".hero__wordmark", ".hero__social"], {
+        gsap.to([".hero__nav-link", ".hero__wordmark", ".hero__social-link", ".hero__social:not(.mobile-menu-btn)"], {
           opacity: 1,
           pointerEvents: "auto",
-          duration: 0.8,
-          stagger: 0.1,
-          delay: 0.6,
+          duration: 0.6,
+          stagger: 0.06,
+          delay: 0.35,
           ease: "power2.out",
         });
       },
@@ -206,6 +228,23 @@ export default function Hero() {
     };
   }, [nameRef]);
 
+  // ── Header scroll background for mobile ───────────────────────
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const handleScroll = () => {
+      if (window.scrollY > 60) {
+        header.classList.add('is-scrolled');
+      } else {
+        header.classList.remove('is-scrolled');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [headerRef]);
+
   return (
     <section
       ref={heroRef}
@@ -255,6 +294,35 @@ export default function Hero() {
         </svg>
       </div>
 
+      {/* ── Mobile Nav Overlay ─────────────────────────────────── */}
+      <div
+        className={`mobile-nav-overlay${mobileMenuOpen ? " is-open" : ""}`}
+        aria-hidden={!mobileMenuOpen}
+        role="dialog"
+        aria-label="Mobile navigation"
+        id="mobile-nav"
+      >
+        {[...NAV_LEFT, ...NAV_RIGHT].map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            onClick={closeMobileMenu}
+          >
+            {link.label}
+          </a>
+        ))}
+        {SOCIAL.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            onClick={closeMobileMenu}
+            style={{ fontSize: "clamp(1rem, 5vw, 1.4rem)", opacity: 0.45, letterSpacing: "0.08em" }}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
       {/* ── Background Video ──────────────────────────────────── */}
       <div ref={videoRef} className="hero__video-container">
         <video
@@ -297,6 +365,20 @@ export default function Hero() {
             </a>
           ))}
         </div>
+
+        {/* Mobile hamburger button */}
+        <button
+          className={`mobile-menu-btn${mobileMenuOpen ? " is-open" : ""}`}
+          onClick={toggleMobileMenu}
+          aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-nav"
+          style={{ opacity: 1 }}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </header>
 
       {/* ── Bottom: Headline + Subheadline ────────────────────── */}
@@ -305,9 +387,9 @@ export default function Hero() {
           <h1 ref={nameRef} className="hero__name hero-name">
             <span ref={floatRef} className="hero-name__float">
               <span className="hero__headline">
-                <span className="hero__headline-line">Exploring New</span>
+                <span className="hero__headline-line">Building Web</span>
                 <span className="hero__headline-line">
-                  Realms Through <em>Code</em>
+                  Experiences With <em>Weight</em>
                 </span>
               </span>
             </span>
@@ -318,8 +400,7 @@ export default function Hero() {
         <div ref={subtitleRef} className="hero__designation">
           <span className="hero__designation-dash" />
           <span className="hero__designation-text">
-            Helping ambitious brands transform ideas into digital experiences
-            that people remember.
+            Code that feels physical. Translating high-end design concepts into interactive, premium frontends.
           </span>
           <span className="hero__designation-dash" />
         </div>

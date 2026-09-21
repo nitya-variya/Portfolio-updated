@@ -1,6 +1,6 @@
 import { useRef, useLayoutEffect } from 'react';
 import './AboutSection.scss';
-import aboutBg from '../../assets/About_bg_updated_3.jpeg';
+import aboutBg from '../../assets/About_bg_updated_3.webp';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -158,7 +158,7 @@ export default function AboutSection() {
           <div className="fs_dark_overlay" ref={darkOverlayRef} />
         </div>
 
-        {/* Build | Beyond | Limits headline */}
+        {/* Craft | Code | Character headline */}
         <div className="fs_headline">
           <span className="fs_headline_word" ref={wordBuildRef}>Build</span>
           <span className="fs_headline_word fs_headline_word--center" ref={wordBeyondRef}>Beyond</span>
@@ -167,12 +167,12 @@ export default function AboutSection() {
 
         <div className="fs_bio_content" ref={bioContentRef}>
           <div className="fs_bio_block">
-            <span className="fs_bio_label">Who am I.</span>
-            <p>Based in India, building high-performance digital experiences for founders, product teams, and brands that demand the finest details. Frontend Developer &amp; Creative Coder obsessed with precision, motion, and making the web feel alive.</p>
+            <span className="fs_bio_label">WHO AM I.</span>
+            <p>Based in India, I help founders and designers bring premium layouts to life in the browser. Zero design details lost, zero layout compromises.</p>
           </div>
           <div className="fs_bio_block">
-            <span className="fs_bio_label">What drives me.</span>
-            <p>Signature ideas, precise typography and meticulous composition. I embed myself in the brand&apos;s culture and the people behind it, translating this essence into interfaces that cannot be mistaken.</p>
+            <span className="fs_bio_label">WHAT DRIVES ME.</span>
+            <p>Websites should feel like high-end editorial print. Precise typography, clean borders, and micro-motion that brings layouts to life.</p>
           </div>
         </div>
 

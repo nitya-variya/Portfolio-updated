@@ -1,0 +1,573 @@
+// ─── Contact Section Styling ────────────────────────────────────────────
+
+$contact-bg: #080808;
+$contact-card-bg: rgba(18, 18, 18, 0.90);
+$contact-border: rgba(255, 255, 255, 0.08);
+$contact-border-active: rgba(201, 97, 33, 0.5);
+$contact-accent: #C96121;
+$contact-text-main: #F5F1E8;
+$contact-text-dim: rgba(245, 241, 232, 0.70);
+$contact-text-muted: rgba(245, 241, 232, 0.45);
+
+$font-serif: 'Instrument Serif', Georgia, serif;
+$font-mono: 'Space Mono', monospace;
+$font-sans: 'DM Sans', Arial, sans-serif;
+
+.contact_section {
+  position: relative;
+  width: 100%;
+  background-color: $contact-bg;
+  color: $contact-text-main;
+  padding: 120px clamp(24px, 5vw, 100px);
+  box-sizing: border-box;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.contact_container {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: clamp(48px, 6vw, 96px);
+  align-items: start;
+}
+
+// ── Left Column (Narrative & Direct Actions) ────────────────────────────
+.contact_narrative_col {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: sticky;
+  top: 100px;
+}
+
+.contact_chapter_tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact_tag_dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: $contact-accent;
+  box-shadow: 0 0 10px $contact-accent;
+}
+
+.contact_tag_text {
+  font-family: $font-mono;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: $contact-accent;
+  text-transform: uppercase;
+}
+
+.contact_headline {
+  font-family: $font-serif;
+  font-size: clamp(40px, 4.4vw, 64px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: $contact-text-main;
+  margin: 0;
+
+  em {
+    font-style: italic;
+    color: #F9C176;
+  }
+}
+
+.contact_subtext {
+  font-family: $font-sans;
+  font-size: clamp(16px, 1.15vw, 18px);
+  line-height: 1.65;
+  color: $contact-text-dim;
+  margin: 0;
+  max-width: 48ch;
+}
+
+// Direct Actions Hub
+.contact_actions_hub {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 8px;
+}
+
+.contact_copy_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: rgba(201, 97, 33, 0.08);
+  border: 1px solid rgba(201, 97, 33, 0.35);
+  border-radius: 6px;
+  color: $contact-text-main;
+  font-family: $font-mono;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+
+  &:hover {
+    background: rgba(201, 97, 33, 0.18);
+    border-color: $contact-accent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201, 97, 33, 0.22);
+  }
+
+  &.is-copied {
+    background: rgba(92, 212, 128, 0.15);
+    border-color: #5CD480;
+    color: #5CD480;
+  }
+}
+
+.contact_btn_icon {
+  flex-shrink: 0;
+}
+
+.contact_direct_links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: $font-mono;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: $contact-text-dim;
+}
+
+.contact_direct_link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: $contact-text-dim;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $contact-accent;
+  }
+}
+
+.contact_link_divider {
+  color: $contact-text-muted;
+}
+
+// ── Right Column (Clean Form Card) ───────────────────────────────────────
+.contact_form_card {
+  background: $contact-card-bg;
+  border: 1px solid $contact-border;
+  border-radius: 12px;
+  padding: clamp(32px, 4vw, 52px);
+  box-sizing: border-box;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+.contact_form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form_label_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form_label {
+  font-family: $font-sans;
+  font-size: 15px;
+  font-weight: 500;
+  color: $contact-text-main;
+  letter-spacing: -0.01em;
+}
+
+.char_counter {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $contact-text-muted;
+}
+
+// Intent Pills
+.intent_pills_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.intent_pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: $contact-text-dim;
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.16);
+    color: $contact-text-main;
+  }
+
+  &.is-active {
+    background: rgba(201, 97, 33, 0.12);
+    border-color: $contact-accent;
+    color: $contact-text-main;
+    box-shadow: inset 0 0 16px rgba(201, 97, 33, 0.08);
+
+    .intent_pill_icon {
+      color: $contact-accent;
+    }
+  }
+}
+
+.intent_pill_icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: $contact-text-dim;
+  flex-shrink: 0;
+}
+
+.intent_pill_label {
+  line-height: 1.3;
+}
+
+// Form Inputs Row
+.form_inputs_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.input_wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &--full {
+    margin-top: 10px;
+  }
+}
+
+.form_input,
+.form_textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  padding: 15px 20px;
+  color: $contact-text-main;
+  font-family: $font-sans;
+  font-size: 15px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.25s ease;
+
+  &::placeholder {
+    color: $contact-text-muted;
+  }
+
+  &:focus {
+    border-color: $contact-accent;
+    background: rgba(0, 0, 0, 0.65);
+    box-shadow: 0 0 0 3px rgba(201, 97, 33, 0.16);
+  }
+
+  &.has-error {
+    border-color: #E05252;
+    box-shadow: 0 0 0 2px rgba(224, 82, 82, 0.16);
+  }
+}
+
+.form_textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.field_error {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: #E06C6C;
+  letter-spacing: 0.03em;
+  padding-left: 2px;
+}
+
+// Scope / Capabilities Tag Cloud
+.tags_cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag_pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  color: $contact-text-dim;
+  font-family: $font-sans;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: $contact-text-main;
+  }
+
+  &.is-selected {
+    background: rgba(201, 97, 33, 0.16);
+    border-color: $contact-accent;
+    color: #F9C176;
+  }
+}
+
+.tag_indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Parameters (Budget & Timeline)
+.parameters_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.form_sublabel {
+  font-family: $font-sans;
+  font-size: 13px;
+  font-weight: 500;
+  color: $contact-text-dim;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.param_pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.param_pill {
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: $contact-text-dim;
+  font-family: $font-sans;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: $contact-text-main;
+  }
+
+  &.is-active {
+    background: rgba(201, 97, 33, 0.16);
+    border-color: $contact-accent;
+    color: $contact-text-main;
+  }
+}
+
+// Submit Button
+.form_submit_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.contact_submit_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px 32px;
+  background: linear-gradient(135deg, #D97535 0%, #C96121 60%, #A84810 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-family: $font-sans;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 25px rgba(201, 97, 33, 0.3);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px rgba(201, 97, 33, 0.45);
+    filter: brightness(1.08);
+
+    .btn_arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.btn_arrow {
+  transition: transform 0.3s ease;
+}
+
+.submit_disclaimer {
+  font-family: $font-sans;
+  font-size: 13px;
+  color: $contact-text-muted;
+  text-align: center;
+}
+
+// Success State
+.contact_success_state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 44px 24px;
+  gap: 20px;
+}
+
+.success_badge {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(92, 212, 128, 0.12);
+  border: 1px solid #5CD480;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5CD480;
+}
+
+.success_title {
+  font-family: $font-serif;
+  font-size: 36px;
+  font-style: italic;
+  font-weight: 400;
+  color: $contact-text-main;
+  margin: 0;
+}
+
+.success_desc {
+  font-family: $font-sans;
+  font-size: 16px;
+  line-height: 1.6;
+  color: $contact-text-dim;
+  max-width: 44ch;
+  margin: 0;
+
+  strong {
+    color: $contact-text-main;
+  }
+}
+
+.success_metadata {
+  display: flex;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 12px 22px;
+  font-family: $font-sans;
+  font-size: 13px;
+  color: $contact-text-dim;
+
+  span {
+    color: $contact-accent;
+  }
+}
+
+.contact_reset_btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 500;
+  color: $contact-accent;
+  border: 1px solid rgba(201, 97, 33, 0.35);
+  border-radius: 6px;
+  padding: 10px 20px;
+  background: transparent;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(201, 97, 33, 0.12);
+    border-color: $contact-accent;
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .contact_container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .contact_narrative_col {
+    position: static;
+  }
+
+  .parameters_grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact_section {
+    padding: 80px 20px;
+  }
+
+  .contact_form_card {
+    padding: 28px 20px;
+  }
+
+  .intent_pills_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form_inputs_row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact_direct_links {
+    flex-wrap: wrap;
+  }
+}

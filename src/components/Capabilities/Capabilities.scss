@@ -1,0 +1,194 @@
+// ── Capabilities Section ────────────────────────────────────────────────────
+
+.cap-section {
+  background: #080808;
+  padding: 100px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+
+// ── Header row ──────────────────────────────────────────────────────────────
+.cap-hdr {
+  max-width: 1280px;
+  margin: 0 auto 64px;
+  padding: 0 clamp(24px, 5vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cap-hdr__label {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  color: #F5F1E8;
+}
+
+.cap-hdr__count {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: rgba(245, 241, 232, 0.2);
+}
+
+// ── 4-column grid ───────────────────────────────────────────────────────────
+.cap-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 60px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+// ── Card ────────────────────────────────────────────────────────────────────
+.cap-card {
+  padding: 36px 28px 52px;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  position: relative;
+  transition: background 0.35s ease;
+
+  &:last-child {
+    border-right: none;
+  }
+
+  // Amber underline reveal on hover
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: #C96121;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover {
+    background: rgba(201, 97, 33, 0.03);
+
+    &::after {
+      transform: scaleX(1);
+    }
+
+    .cap-icon-svg {
+      color: #C96121;
+    }
+  }
+}
+
+// ── Card number ─────────────────────────────────────────────────────────────
+.cap-card__num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #C96121;
+  display: block;
+  margin-bottom: 40px;
+}
+
+// ── Icon ────────────────────────────────────────────────────────────────────
+.cap-icon-wrap {
+  width: 76px;
+  height: 76px;
+  margin-bottom: 48px;
+}
+
+.cap-icon-svg {
+  width: 100%;
+  height: 100%;
+  color: #F5F1E8;
+  transition: color 0.4s ease;
+  overflow: visible;   // lets the outer ring breathe past viewBox edge
+}
+
+// ── Card text ───────────────────────────────────────────────────────────────
+.cap-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cap-card__title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(20px, 1.7vw, 26px);
+  font-weight: 400;
+  color: #F5F1E8;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+  margin: 0 0 10px;
+}
+
+.cap-card__tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(245, 241, 232, 0.6);
+  margin: 0 0 20px;
+  line-height: 1.4;
+}
+
+.cap-card__desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.78;
+  color: rgba(245, 241, 232, 0.35);
+  margin: 0;
+}
+
+// ── Responsive ──────────────────────────────────────────────────────────────
+@media (max-width: 1100px) {
+  .cap-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cap-card {
+    // Right border only on odd cards in 2-col grid
+    &:nth-child(even) {
+      border-right: none;
+    }
+
+    // Top border for bottom row
+    &:nth-child(3),
+    &:nth-child(4) {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .cap-section {
+    padding: 72px 0 0;
+  }
+
+  .cap-hdr {
+    margin-bottom: 48px;
+
+    .cap-hdr__count {
+      display: none;
+    }
+  }
+
+  .cap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cap-card {
+    border-right: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+
+    &:first-child {
+      border-top: none;
+    }
+
+    // Reset 2-col overrides
+    &:nth-child(even) {
+      border-right: none;
+    }
+  }
+}
+

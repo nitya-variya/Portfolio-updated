@@ -1,0 +1,757 @@
+// ─── MOBILE RESPONSIVE OVERRIDES ─────────────────────────────────────────────
+// Comprehensive mobile fixes for all sections of the portfolio
+// Breakpoints: 768px (tablet), 480px (mobile), 360px (small mobile)
+
+// ─── GLOBAL FIXES ─────────────────────────────────────────────────────────────
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+// ─── MOBILE HAMBURGER MENU (base styles, display controlled by media query) ───
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10001;
+  background: none;
+  border: none;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+
+  span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: rgba(207, 203, 194, 0.9);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.3s ease,
+      width 0.3s ease;
+    transform-origin: center;
+  }
+
+  &.is-open span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+
+  &.is-open span:nth-child(2) {
+    opacity: 0;
+    width: 0;
+  }
+
+  &.is-open span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+}
+
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 8, 8, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 10000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  a {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(245, 241, 232, 0.88);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      color: #C96121;
+      transform: translateX(8px);
+    }
+  }
+}
+
+// ─── TABLET (max-width: 1024px) ───────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .hero {
+    &__designation-text {
+      white-space: normal;
+      text-align: center;
+    }
+  }
+}
+
+// ─── MOBILE (max-width: 768px) ────────────────────────────────────────────────
+@media (max-width: 768px) {
+
+  // Show mobile menu elements
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .mobile-nav-overlay {
+    display: flex;
+  }
+
+  // Header gains subtle bg on scroll for readability
+  .hero__header {
+    transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
+  }
+
+  .hero__header.is-scrolled {
+    background: rgba(8, 8, 8, 0.88) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+  }
+
+  // ── Hero ──────────────────────────────────────────────────────────────────
+  .hero {
+    min-height: 100svh;
+    height: 100svh;
+
+    &__header {
+      padding: 1rem 1.25rem;
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+
+    &__wordmark {
+      font-size: 0.78rem;
+      min-width: unset;
+      flex-shrink: 0;
+    }
+
+    &__nav {
+      gap: 0.5rem;
+      flex: 1;
+      justify-content: flex-end;
+    }
+
+    &__nav-link {
+      display: none;
+    }
+
+    &__nav-logo {
+      width: 32px;
+      height: 32px;
+    }
+
+    &__social {
+      display: none;
+    }
+
+    &__bottom {
+      padding: 0 1.25rem;
+      padding-bottom: 2rem;
+    }
+
+    &__headline-line {
+      font-size: clamp(2.2rem, 11vw, 3.5rem);
+      line-height: 1.05;
+    }
+
+    &__designation {
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding-top: 1.25rem;
+    }
+
+    &__designation-text {
+      white-space: normal;
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      max-width: 280px;
+    }
+
+    &__designation-dash {
+      width: 1.5rem;
+    }
+  }
+
+  // ── Manifesto ─────────────────────────────────────────────────────────────
+  .manifesto-section {
+    padding: 32px 0;
+  }
+
+  .hook-container {
+    width: 90%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .minimal-hook {
+    font-size: clamp(1.9rem, 8.5vw, 2.8rem);
+    line-height: 1.45;
+    letter-spacing: -0.5px;
+  }
+
+  .interactive-pill {
+    display: inline-flex;
+    height: 48px;
+    padding: 0 16px;
+    margin: 0 0 0 10px;
+    border-radius: 50px;
+    vertical-align: middle;
+  }
+
+  .pill-text {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
+
+  // ── Works ─────────────────────────────────────────────────────────────────
+  .pw_section {
+    padding: 60px clamp(16px, 5vw, 32px) 60px;
+    overflow: hidden;
+  }
+
+  .pw_header {
+    margin-bottom: 48px;
+  }
+
+  .pw_tagline {
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    margin: 0 auto 36px;
+  }
+
+  .pw_grid {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .pw_col {
+    gap: 48px;
+    width: 100%;
+  }
+
+  .pw_col--right {
+    margin-top: 0;
+  }
+
+  .pw_img_wrap {
+    height: clamp(220px, 60vw, 320px);
+    border-radius: 6px;
+  }
+
+  .pw_card--tall .pw_img_wrap {
+    height: clamp(260px, 70vw, 380px);
+  }
+
+  .pw_title {
+    font-size: clamp(1.1rem, 5vw, 1.5rem);
+  }
+
+  .pw_footer {
+    margin-top: 60px;
+    padding-top: 40px;
+  }
+
+  .pw_footer_copy {
+    font-size: clamp(1.4rem, 7vw, 2rem);
+  }
+
+  .pw_footer_cta {
+    padding: 12px 22px;
+    font-size: 9px;
+  }
+
+  // ── Methodology ───────────────────────────────────────────────────────────
+  .fs_methodology_master {
+    margin-bottom: 60px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .fs_methodology_header {
+    padding: 8vh 5vw 0 5vw;
+  }
+
+  .fs_mh_title {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .fs_split_container {
+    flex-direction: column;
+    padding: 0 5vw;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .fs_split_left {
+    width: 100%;
+    padding-right: 0;
+    padding-top: 5vh;
+    padding-bottom: 8vh;
+    order: 2;
+  }
+
+  .fs_split_right {
+    width: 100%;
+    order: 1;
+    margin-bottom: 4vh;
+  }
+
+  .fs_sticky_wrapper {
+    position: relative;
+    top: 0;
+    height: clamp(220px, 55vw, 350px);
+    min-height: 220px;
+  }
+
+  .fs_step_block {
+    padding: 7vh 0;
+  }
+
+  .fs_step_title {
+    font-size: clamp(1.2rem, 5vw, 1.65rem);
+  }
+
+  // ── About (scroll animation section) ─────────────────────────────────────
+  .fs_about_master {
+    overflow: hidden;
+  }
+
+  .fs_image_wrapper {
+    width: 75vw;
+    height: clamp(300px, 60vh, 480px);
+  }
+
+  .fs_headline {
+    padding: 0 4vw;
+    max-width: 100%;
+  }
+
+  .fs_headline_word {
+    font-size: clamp(1.4rem, 6vw, 2.2rem);
+  }
+
+  .fs_bio_content {
+    width: 90vw;
+    right: 5vw;
+    gap: 32vh;
+  }
+
+  .fs_bio_block p {
+    font-size: clamp(1rem, 4.5vw, 1.5rem);
+    line-height: 1.5;
+  }
+
+  // ── About (Trionn/bio section) ────────────────────────────────────────────
+  .fs_trionn_master {
+    padding: 70px 0 100px;
+    overflow: hidden;
+  }
+
+  .fs_ui_layer {
+    padding: 0 1.35rem;
+    gap: 48px;
+  }
+
+  .fs_intro_name {
+    font-size: clamp(2.6rem, 9vw, 4rem);
+  }
+
+  .fs_intro_role {
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+  }
+
+  .fs_badge_block {
+    width: 100%;
+    max-width: 100%;
+    align-self: stretch;
+    margin-top: 0;
+  }
+
+  .fs_badge_stats {
+    gap: 1.5rem;
+  }
+
+  .fs_quote_block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 36px;
+    grid-template-columns: unset;
+  }
+
+  .fs_massive_quote {
+    font-size: clamp(1.8rem, 7vw, 2.6rem);
+    line-height: 1.1;
+    justify-self: unset;
+  }
+
+  // ── Circuit ───────────────────────────────────────────────────────────────
+  .cs_section {
+    padding: 72px clamp(16px, 5vw, 36px) 72px;
+    gap: 36px;
+    overflow: hidden;
+  }
+
+  .cs_panel {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+  }
+
+  .cs_heading {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+  }
+
+  .cs_desc {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    max-width: 100%;
+  }
+
+  .cs_hint {
+    display: none;
+  }
+
+  // ── Footer ────────────────────────────────────────────────────────────────
+  .parallax-footer {
+    height: auto;
+    min-height: 420px;
+    overflow: hidden;
+
+    &__headline {
+      font-size: clamp(3rem, 15vw, 6rem);
+      letter-spacing: -2px;
+      white-space: nowrap;
+    }
+
+    &__hud {
+      left: 16px;
+      right: 16px;
+      top: 20px;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    &__hud-left {
+      padding-left: 16px;
+      gap: 10px;
+    }
+
+    &__hud-right {
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    &__mountains {
+      height: clamp(200px, 50vw, 300px);
+      bottom: 0;
+    }
+
+    &__flowers {
+      height: clamp(160px, 40vw, 240px);
+      bottom: 0;
+    }
+  }
+
+  .hud-narrative {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    line-height: 1.35;
+  }
+
+  // ── Contact ───────────────────────────────────────────────────────────────
+  .contact {
+    padding: 3rem 0;
+    min-height: unset;
+
+    &__content {
+      padding: 2rem 1.25rem;
+    }
+
+    &__email {
+      font-size: clamp(1.4rem, 7.5vw, 2.5rem);
+      word-break: break-all;
+    }
+
+    &__tagline {
+      margin-top: 1.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+  }
+
+  // ── Archive ───────────────────────────────────────────────────────────────
+  .fs_archive_section {
+    padding: 70px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .fs_archive_title {
+    font-size: clamp(1.8rem, 9vw, 2.8rem);
+    letter-spacing: -0.5px;
+  }
+
+  .fs_archive_row {
+    grid-template-columns: 40px 1fr 56px;
+    padding: 18px 0;
+  }
+
+  .fs_col_role {
+    display: none;
+  }
+
+  .fs_col_client {
+    font-size: clamp(1rem, 5vw, 1.4rem);
+  }
+
+  .fs_col_id,
+  .fs_col_year {
+    font-size: 11px;
+  }
+
+  // ── Cinematic Process ─────────────────────────────────────────────────────
+  .fs_process_master {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .fs_process_indicator {
+    left: 2.5vw;
+    gap: 8px;
+  }
+
+  .fs_progress_track {
+    height: 28vh;
+  }
+
+  .fs_indicator_items {
+    height: 28vh;
+  }
+
+  .fs_process_text_block {
+    padding-left: clamp(2.5rem, 7vw, 5rem);
+    max-width: 90vw;
+    padding-right: 1rem;
+  }
+
+  .fs_pt_title {
+    font-size: clamp(2.4rem, 9vw, 5rem);
+    margin-bottom: 24px;
+  }
+
+  .fs_pt_desc {
+    font-size: clamp(13px, 3.5vw, 16px);
+    max-width: 78vw;
+    margin-bottom: 28px;
+  }
+
+  .fs_process_icon_wrapper {
+    right: -10vw;
+    width: 82vw;
+    height: 82vw;
+    opacity: 0.12;
+  }
+
+  // ── Preloader ─────────────────────────────────────────────────────────────
+  .fs_loader_bg {
+    gap: 24px;
+  }
+
+  .fs_loader_counter {
+    font-size: 14px;
+  }
+
+}
+
+// end @media (max-width: 768px)
+
+
+// ─── SMALL MOBILE (max-width: 480px) ──────────────────────────────────────────
+@media (max-width: 480px) {
+  .hero {
+    &__headline-line {
+      font-size: clamp(1.9rem, 12vw, 2.8rem);
+    }
+
+    &__designation {
+      gap: 0.5rem;
+    }
+
+    &__designation-text {
+      font-size: 0.68rem;
+      max-width: 240px;
+    }
+
+    &__nav-logo {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  .minimal-hook {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+  }
+
+  .interactive-pill {
+    height: 42px;
+    padding: 0 14px;
+    margin-left: 8px;
+  }
+
+  .pill-text {
+    font-size: clamp(1rem, 4.5vw, 1.4rem);
+  }
+
+  .pw_section {
+    padding: 50px 16px 50px;
+  }
+
+  .pw_img_wrap {
+    height: clamp(200px, 65vw, 280px);
+  }
+
+  .pw_card_meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pw_meta_right {
+    align-items: flex-start;
+  }
+
+  .pw_role {
+    text-align: left;
+  }
+
+  .parallax-footer {
+    min-height: 360px;
+
+    &__headline {
+      font-size: clamp(2.4rem, 13vw, 4rem);
+      letter-spacing: -1.5px;
+    }
+
+    &__hud-right {
+      gap: 12px;
+    }
+  }
+
+  .contact {
+    &__email {
+      font-size: clamp(1.2rem, 8vw, 2rem);
+    }
+  }
+
+  .fs_archive_section {
+    padding: 56px 16px;
+  }
+
+  .fs_archive_row {
+    grid-template-columns: 1fr 52px;
+    padding: 16px 0;
+  }
+
+  .fs_col_id {
+    display: none;
+  }
+
+  .fs_col_client {
+    font-size: clamp(0.95rem, 4.5vw, 1.25rem);
+  }
+
+  .fs_process_text_block {
+    padding-left: clamp(2rem, 6vw, 3.5rem);
+  }
+
+  .fs_pt_title {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+
+  .cs_section {
+    padding: 56px 16px 56px;
+  }
+
+  .cs_panel {
+    aspect-ratio: 1 / 1.4;
+  }
+
+  .fs_step_block {
+    padding: 5vh 0;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .fs_step_meta {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    gap: 10px;
+  }
+
+  .fs_step_desc {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .fs_intro_name {
+    font-size: clamp(2.2rem, 9.5vw, 3rem);
+  }
+
+  .fs_massive_quote {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+  }
+
+  .fs_badge_stats {
+    gap: 1.25rem;
+  }
+
+  .fs_stat_num {
+    font-size: 1.8rem;
+  }
+}
+
+
+// ─── EXTRA SMALL (max-width: 360px) ───────────────────────────────────────────
+@media (max-width: 360px) {
+  .hero {
+    &__headline-line {
+      font-size: clamp(1.7rem, 13vw, 2.4rem);
+    }
+
+    &__wordmark {
+      font-size: 0.7rem;
+    }
+  }
+
+  .minimal-hook {
+    font-size: 1.5rem;
+  }
+
+  .interactive-pill {
+    height: 38px;
+    padding: 0 12px;
+  }
+
+  .pill-text {
+    font-size: 1rem;
+  }
+
+  .parallax-footer {
+    &__headline {
+      font-size: 2rem;
+    }
+  }
+}

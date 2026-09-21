@@ -34,9 +34,8 @@ body {
   font-family: $font-body;
   background: $color-dark;
   color: $color-warm-white;
-  overflow-x: hidden;
   line-height: 1.6;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 a {
@@ -111,7 +110,7 @@ $h-dark: #0C0C0C;
     content: "";
     position: absolute;
     bottom: -40px;
-    z-index: 10;
+    z-index: 2;
     background: rgba(0, 0, 0, 0.9);
     pointer-events: none;
     height: 60px;
@@ -321,7 +320,7 @@ $h-dark: #0C0C0C;
 
   &__bottom {
     position: relative;
-    z-index: 5;
+    z-index: 20;
     margin-top: auto;
     padding: 0 clamp(1rem, 3vw, 3rem);
     padding-bottom: clamp(1.5rem, 4vh, 3.5rem);
@@ -341,9 +340,8 @@ $h-dark: #0C0C0C;
     padding: 0;
     cursor: default;
     position: relative;
-    visibility: hidden;
-    opacity: 0;
-    transform: scale(0.96) translateY(25px) translateZ(0);
+    opacity: 1;
+    transform: translateZ(0);
   }
 
   &__float,
@@ -392,9 +390,8 @@ $h-dark: #0C0C0C;
     justify-content: center;
     gap: 1.2rem;
     padding-top: clamp(1.5rem, 2.5vw, 2.5rem);
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(20px) translateZ(0);
+    opacity: 1;
+    transform: translateZ(0);
   }
 
   &__designation-dash {
@@ -949,7 +946,7 @@ $h-dark: #0C0C0C;
 }
 
 // â”€â”€â”€ WORKS / IMPRINTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-$pw-bg: #000;
+$pw-bg: #0e0e0e;
 $pw-fg: #F5F1E8;
 $pw-fg-dim: rgba(245, 241, 232, 0.45);
 $pw-fg-muted: rgba(245, 241, 232, 0.28);
@@ -960,15 +957,18 @@ $pw-serif: 'Instrument Serif', Georgia, serif;
 $pw-ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-// â”€â”€ Section shell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Section shell ────────────────────────────────────────────────────────────
 
 .pw_section {
+  position: relative;
   width: 100%;
   background-color: $pw-bg;
   color: $pw-fg;
-  padding: 0px clamp(28px, 6.5vw, 120px) 100px;
+  padding: 80px clamp(28px, 6.5vw, 120px) 120px;
   box-sizing: border-box;
   overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 // â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -1231,6 +1231,7 @@ $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   gap: 20px;
   max-width: 560px;
@@ -1273,7 +1274,7 @@ $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  align-self: flex-start;
+  align-self: center;
   transition:
     background-color 0.35s $pw-ease-smth,
     border-color 0.35s $pw-ease-smth,
@@ -1773,25 +1774,43 @@ $ab-sans: 'DM Sans', sans-serif;
 .parallax-footer {
   position: relative;
   width: 100%;
-  height: 800px;
+  height: 820px;
   margin-top: -2px;
   overflow: hidden;
   background: linear-gradient(180deg, #000000 0px, #000000 150px, #080C16 450px, #0D1322 800px);
   z-index: 1;
 
+  &__layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    will-change: transform;
+
+    &--mountains {
+      z-index: 2;
+    }
+
+    &--flowers {
+      z-index: 4;
+    }
+  }
+
   &__mountains {
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     right: 0;
     left: 0;
-    height: 500px;
-    object-position: top;
-    object-fit: cover;
+    width: 100%;
+    height: 600px;
     z-index: 2;
     background-size: cover;
-    background-position: center;
+    background-position: bottom center;
     background-repeat: no-repeat;
+    transform-origin: bottom center;
     will-change: transform;
+    pointer-events: none;
   }
 
   &__headline {
@@ -1815,22 +1834,38 @@ $ab-sans: 'DM Sans', sans-serif;
 
   &__flowers {
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     left: 0;
+    right: 0;
     width: 100%;
-    height: 450px;
+    height: 520px;
     z-index: 4;
     background-size: cover;
     background-position: bottom center;
     background-repeat: no-repeat;
+    transform-origin: bottom center;
     will-change: transform;
+    pointer-events: none;
     animation: pulseGlow 4s ease-in-out infinite alternate;
+  }
+
+  // Underlay safety guard to guarantee no background seam below flowers
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #0b1118;
+    z-index: 5;
+    pointer-events: none;
   }
 
   &__hud {
     position: absolute;
     z-index: 10;
-    top: 40px;
+    top: 72px;
     left: 40px;
     right: 40px;
     display: flex;
@@ -1853,16 +1888,6 @@ $ab-sans: 'DM Sans', sans-serif;
     gap: 40px;
     pointer-events: auto;
   }
-}
-
-.hud-viewport-label {
-  display: block;
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 5px;
-  color: rgba(255, 255, 255, 0.35);
-  text-transform: uppercase;
-  line-height: 12px;
 }
 
 .hud-narrative {
@@ -1934,11 +1959,13 @@ $ab-sans: 'DM Sans', sans-serif;
     }
 
     &__mountains {
-      height: 380px;
+      height: 420px;
+      bottom: 0;
     }
 
     &__flowers {
-      height: 260px;
+      height: 340px;
+      bottom: 0;
     }
   }
 }
@@ -1964,11 +1991,13 @@ $ab-sans: 'DM Sans', sans-serif;
     }
 
     &__mountains {
-      height: 280px;
+      height: 320px;
+      bottom: 0;
     }
 
     &__flowers {
-      height: 200px;
+      height: 250px;
+      bottom: 0;
     }
   }
 }

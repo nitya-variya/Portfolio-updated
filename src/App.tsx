@@ -3,8 +3,9 @@ import Footer from './components/Footer/Footer';
 import Manifesto from './components/Manifesto/Manifesto';
 import RockSequence from './components/ZenTransition/RockSequence';
 import WorksSection from './components/Works/Works';
+import Capabilities from './components/Capabilities/Capabilities';
 import AboutSection from './components/AboutSection/AboutSection';
-import MethodologySection from './components/Process/MethodologySection';
+import Contact from './components/Contact/Contact';
 import SmoothScroll from './components/SmoothScroll';
 
 function App() {
@@ -17,8 +18,9 @@ function App() {
             <Manifesto />
             <RockSequence />
             <WorksSection />
-            <MethodologySection />
+            <Capabilities />
             <AboutSection />
+            <Contact />
           </div>
           <Footer />
         </main>

@@ -11,10 +11,9 @@
  */
 import { useEffect, useRef, useState, useCallback } from 'react';
 
-// Vite eager glob: import all PNGs from the Rock-animation folder.
-// The object keys are the original module paths; values are the resolved URLs.
+// Vite eager glob: import all WebP frames from the Rock-animation folder.
 const frameModules = import.meta.glob<{ default: string }>(
-  '/src/assets/Rock-animation/*.png',
+  '/src/assets/Rock-animation/*.webp',
   { eager: true }
 );
 
@@ -25,8 +24,8 @@ const sortedUrls: string[] = Object.keys(frameModules)
 
 export const TOTAL_FRAMES = sortedUrls.length;
 
-// Maximum simultaneous Image loads (tune for network & browser limits)
-const CONCURRENCY = 8;
+// Maximum simultaneous Image loads
+const CONCURRENCY = 6;
 
 interface UseImageSequenceReturn {
   /** Stable ref – mutated in place, never causes re-renders */
@@ -35,29 +34,59 @@ interface UseImageSequenceReturn {
   progress: number;
   /** True once all frames are decoded */
   isReady: boolean;
+  /** True as soon as frame 0 is ready for instant rendering */
+  isInitialReady: boolean;
 }
 
 export function useImageSequence(): UseImageSequenceReturn {
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const [progress, setProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
+  const [isInitialReady, setIsInitialReady] = useState(false);
+  const loadingStartedRef = useRef(false);
 
-  const load = useCallback(async () => {
+  // 1. Instantly load frame 0 for zero-delay canvas mount
+  const loadInitialFrame = useCallback(() => {
+    if (sortedUrls.length === 0) return;
+    const img0 = new Image();
+    img0.decoding = 'async';
+    img0.src = sortedUrls[0];
+    img0.onload = () => {
+      if (!imagesRef.current.length) {
+        imagesRef.current = new Array<HTMLImageElement>(sortedUrls.length);
+      }
+      imagesRef.current[0] = img0;
+      setIsInitialReady(true);
+    };
+  }, []);
+
+  // 2. Load the entire sequence progressively in background
+  const loadFullSequence = useCallback(async () => {
+    if (loadingStartedRef.current) return;
+    loadingStartedRef.current = true;
+
     const total = sortedUrls.length;
     if (total === 0) return;
 
-    const images = new Array<HTMLImageElement>(total);
-    let loaded = 0;
+    if (!imagesRef.current.length) {
+      imagesRef.current = new Array<HTMLImageElement>(total);
+    }
+    const images = imagesRef.current;
+    let loaded = images[0]?.complete ? 1 : 0;
 
-    // Concurrency-limited loader
     const queue = [...sortedUrls];
     let index = 0;
 
     const loadNext = (): Promise<void> => {
       if (index >= queue.length) return Promise.resolve();
       const i = index++;
-      const url = queue[i];
+      
+      // Skip if already loaded (e.g. frame 0)
+      if (images[i]?.complete) {
+        return loadNext();
+      }
 
+      const url = queue[i];
       return new Promise<void>((resolve) => {
         const img = new Image();
         img.decoding = 'async';
@@ -68,7 +97,6 @@ export function useImageSequence(): UseImageSequenceReturn {
           resolve();
         };
         img.onerror = () => {
-          // Even on error, fill slot and move on to avoid deadlock
           images[i] = img;
           loaded++;
           setProgress(loaded / total);
@@ -78,17 +106,37 @@ export function useImageSequence(): UseImageSequenceReturn {
       }).then(() => loadNext());
     };
 
-    // Start CONCURRENCY workers
     const workers = Array.from({ length: Math.min(CONCURRENCY, total) }, loadNext);
     await Promise.all(workers);
 
-    imagesRef.current = images;
     setIsReady(true);
+    setIsInitialReady(true);
   }, []);
 
   useEffect(() => {
-    load();
-  }, [load]);
+    loadInitialFrame();
 
-  return { imagesRef, progress, isReady };
+    // Defer loading the remaining frames until the main thread is idle or after 800ms
+    const timer = setTimeout(() => {
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        window.requestIdleCallback(() => loadFullSequence(), { timeout: 1500 });
+      } else {
+        loadFullSequence();
+      }
+    }, 600);
+
+    // If user starts scrolling, start loading immediately
+    const handleScroll = () => {
+      loadFullSequence();
+      window.removeEventListener('scroll', handleScroll);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true, once: true });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [loadInitialFrame, loadFullSequence]);
+
+  return { imagesRef, progress, isReady, isInitialReady };
 }

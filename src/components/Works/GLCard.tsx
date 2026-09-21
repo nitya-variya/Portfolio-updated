@@ -149,6 +149,23 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
     const lerpMouse = { x: 0, y: 0 };
     const rawMouse = { x: 0, y: 0 };
     let titleStrength = 0;
+    let isVisible = false;
+    let isRunning = false;
+    let idleFrames = 0;
+
+    const startLoop = () => {
+      if (!isRunning && isVisible) {
+        isRunning = true;
+        animate();
+      }
+    };
+
+    const stopLoop = () => {
+      if (isRunning) {
+        isRunning = false;
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
@@ -157,10 +174,22 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
       rawMouse.x = mouse.x * 2 - 1;
       rawMouse.y = mouse.y * 2 - 1;
       mouse.inside = true;
+      idleFrames = 0;
+      startLoop();
     };
-    const handleMouseLeave = () => { mouse.inside = false; };
+
+    const handleMouseEnter = () => {
+      mouse.inside = true;
+      idleFrames = 0;
+      startLoop();
+    };
+
+    const handleMouseLeave = () => {
+      mouse.inside = false;
+    };
 
     container.addEventListener('mousemove', handleMouseMove, { passive: true });
+    container.addEventListener('mouseenter', handleMouseEnter, { passive: true });
     container.addEventListener('mouseleave', handleMouseLeave, { passive: true });
 
     // ── RAF loop ──────────────────────────────────────────────────────────────
@@ -170,10 +199,15 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
       mouse.prevX = mouse.x;
       mouse.prevY = mouse.y;
 
+      let hasEnergy = false;
+
       // Damp all cells
       for (let i = 0; i < SIZE; i++) {
         pixelData[i * 4] *= DAMPING;
         pixelData[i * 4 + 1] *= DAMPING;
+        if (Math.abs(pixelData[i * 4]) > 0.001 || Math.abs(pixelData[i * 4 + 1]) > 0.001) {
+          hasEnergy = true;
+        }
       }
 
       // Inject velocity when mouse is moving inside card
@@ -189,17 +223,23 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
               const falloff = 1.0 - dist / RADIUS;
               pixelData[idx] += vX * 25.0 * falloff;
               pixelData[idx + 1] += vY * 25.0 * falloff;
+              hasEnergy = true;
             }
           }
         }
       }
 
       dataTexture.needsUpdate = true;
+      return hasEnergy;
     }
 
     function animate() {
-      rafRef.current = requestAnimationFrame(animate);
-      updateDataTexture();
+      if (!isVisible) {
+        isRunning = false;
+        return;
+      }
+
+      const hasEnergy = updateDataTexture();
 
       // Title parallax
       const lf = 0.08;
@@ -209,8 +249,38 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
       titleStrength += (targetStr - titleStrength) * (lf * 0.85);
 
       renderer.render(scene, camera);
+
+      // If mouse is outside and wave energy is dissipated, sleep loop after 20 idle frames
+      if (!mouse.inside && !hasEnergy && titleStrength < 0.001) {
+        idleFrames++;
+        if (idleFrames > 20) {
+          isRunning = false;
+          return;
+        }
+      } else {
+        idleFrames = 0;
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
     }
-    animate();
+
+    // ── Intersection Observer — sleep WebGL when offscreen ──────────────────────
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            // Render at least one frame when coming into view
+            renderer.render(scene, camera);
+            startLoop();
+          } else {
+            stopLoop();
+          }
+        });
+      },
+      { rootMargin: '100px' }
+    );
+    observer.observe(container);
 
     // ── Resize — update both renderer size and container aspect uniform ────────
     const handleResize = () => {
@@ -219,14 +289,19 @@ export default function GLCard({ img, num, title, tags, url, tall, colIndex = 0 
       const h = wrapper.clientHeight;
       renderer.setSize(w, h);
       uniforms.uContainerAspect.value = w / h;
+      if (isVisible) {
+        renderer.render(scene, camera);
+      }
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
 
     // ── Cleanup ───────────────────────────────────────────────────────────────
     return () => {
-      cancelAnimationFrame(rafRef.current);
+      stopLoop();
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
       container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('mouseenter', handleMouseEnter);
       container.removeEventListener('mouseleave', handleMouseLeave);
       geometry.dispose();
       material.dispose();

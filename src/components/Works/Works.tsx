@@ -2,10 +2,10 @@ import { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GLCard from './GLCard';
-import bookmyfarmhouseImg from '../../assets/Bookmyfarmhouse.png';
-import skymaharajaImg from '../../assets/Skymaharaja.png';
-import decornathImg from '../../assets/Decornath.png';
-import pantrycultureImg from '../../assets/Pantryculture.png';
+import bookmyfarmhouseImg from '../../assets/Bookmyfarmhouse.webp';
+import skymaharajaImg from '../../assets/Skymaharaja.webp';
+import decornathImg from '../../assets/Decornath.webp';
+import pantrycultureImg from '../../assets/Pantryculture.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -93,7 +93,7 @@ export default function WorksSection() {
       {/* ── Header ──────────────────────────────────────────────────────────── */}
       <header className="pw_header">
         <p className="pw_tagline" ref={taglineRef}>
-          Things I've shaped into existence.
+          Selected builds. Focused on speed, polish, and feel.
         </p>
       </header>
 
@@ -135,10 +135,10 @@ export default function WorksSection() {
       {/* ── Footer ──────────────────────────────────────────────────────────── */}
       <footer className="pw_footer">
         <div className="pw_footer_inner">
-          <p className="pw_footer_label">What's forming next</p>
+          <p className="pw_footer_label">NEXT LEVEL</p>
           <p className="pw_footer_copy">
-            Have a vision?<br />
-            <em>Let's make it impossible to ignore.</em>
+            Launching a custom storefront or interaction-heavy site?<br />
+            <em>Let's make it hit different.</em>
           </p>
           <a
             href="#contact"

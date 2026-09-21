@@ -60,29 +60,17 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
         tl.fromTo(
           nameRef.current,
           {
-            autoAlpha: 0,
+            opacity: 0,
             scale: 0.96,
             y: 25,
           },
           {
-            autoAlpha: 1,
+            opacity: 1,
             scale: 1,
             y: 0,
             duration: 1.2,
             ease: 'power4.out',
-            clearProps: 'will-change',
-            onComplete: () => {
-              if (floatRef.current) {
-                gsap.to(floatRef.current, {
-                  y: -3,
-                  duration: 3.5,
-                  ease: 'sine.inOut',
-                  yoyo: true,
-                  repeat: -1,
-                  force3D: true,
-                });
-              }
-            },
+            clearProps: 'transform,opacity,visibility,will-change',
           },
           '-=0.6'
         );
@@ -90,36 +78,21 @@ export function useHeroAnimation(): UseHeroAnimationReturn {
 
       // Reveal subtitle
       if (subtitleRef.current) {
-        tl.to(
+        tl.fromTo(
           subtitleRef.current,
           {
-            autoAlpha: 1,
+            opacity: 0,
+            y: 20,
+          },
+          {
+            opacity: 1,
             y: 0,
             duration: 0.8,
             ease: 'power3.out',
+            clearProps: 'transform,opacity,visibility,will-change',
           },
           '-=0.6'
         );
-      }
-
-      // Scroll-scrub bottom section
-      if (heroRef.current) {
-        const bottomEl = heroRef.current.querySelector('.hero__bottom');
-
-        if (bottomEl) {
-          gsap.to(bottomEl, {
-            y: -60,
-            autoAlpha: 0,
-            ease: 'none',
-            force3D: true,
-            scrollTrigger: {
-              trigger: heroRef.current,
-              start: 'top top',
-              end: 'bottom top',
-              scrub: true,
-            },
-          });
-        }
       }
     }, heroRef);
 
