@@ -387,10 +387,8 @@ export default function Hero() {
           <h1 ref={nameRef} className="hero__name hero-name">
             <span ref={floatRef} className="hero-name__float">
               <span className="hero__headline">
-                <span className="hero__headline-line">Building Web</span>
-                <span className="hero__headline-line">
-                  Experiences With <em>Weight</em>
-                </span>
+                <span className="hero__headline-line">The View Changes.</span>
+                <span className="hero__headline-line">The Quality Doesn't.</span>
               </span>
             </span>
           </h1>
@@ -400,7 +398,7 @@ export default function Hero() {
         <div ref={subtitleRef} className="hero__designation">
           <span className="hero__designation-dash" />
           <span className="hero__designation-text">
-            Code that feels physical. Translating high-end design concepts into interactive, premium frontends.
+            Frontend developer crafting motion-driven interfaces — new industries, new problems, same standard of craft.
           </span>
           <span className="hero__designation-dash" />
         </div>
