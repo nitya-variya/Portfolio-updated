@@ -68,6 +68,8 @@ function drawFrame(
   w: number,
   h: number
 ) {
+  if (!img || !img.complete || !img.naturalWidth || !img.naturalHeight) return;
+
   const imgAR    = img.naturalWidth / img.naturalHeight;
   const canvasAR = w / h;
   const SCALE    = 1.35; // Enlarge rock by 35% for maximum impact
@@ -105,6 +107,7 @@ export default function RockSequence() {
 
   const { imagesRef, isReady, isInitialReady } = useImageSequence();
   const lastFrameRef = useRef<number>(-1);
+  const currentProgressRef = useRef<number>(0);
 
   // ── DPR-aware canvas resize ───────────────────────────────────────────────
   const resizeCanvas = useCallback(() => {
@@ -120,6 +123,46 @@ export default function RockSequence() {
     lastFrameRef.current = -1; // force redraw at new size
   }, []);
 
+  // ── Render frame with nearest loaded fallback ─────────────────────────────
+  const renderFrameAtProgress = useCallback((progress: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const images = imagesRef.current;
+    if (!images || images.length === 0) return;
+
+    const lastFrameIdx = TOTAL_FRAMES - 1;
+    const targetIdx = Math.max(0, Math.min(lastFrameIdx, Math.round(progress * lastFrameIdx)));
+
+    let frameToDraw: HTMLImageElement | null = null;
+    if (images[targetIdx]?.complete && images[targetIdx]?.naturalWidth > 0) {
+      frameToDraw = images[targetIdx];
+      lastFrameRef.current = targetIdx;
+    } else {
+      // Search outward for nearest loaded frame
+      for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+        const prev = targetIdx - offset;
+        if (prev >= 0 && images[prev]?.complete && images[prev]?.naturalWidth > 0) {
+          frameToDraw = images[prev];
+          lastFrameRef.current = prev;
+          break;
+        }
+        const next = targetIdx + offset;
+        if (next < TOTAL_FRAMES && images[next]?.complete && images[next]?.naturalWidth > 0) {
+          frameToDraw = images[next];
+          lastFrameRef.current = next;
+          break;
+        }
+      }
+    }
+
+    if (frameToDraw) {
+      drawFrame(ctx, frameToDraw, window.innerWidth, window.innerHeight);
+    }
+  }, [imagesRef]);
+
   // ── Main effect ───────────────────────────────────────────────────────────
   useLayoutEffect(() => {
     if (!isInitialReady) return;
@@ -133,7 +176,6 @@ export default function RockSequence() {
 
     resizeCanvas();
 
-    const images       = imagesRef.current;
     const lastFrameIdx = TOTAL_FRAMES - 1;
 
     // Apply DPR scale once — drawImage coordinates stay in CSS pixels
@@ -143,9 +185,8 @@ export default function RockSequence() {
     };
     applyDPR();
 
-    // Draw frame 0 immediately — no blank flash on mount
-    lastFrameRef.current = 0;
-    drawFrame(ctx, images[0], window.innerWidth, window.innerHeight);
+    // Draw initial frame immediately — no blank flash on mount
+    renderFrameAtProgress(currentProgressRef.current);
 
     // ── Initial DOM states ────────────────────────────────────────────────────
     panelRefs.current.forEach((el, i) => {
@@ -179,18 +220,12 @@ export default function RockSequence() {
 
           onUpdate: (self) => {
             const p = self.progress; // 0 → 1
+            currentProgressRef.current = p;
 
-            // ── Canvas: advance image sequence ──────────────────────────────
-            const newFrameIdx = Math.max(0, Math.min(lastFrameIdx, Math.round(p * lastFrameIdx)));
-            if (newFrameIdx !== lastFrameRef.current && images[newFrameIdx]?.complete) {
-              lastFrameRef.current = newFrameIdx;
-              drawFrame(ctx, images[newFrameIdx], window.innerWidth, window.innerHeight);
-            }
+            // ── Canvas: advance image sequence with fallback ────────────────
+            renderFrameAtProgress(p);
 
             // ── Scroll-driven directional marquee offset ──────────────────────
-            // Adds smooth scroll-directional offset on top of default infinite loop
-            // Scroll DOWN (0 → 1): accelerates Right-to-Left (-px offset)
-            // Scroll UP   (1 → 0): reverses Left-to-Right (+px offset)
             if (marqueeRef.current) {
               const xOffset = (p * -450).toFixed(2);
               marqueeRef.current.style.transform = `translate3d(${xOffset}px, 0, 0)`;
@@ -207,7 +242,7 @@ export default function RockSequence() {
               const isLast  = i === TEXT_PANELS.length - 1;
 
               let panelOpacity = 0;
-              if (p >= enterAt && p < exitAt) {
+              if (p >= enterAt && p <= exitAt) {
                 const CROSS   = 0.04;
                 const fadeIn  = isFirst ? 1 : Math.min(1, (p - enterAt) / CROSS);
                 const fadeOut = isLast  ? 1 : Math.min(1, (exitAt  - p) / CROSS);
@@ -240,14 +275,14 @@ export default function RockSequence() {
       tl.to(proxy, { frame: lastFrameIdx, ease: 'none', duration: 1 });
     }, section);
 
+    // Refresh ScrollTrigger after pin spacer setup
+    ScrollTrigger.refresh();
+
     // ── Resize ───────────────────────────────────────────────────────────────
     const handleResize = () => {
       resizeCanvas();
       applyDPR();
-      const fi = Math.max(0, Math.min(lastFrameIdx, lastFrameRef.current));
-      if (images[fi]?.complete) {
-        drawFrame(ctx, images[fi], window.innerWidth, window.innerHeight);
-      }
+      renderFrameAtProgress(currentProgressRef.current);
       ScrollTrigger.refresh();
     };
     window.addEventListener('resize', handleResize, { passive: true });
@@ -256,7 +291,14 @@ export default function RockSequence() {
       window.removeEventListener('resize', handleResize);
       gsapCtx.revert();
     };
-  }, [isInitialReady, imagesRef, resizeCanvas]);
+  }, [isInitialReady, resizeCanvas, renderFrameAtProgress]);
+
+  // Redraw whenever full sequence finishes loading in background
+  useLayoutEffect(() => {
+    if (isReady) {
+      renderFrameAtProgress(currentProgressRef.current);
+    }
+  }, [isReady, renderFrameAtProgress]);
 
   return (
     <section

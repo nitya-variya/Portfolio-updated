@@ -387,8 +387,8 @@ export default function Hero() {
           <h1 ref={nameRef} className="hero__name hero-name">
             <span ref={floatRef} className="hero-name__float">
               <span className="hero__headline">
-                <span className="hero__headline-line">The View Changes.</span>
-                <span className="hero__headline-line">The Quality Doesn't.</span>
+                <span className="hero__headline-line">Exploring New</span>
+                <span className="hero__headline-line">Realms Through Code</span>
               </span>
             </span>
           </h1>

@@ -70,9 +70,11 @@ export default function Manifesto({
     }
 
     const totalWords = words.length;
-    // Transition band width (~4.5% of progress for smooth stagger overlap)
-    const band = 0.045;
+    // Transition band width (~4% of progress for smooth stagger overlap)
+    const band = 0.04;
     const denominator = Math.max(1, totalWords - 1);
+    // Complete all words by 88% of the scroll window so the last words finish well before leaving view
+    const maxActiveProg = 0.88;
 
     // Initial state: dim (~12%), thin weight (~300), ~6px blur, 10px down
     wordRefs.current.forEach((el, i) => {
@@ -98,8 +100,8 @@ export default function Manifesto({
 
         const isAccent = accentFlags[i];
 
-        // Staggered threshold based on index in the sentence
-        const start = (i / denominator) * (1 - band);
+        // Staggered threshold mapped so even the final word finishes by maxActiveProg
+        const start = (i / denominator) * (maxActiveProg - band);
         const end = start + band;
 
         let localProgress = 0;
@@ -163,22 +165,22 @@ export default function Manifesto({
     };
 
     const ctx = gsap.context(() => {
-      // ScrollTrigger to capture scroll progress through the section
+      // ScrollTrigger: start as section enters lower screen (top 75%), finish while section is comfortably centered (center 45%)
       ScrollTrigger.create({
         trigger: section,
         start: 'top 75%',
-        end: 'bottom 25%',
+        end: 'center 45%',
         scrub: true,
         onUpdate: (self) => {
           targetProgress = self.progress;
         },
       });
 
-      // Lerp smoothed animation ticker (lerp factor ~0.09)
+      // Lerp smoothed animation ticker (responsive factor ~0.18 for smooth & timely reveal)
       const tick = () => {
         const diff = targetProgress - currentProgress;
         if (Math.abs(diff) > 0.0001) {
-          currentProgress += diff * 0.09;
+          currentProgress += diff * 0.18;
           renderWords(currentProgress);
         } else if (currentProgress !== targetProgress) {
           currentProgress = targetProgress;

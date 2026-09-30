@@ -24,8 +24,8 @@ const sortedUrls: string[] = Object.keys(frameModules)
 
 export const TOTAL_FRAMES = sortedUrls.length;
 
-// Maximum simultaneous Image loads
-const CONCURRENCY = 6;
+// Higher concurrency pool for rapid, smooth background loading
+const CONCURRENCY = 16;
 
 interface UseImageSequenceReturn {
   /** Stable ref – mutated in place, never causes re-renders */
@@ -45,22 +45,31 @@ export function useImageSequence(): UseImageSequenceReturn {
   const [isInitialReady, setIsInitialReady] = useState(false);
   const loadingStartedRef = useRef(false);
 
+  // Initialize array immediately
+  if (imagesRef.current.length !== sortedUrls.length) {
+    imagesRef.current = new Array<HTMLImageElement>(sortedUrls.length);
+  }
+
   // 1. Instantly load frame 0 for zero-delay canvas mount
   const loadInitialFrame = useCallback(() => {
     if (sortedUrls.length === 0) return;
+    if (imagesRef.current[0]?.complete) {
+      setIsInitialReady(true);
+      return;
+    }
     const img0 = new Image();
     img0.decoding = 'async';
     img0.src = sortedUrls[0];
     img0.onload = () => {
-      if (!imagesRef.current.length) {
-        imagesRef.current = new Array<HTMLImageElement>(sortedUrls.length);
-      }
       imagesRef.current[0] = img0;
+      setIsInitialReady(true);
+    };
+    img0.onerror = () => {
       setIsInitialReady(true);
     };
   }, []);
 
-  // 2. Load the entire sequence progressively in background
+  // 2. Load the entire sequence progressively and rapidly
   const loadFullSequence = useCallback(async () => {
     if (loadingStartedRef.current) return;
     loadingStartedRef.current = true;
@@ -68,9 +77,6 @@ export function useImageSequence(): UseImageSequenceReturn {
     const total = sortedUrls.length;
     if (total === 0) return;
 
-    if (!imagesRef.current.length) {
-      imagesRef.current = new Array<HTMLImageElement>(total);
-    }
     const images = imagesRef.current;
     let loaded = images[0]?.complete ? 1 : 0;
 
@@ -80,9 +86,9 @@ export function useImageSequence(): UseImageSequenceReturn {
     const loadNext = (): Promise<void> => {
       if (index >= queue.length) return Promise.resolve();
       const i = index++;
-      
+
       // Skip if already loaded (e.g. frame 0)
-      if (images[i]?.complete) {
+      if (images[i]?.complete && images[i]?.naturalWidth > 0) {
         return loadNext();
       }
 
@@ -115,27 +121,8 @@ export function useImageSequence(): UseImageSequenceReturn {
 
   useEffect(() => {
     loadInitialFrame();
-
-    // Defer loading the remaining frames until the main thread is idle or after 800ms
-    const timer = setTimeout(() => {
-      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-        window.requestIdleCallback(() => loadFullSequence(), { timeout: 1500 });
-      } else {
-        loadFullSequence();
-      }
-    }, 600);
-
-    // If user starts scrolling, start loading immediately
-    const handleScroll = () => {
-      loadFullSequence();
-      window.removeEventListener('scroll', handleScroll);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true, once: true });
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    // Start sequence load immediately
+    loadFullSequence();
   }, [loadInitialFrame, loadFullSequence]);
 
   return { imagesRef, progress, isReady, isInitialReady };

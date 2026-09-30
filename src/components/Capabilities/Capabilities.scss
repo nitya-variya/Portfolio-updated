@@ -1,194 +1,486 @@
-// ── Capabilities Section ────────────────────────────────────────────────────
+// ── What I Do / Expertise Section (Clean Theme + Reference Match) ──────────
 
-.cap-section {
-  background: #080808;
-  padding: 100px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+.why-section {
   position: relative;
-}
-
-// ── Header row ──────────────────────────────────────────────────────────────
-.cap-hdr {
-  max-width: 1280px;
-  margin: 0 auto 64px;
-  padding: 0 clamp(24px, 5vw, 60px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.cap-hdr__label {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 400;
-  letter-spacing: -0.5px;
-  color: #F5F1E8;
-}
-
-.cap-hdr__count {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: rgba(245, 241, 232, 0.2);
-}
-
-// ── 4-column grid ───────────────────────────────────────────────────────────
-.cap-grid {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 clamp(24px, 5vw, 60px);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-// ── Card ────────────────────────────────────────────────────────────────────
-.cap-card {
-  padding: 36px 28px 52px;
-  border-right: 1px solid rgba(255, 255, 255, 0.07);
-  position: relative;
-  transition: background 0.35s ease;
-
-  &:last-child {
-    border-right: none;
-  }
-
-  // Amber underline reveal on hover
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1.5px;
-    background: #C96121;
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  &:hover {
-    background: rgba(201, 97, 33, 0.03);
-
-    &::after {
-      transform: scaleX(1);
-    }
-
-    .cap-icon-svg {
-      color: #C96121;
-    }
-  }
-}
-
-// ── Card number ─────────────────────────────────────────────────────────────
-.cap-card__num {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: #C96121;
-  display: block;
-  margin-bottom: 40px;
-}
-
-// ── Icon ────────────────────────────────────────────────────────────────────
-.cap-icon-wrap {
-  width: 76px;
-  height: 76px;
-  margin-bottom: 48px;
-}
-
-.cap-icon-svg {
+  background-color: #080808;
   width: 100%;
-  height: 100%;
-  color: #F5F1E8;
-  transition: color 0.4s ease;
-  overflow: visible;   // lets the outer ring breathe past viewBox edge
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-// ── Card text ───────────────────────────────────────────────────────────────
-.cap-card__body {
+// ── Viewport Container ──────────────────────────────────────────────────────
+.why-sticky {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(24px, 4vh, 44px) clamp(24px, 5.5vw, 90px);
+  box-sizing: border-box;
+  z-index: 2;
+  overflow: hidden;
+
+  &--mobile {
+    height: auto;
+    max-height: none;
+    padding: 60px 20px 80px;
+    overflow: visible;
+  }
 }
 
-.cap-card__title {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(20px, 1.7vw, 26px);
-  font-weight: 400;
-  color: #F5F1E8;
-  line-height: 1.25;
-  letter-spacing: -0.3px;
-  margin: 0 0 10px;
+// ── 2-Column Split Layout ───────────────────────────────────────────────────
+.why-layout {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: clamp(36px, 5vw, 84px);
+  align-items: center;
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  flex: 1;
+  min-height: 0;
+  padding: clamp(10px, 1.5vh, 24px) 0;
 }
 
-.cap-card__tagline {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(245, 241, 232, 0.6);
-  margin: 0 0 20px;
-  line-height: 1.4;
+// ── LEFT COLUMN: Accordion & Pill Cards ──────────────────────────────────────
+.why-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  min-height: 0;
 }
 
-.cap-card__desc {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  line-height: 1.78;
-  color: rgba(245, 241, 232, 0.35);
-  margin: 0;
+.why-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.6vh, 16px);
+  width: 100%;
 }
 
-// ── Responsive ──────────────────────────────────────────────────────────────
-@media (max-width: 1100px) {
-  .cap-grid {
-    grid-template-columns: repeat(2, 1fr);
+// Individual Accordion Card / Pill
+.why-card {
+  position: relative;
+  background-color: rgba(245, 241, 232, 0.06);
+  border: 1px solid rgba(245, 241, 232, 0.09);
+  border-radius: 28px;
+  padding: clamp(14px, 1.8vh, 18px) clamp(20px, 2.5vw, 28px);
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.3s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  user-select: none;
+  box-sizing: border-box;
+
+  &:hover {
+    transform: translateY(-2px);
+    background-color: rgba(245, 241, 232, 0.09);
+    border-color: rgba(245, 241, 232, 0.18);
   }
 
-  .cap-card {
-    // Right border only on odd cards in 2-col grid
-    &:nth-child(even) {
-      border-right: none;
+  &--active {
+    background-color: rgba(245, 241, 232, 0.12);
+    border-color: rgba(201, 97, 33, 0.5);
+    border-radius: 24px;
+    box-shadow:
+      0 20px 45px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(201, 97, 33, 0.08);
+
+    &:hover {
+      transform: none;
     }
+  }
 
-    // Top border for bottom row
-    &:nth-child(3),
-    &:nth-child(4) {
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+  }
+
+  &__header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__active-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #C96121;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  &__pill-title {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: clamp(13px, 1.15vw, 16px);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #F5F1E8;
+    margin: 0;
+    line-height: 1.2;
+
+    &--active {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(21px, 2.1vw, 28px);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      text-transform: none;
+      color: #F5F1E8;
+      margin-top: 2px;
+    }
+  }
+
+  // Right Plus / Cross Icon Button
+  .why-pill-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: rgba(245, 241, 232, 0.1);
+    color: #F5F1E8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+    svg {
+      transition: transform 0.35s ease;
+    }
+  }
+
+  // Collapsible Content Body
+  &__body {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    will-change: height, opacity, transform;
+  }
+
+  &__body-inner {
+    padding-top: 12px;
+    margin-top: 12px;
+    border-top: 1px solid rgba(245, 241, 232, 0.08);
+  }
+
+  &__desc {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: clamp(13px, 1.05vw, 14.5px);
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(245, 241, 232, 0.82);
+    margin: 0 0 14px;
+    max-width: 520px;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  &__tag-pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: rgba(245, 241, 232, 0.9);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 4px 10px;
+    backdrop-filter: blur(8px);
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+
+    &:hover {
+      background: rgba(201, 97, 33, 0.15);
+      border-color: rgba(201, 97, 33, 0.4);
+      color: #F5F1E8;
     }
   }
 }
 
-@media (max-width: 640px) {
-  .cap-section {
-    padding: 72px 0 0;
+// ── RIGHT COLUMN: Film Strip & Floating Title ────────────────────────────────
+.why-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+// Outer wrapper so the handwritten script never gets clipped
+.why-filmstrip-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding-top: 38px;
+  box-sizing: border-box;
+}
+
+// Handwritten Script Overlay ("What I Do" - fully visible, zero clipping)
+.why-handwritten-title {
+  position: absolute;
+  top: -8px;
+  left: -22px;
+  z-index: 25;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  transform: rotate(-9deg);
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.7));
+
+  span {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(50px, 5.5vw, 70px);
+    font-weight: 700;
+    color: #C96121;
+    line-height: 0.8;
   }
 
-  .cap-hdr {
-    margin-bottom: 48px;
+  em {
+    font-family: 'Caveat', cursive;
+    font-style: normal;
+    font-size: clamp(46px, 5vw, 64px);
+    font-weight: 700;
+    color: #E8823A;
+    line-height: 0.85;
+    margin-left: 20px;
+  }
+}
 
-    .cap-hdr__count {
-      display: none;
-    }
+// 35mm Filmstrip Inner Frame Box
+.why-filmstrip-container {
+  position: relative;
+  width: 100%;
+  height: clamp(360px, 54vh, 520px);
+  background: #0d0d0d;
+  border-radius: 20px;
+  border: 1px solid rgba(245, 241, 232, 0.12);
+  display: grid;
+  grid-template-columns: 28px 1fr 28px;
+  overflow: hidden;
+  box-shadow:
+    0 28px 75px rgba(0, 0, 0, 0.8),
+    0 0 45px rgba(201, 97, 33, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+// Close / Preview circular button top-right (Matching reference)
+.why-film-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 12;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+
+  &:hover {
+    transform: scale(1.08);
+    background: rgba(201, 97, 33, 0.8);
+  }
+}
+
+// 35mm Sprocket Borders
+.why-sprocket {
+  background: #090909;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  position: relative;
+  z-index: 5;
+  user-select: none;
+
+  &--left {
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .cap-grid {
+  &--right {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  &__hole {
+    width: 14px;
+    height: 10px;
+    border-radius: 2px;
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
+  }
+
+  &__meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    color: rgba(201, 97, 33, 0.7);
+    letter-spacing: 0.15em;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    margin: 8px 0;
+  }
+}
+
+// Film Photo Viewport
+.why-film-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+}
+
+// Track holding rolling image frames
+.why-film-track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  will-change: transform;
+}
+
+.why-film-frame {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  &__inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+}
+
+.why-film-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: contrast(1.05) saturate(1.05);
+}
+
+// Film Vignette Overlay
+.why-film-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+// Frame Footer Caption
+.why-film-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 18px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.4) 65%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 3;
+
+  &__frame {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #C96121;
+  }
+
+  &__title {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #F5F1E8;
+    letter-spacing: -0.01em;
+  }
+}
+
+// ── Responsive Adjustments ──────────────────────────────────────────────────
+@media (max-width: 1080px) {
+  .why-layout {
+    gap: 36px;
+  }
+
+  .why-filmstrip-wrap {
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 860px) {
+  .why-section {
+    min-height: auto;
+  }
+
+  .why-sticky--mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .why-layout {
     grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 0;
   }
 
-  .cap-card {
-    border-right: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  .why-right {
+    order: -1;
+  }
 
-    &:first-child {
-      border-top: none;
-    }
+  .why-filmstrip-wrap {
+    max-width: 100%;
+    padding-top: 32px;
+  }
 
-    // Reset 2-col overrides
-    &:nth-child(even) {
-      border-right: none;
+  .why-filmstrip-container {
+    height: 360px;
+  }
+
+  .why-card {
+    border-radius: 20px;
+    padding: 16px 18px;
+
+    &__body {
+      display: block !important;
+      height: auto !important;
+      opacity: 1 !important;
     }
   }
 }
-
