@@ -5,6 +5,7 @@ import RockSequence from './components/ZenTransition/RockSequence';
 import WorksSection from './components/Works/Works';
 import Capabilities from './components/Capabilities/Capabilities';
 import AboutSection from './components/AboutSection/AboutSection';
+import Testimonials from './components/Testimonials/Testimonials';
 import Contact from './components/Contact/Contact';
 import SmoothScroll from './components/SmoothScroll';
 
@@ -16,10 +17,11 @@ function App() {
           <div className="app-content">
             <Hero />
             <Manifesto />
-            <RockSequence />
             <WorksSection />
+            <RockSequence />
             <Capabilities />
             <AboutSection />
+            <Testimonials />
             <Contact />
           </div>
           <Footer />

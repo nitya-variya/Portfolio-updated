@@ -187,12 +187,6 @@ export default function Capabilities() {
           <div className="cap-right">
             <div className="cap-image-wrapper">
               
-              {/* Handwritten Script Title ("What I Do") */}
-              <div className="cap-script-title" aria-hidden="true">
-                <span className="cap-script-what">What</span>
-                <span className="cap-script-do">I Do</span>
-              </div>
-
               {/* Close Button on Top-Right */}
               <button className="cap-image-close-btn" type="button" aria-label="Close preview">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -223,6 +217,11 @@ export default function Capabilities() {
             </div>
           </div>
 
+        </div>
+
+        {/* ── Big Gradient Watermark Title Pinned to Bottom Left ── */}
+        <div className="cap-bottom-title" aria-hidden="true">
+          <span className="cap-bottom-title-text">WHAT I DO</span>
         </div>
       </div>
     </section>

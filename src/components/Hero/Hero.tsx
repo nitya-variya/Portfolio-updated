@@ -6,12 +6,12 @@ import video from "./Hero_video.mp4";
 
 // ── Data ───────────────────────────────────────────────────────
 const NAV_LEFT = [
-  { label: "Journey", href: "#about" },
-  { label: "Craft", href: "#work" },
+  { label: "Work", href: "#work" },
+  { label: "Craft", href: "#capabilities" },
 ];
 
 const NAV_RIGHT = [
-  { label: "Work", href: "#journal" },
+  { label: "Journey", href: "#about" },
   { label: "Connect", href: "#contact" },
 ];
 

@@ -146,7 +146,7 @@ export default function AboutSection() {
 
   return (
     <>
-      <section className="fs_about_master" ref={masterRef}>
+      <section className="fs_about_master" ref={masterRef} id="about">
 
         <div className="fs_image_wrapper" ref={imageWrapperRef}>
           <img
