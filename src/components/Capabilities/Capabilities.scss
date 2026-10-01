@@ -1,27 +1,42 @@
-// ── What I Do / Expertise Section (Clean Theme + Reference Match) ──────────
+// ── Capabilities / What I Do Section (Ultra-Smooth Hardware-Accelerated Animations) ──
 
-.why-section {
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+$font-owners: 'Owners', sans-serif;
+$font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-script: 'Scribo', 'Caveat', cursive;
+
+$color-bg: #000000;
+$color-warm-white: #F5F1E8;
+$color-accent: #C96121;
+$color-accent-bright: #FF4D00;
+$color-pill-bg: rgba(255, 255, 255, 0.06);
+$color-pill-border: rgba(255, 255, 255, 0.12);
+$color-card-active: rgba(255, 255, 255, 0.08);
+$color-card-border-active: rgba(201, 97, 33, 0.45);
+
+.cap-section {
   position: relative;
-  background-color: #080808;
+  background-color: $color-bg;
+  color: $color-warm-white;
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
   overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 // ── Viewport Container ──────────────────────────────────────────────────────
-.why-sticky {
+.cap-sticky {
   position: relative;
   width: 100%;
   height: 100vh;
   max-height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: clamp(24px, 4vh, 44px) clamp(24px, 5.5vw, 90px);
+  padding: clamp(24px, 4.5vh, 60px) clamp(28px, 5vw, 100px);
   box-sizing: border-box;
   z-index: 2;
   overflow: hidden;
@@ -34,453 +49,406 @@
   }
 }
 
-// ── 2-Column Split Layout ───────────────────────────────────────────────────
-.why-layout {
-  display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
-  gap: clamp(36px, 5vw, 84px);
+// ── Main Layout: Generous Width & Spacing ───────────────────────────────────
+.cap-layout {
+  position: relative;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
-  max-width: 1380px;
+  max-width: 1540px;
+  height: 100%;
+  max-height: 840px;
   margin: 0 auto;
-  flex: 1;
-  min-height: 0;
-  padding: clamp(10px, 1.5vh, 24px) 0;
+  gap: clamp(40px, 5vw, 80px);
 }
 
-// ── LEFT COLUMN: Accordion & Pill Cards ──────────────────────────────────────
-.why-left {
+// ── LEFT COLUMN: Accordion & Pills (Centered Stack with Min-Width) ──────────
+.cap-left {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
-  min-height: 0;
+  align-items: center;
+  width: 44%;
+  max-width: 580px;
+  z-index: 3;
 }
 
-.why-accordion {
+.cap-accordion {
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 1.6vh, 16px);
+  align-items: center;
+  gap: clamp(14px, 1.8vh, 18px);
   width: 100%;
 }
 
-// Individual Accordion Card / Pill
-.why-card {
-  position: relative;
-  background-color: rgba(245, 241, 232, 0.06);
-  border: 1px solid rgba(245, 241, 232, 0.09);
-  border-radius: 28px;
-  padding: clamp(14px, 1.8vh, 18px) clamp(20px, 2.5vw, 28px);
+// Individual Accordion Item (Each Closed Pill takes its Natural Max-Content Width)
+.cap-item {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  max-width: max-content;
+  border-radius: 20px;
+  background-color: $color-pill-bg;
+  border: 1px solid $color-pill-border;
   cursor: pointer;
   outline: none;
-  transition: transform 0.3s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   user-select: none;
   box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  padding: 12px 14px 12px 24px;
+  transition:
+    width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
-  &:hover {
+  &:hover:not(.cap-item--active) {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.24);
     transform: translateY(-2px);
-    background-color: rgba(245, 241, 232, 0.09);
-    border-color: rgba(245, 241, 232, 0.18);
   }
 
+  // Active State: Expands into full-width card
   &--active {
-    background-color: rgba(245, 241, 232, 0.12);
-    border-color: rgba(201, 97, 33, 0.5);
+    width: 100%;
+    max-width: 520px;
     border-radius: 24px;
+    background-color: $color-card-active;
+    border-color: $color-card-border-active;
+    padding: clamp(26px, 3vh, 34px) clamp(26px, 2.5vw, 36px);
+    cursor: default;
     box-shadow:
-      0 20px 45px rgba(0, 0, 0, 0.5),
-      0 0 30px rgba(201, 97, 33, 0.08);
+      0 24px 50px rgba(0, 0, 0, 0.6),
+      0 0 35px rgba(201, 97, 33, 0.1);
 
     &:hover {
       transform: none;
     }
-  }
 
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    width: 100%;
-  }
-
-  &__header-left {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  &__active-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #C96121;
-    display: block;
-    margin-bottom: 2px;
-  }
-
-  &__pill-title {
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: clamp(13px, 1.15vw, 16px);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #F5F1E8;
-    margin: 0;
-    line-height: 1.2;
-
-    &--active {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-style: italic;
-      font-size: clamp(21px, 2.1vw, 28px);
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      text-transform: none;
-      color: #F5F1E8;
-      margin-top: 2px;
+    .cap-item-header {
+      width: 100%;
+      justify-content: space-between;
     }
-  }
 
-  // Right Plus / Cross Icon Button
-  .why-pill-icon {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    border-radius: 50%;
-    background: rgba(245, 241, 232, 0.1);
-    color: #F5F1E8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-
-    svg {
-      transition: transform 0.35s ease;
+    .cap-pill-icon {
+      display: none;
     }
-  }
 
-  // Collapsible Content Body
-  &__body {
-    height: 0;
-    opacity: 0;
-    overflow: hidden;
-    will-change: height, opacity, transform;
-  }
+    .cap-item-title {
+      font-size: clamp(17px, 1.45vw, 22px);
+      letter-spacing: 0.05em;
+    }
 
-  &__body-inner {
-    padding-top: 12px;
-    margin-top: 12px;
-    border-top: 1px solid rgba(245, 241, 232, 0.08);
-  }
+    .cap-card-body {
+      display: grid;
+      grid-template-rows: 1fr;
+      margin-top: 14px;
+      width: 100%;
+      max-width: 100%;
+    }
 
-  &__desc {
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: clamp(13px, 1.05vw, 14.5px);
-    font-weight: 300;
-    line-height: 1.6;
-    color: rgba(245, 241, 232, 0.82);
-    margin: 0 0 14px;
-    max-width: 520px;
-  }
-
-  &__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-  }
-
-  &__tag-pill {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    color: rgba(245, 241, 232, 0.9);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    padding: 4px 10px;
-    backdrop-filter: blur(8px);
-    transition: background-color 0.25s ease, border-color 0.25s ease;
-
-    &:hover {
-      background: rgba(201, 97, 33, 0.15);
-      border-color: rgba(201, 97, 33, 0.4);
-      color: #F5F1E8;
+    .cap-card-body-inner {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.1s;
     }
   }
 }
 
-// ── RIGHT COLUMN: Film Strip & Floating Title ────────────────────────────────
-.why-right {
+// Header Row inside each Item
+.cap-item-header {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: max-content;
+}
+
+.cap-item-title {
+  font-family: $font-owners;
+  font-size: clamp(13px, 1.05vw, 15.5px);
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: $color-warm-white;
+  line-height: 1.2;
+  margin: 0;
+  white-space: nowrap;
+  transition: font-size 0.35s cubic-bezier(0.16, 1, 0.3, 1), letter-spacing 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+// Plus Icon Button (Matching Soft Squircle Badge)
+.cap-pill-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  max-width: 32px;
+  max-height: 32px;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: $color-warm-white;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  position: relative;
-}
-
-// Outer wrapper so the handwritten script never gets clipped
-.why-filmstrip-wrap {
-  position: relative;
-  width: 100%;
-  max-width: 480px;
-  padding-top: 38px;
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.35s ease,
+    background-color 0.25s ease;
+
+  svg {
+    width: 12px;
+    height: 12px;
+    display: block;
+    flex-shrink: 0;
+  }
 }
 
-// Handwritten Script Overlay ("What I Do" - fully visible, zero clipping)
-.why-handwritten-title {
-  position: absolute;
-  top: -8px;
-  left: -22px;
-  z-index: 25;
-  pointer-events: none;
+// Collapsible Body
+.cap-card-body {
+  display: none;
+  grid-template-rows: 0fr;
+  width: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1), margin-top 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cap-card-body-inner {
+  min-height: 0;
+  opacity: 0;
+  transform: translateY(8px);
   display: flex;
   flex-direction: column;
-  transform: rotate(-9deg);
-  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.7));
-
-  span {
-    font-family: 'Caveat', cursive;
-    font-size: clamp(50px, 5.5vw, 70px);
-    font-weight: 700;
-    color: #C96121;
-    line-height: 0.8;
-  }
-
-  em {
-    font-family: 'Caveat', cursive;
-    font-style: normal;
-    font-size: clamp(46px, 5vw, 64px);
-    font-weight: 700;
-    color: #E8823A;
-    line-height: 0.85;
-    margin-left: 20px;
-  }
+  gap: 10px;
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-// 35mm Filmstrip Inner Frame Box
-.why-filmstrip-container {
+.cap-card-subtitle {
+  font-family: $font-body;
+  font-size: clamp(14px, 1.1vw, 16.5px);
+  font-weight: 500;
+  color: $color-accent;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.cap-card-desc {
+  font-family: $font-body;
+  font-size: clamp(13.5px, 1.02vw, 15px);
+  font-weight: 300;
+  color: rgba(245, 241, 232, 0.85);
+  margin: 0;
+  line-height: 1.65;
+}
+
+// ── RIGHT COLUMN: Prominent & Large Image Showcase ──────────────────────────
+.cap-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 55%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.cap-image-wrapper {
   position: relative;
   width: 100%;
-  height: clamp(360px, 54vh, 520px);
-  background: #0d0d0d;
-  border-radius: 20px;
-  border: 1px solid rgba(245, 241, 232, 0.12);
-  display: grid;
-  grid-template-columns: 28px 1fr 28px;
-  overflow: hidden;
-  box-shadow:
-    0 28px 75px rgba(0, 0, 0, 0.8),
-    0 0 45px rgba(201, 97, 33, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  max-width: 780px;
+  height: clamp(480px, 72vh, 680px);
 }
 
-// Close / Preview circular button top-right (Matching reference)
-.why-film-btn {
+// Handwritten Script Title ("What I Do")
+.cap-script-title {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
+  top: -38px;
+  left: -44px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 20;
+  pointer-events: none;
+  user-select: none;
+  transform: rotate(-9deg);
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.9));
+}
+
+.cap-script-what {
+  font-family: $font-script;
+  font-size: clamp(80px, 8.2vw, 128px);
+  font-weight: 700;
+  color: $color-accent-bright;
+  line-height: 0.8;
+  letter-spacing: 0.02em;
+  display: block;
+}
+
+.cap-script-do {
+  font-family: $font-script;
+  font-size: clamp(74px, 7.6vw, 118px);
+  font-weight: 700;
+  color: #FF6A1A;
+  line-height: 0.85;
+  margin-left: 32px;
+  display: block;
+}
+
+// Close Button (top-right 'X')
+.cap-image-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(15, 15, 15, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 12;
+  z-index: 15;
   cursor: pointer;
-  transition: transform 0.25s ease, background-color 0.25s ease;
+  padding: 0;
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 
   &:hover {
     transform: scale(1.08);
-    background: rgba(201, 97, 33, 0.8);
+    background: rgba(0, 0, 0, 0.95);
+    border-color: rgba(201, 97, 33, 0.7);
   }
 }
 
-// 35mm Sprocket Borders
-.why-sprocket {
-  background: #090909;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 0;
-  position: relative;
-  z-index: 5;
-  user-select: none;
-
-  &--left {
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  &--right {
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  &__hole {
-    width: 14px;
-    height: 10px;
-    border-radius: 2px;
-    background: #000000;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
-  }
-
-  &__meta {
-    font-family: 'Space Mono', monospace;
-    font-size: 8px;
-    color: rgba(201, 97, 33, 0.7);
-    letter-spacing: 0.15em;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    white-space: nowrap;
-    margin: 8px 0;
-  }
-}
-
-// Film Photo Viewport
-.why-film-viewport {
-  position: relative;
+// Large Single Image Frame with Rounded Corners
+.cap-image-frame {
   width: 100%;
   height: 100%;
+  border-radius: 26px;
   overflow: hidden;
-  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background-color: #0a0a0a;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.85),
+    0 0 40px rgba(201, 97, 33, 0.08);
+  position: relative;
 }
 
-// Track holding rolling image frames
-.why-film-track {
+// Butter-Smooth Stacked Image Crossfade Slides
+.cap-image-slide {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  position: relative;
-  will-change: transform;
-}
+  opacity: 0;
+  transform: scale(1.05) translateY(8px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
 
-.why-film-frame {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-
-  &__inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
+  &--active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    z-index: 2;
+    pointer-events: auto;
   }
 }
 
-.why-film-img {
+.cap-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
-  filter: contrast(1.05) saturate(1.05);
+  filter: contrast(1.06) saturate(1.05);
 }
 
-// Film Vignette Overlay
-.why-film-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at center,
-    transparent 50%,
-    rgba(0, 0, 0, 0.45) 100%
-  );
-  pointer-events: none;
-  z-index: 2;
-}
-
-// Frame Footer Caption
-.why-film-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 16px 18px;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.4) 65%,
-    transparent 100%
-  );
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  z-index: 3;
-
-  &__frame {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #C96121;
-  }
-
-  &__title {
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: #F5F1E8;
-    letter-spacing: -0.01em;
-  }
-}
-
-// ── Responsive Adjustments ──────────────────────────────────────────────────
+// ── Responsive Mobile ───────────────────────────────────────────────────────
 @media (max-width: 1080px) {
-  .why-layout {
-    gap: 36px;
-  }
-
-  .why-filmstrip-wrap {
-    max-width: 420px;
-  }
-}
-
-@media (max-width: 860px) {
-  .why-section {
-    min-height: auto;
-  }
-
-  .why-sticky--mobile {
-    display: flex;
-    flex-direction: column;
+  .cap-layout {
     gap: 32px;
   }
 
-  .why-layout {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 0;
+  .cap-script-title {
+    top: -24px;
+    left: -24px;
   }
 
-  .why-right {
-    order: -1;
+  .cap-script-what {
+    font-size: 68px;
   }
 
-  .why-filmstrip-wrap {
+  .cap-script-do {
+    font-size: 62px;
+  }
+
+  .cap-image-wrapper {
+    max-width: 580px;
+    height: 520px;
+  }
+}
+
+@media (max-width: 900px) {
+  .cap-section {
+    min-height: auto;
+  }
+
+  .cap-sticky--mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 60px 20px 80px;
+  }
+
+  .cap-layout {
+    flex-direction: column;
+    max-height: none;
+    height: auto;
+    gap: 48px;
+  }
+
+  .cap-left {
+    width: 100%;
     max-width: 100%;
-    padding-top: 32px;
+    align-items: center;
   }
 
-  .why-filmstrip-container {
-    height: 360px;
+  .cap-accordion {
+    align-items: center;
+    width: 100%;
   }
 
-  .why-card {
-    border-radius: 20px;
-    padding: 16px 18px;
+  .cap-item--active {
+    max-width: 100%;
+  }
 
-    &__body {
-      display: block !important;
-      height: auto !important;
-      opacity: 1 !important;
-    }
+  .cap-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cap-image-wrapper {
+    max-width: 100%;
+    height: 420px;
+  }
+
+  .cap-script-title {
+    top: -18px;
+    left: 8px;
   }
 }
