@@ -109,7 +109,7 @@ export default function Testimonials() {
 
         {/* Testimonial Cards Grid */}
         <div className="test-grid" ref={cardsRef}>
-          {TESTIMONIALS.map((item, index) => (
+          {TESTIMONIALS.map((item) => (
             <div className="test-card" key={item.id}>
               {/* Decorative Accent Glow */}
               <div className="test-card-glow" aria-hidden="true" />

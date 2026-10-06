@@ -1,6 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+// ─── FONT DECLARATIONS (@font-face) ──────────────────────────────────────────
+@font-face {
+  font-family: 'New Spirit Condensed';
+  src: local('New Spirit Condensed'),
+       local('NewSpiritCondensed'),
+       local('New Spirit Condensed Bold'),
+       local('NewSpirit-CondensedBold'),
+       local('New Spirit'),
+       url('/fonts/NewSpiritCondensed.woff2') format('woff2'),
+       url('/fonts/NewSpiritCondensed.woff') format('woff'),
+       url('/fonts/NewSpiritCondensed.otf') format('opentype'),
+       url('/fonts/NewSpiritCondensed.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
-// â”€â”€â”€ DESIGN TOKENS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+@font-face {
+  font-family: 'ABC Social';
+  src: local('ABC Social'),
+       local('ABCSocial'),
+       local('ABC Social Regular'),
+       local('ABCSocial-Regular'),
+       local('ABC Social Medium'),
+       url('/fonts/ABCSocial.woff2') format('woff2'),
+       url('/fonts/ABCSocial.woff') format('woff'),
+       url('/fonts/ABCSocial.otf') format('opentype'),
+       url('/fonts/ABCSocial.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+// ─── DESIGN TOKENS (ONLY 2 FONT FAMILIES) ───────────────────────────────────
 $color-warm-white: #F5F1E8;
 $color-secondary: #CFCBC2;
 $color-accent: #C96121;
@@ -8,8 +39,29 @@ $color-dark: #0a0a0a;
 $color-dark-900: #111111;
 $color-glass-bg: rgba(255, 255, 255, 0.06);
 $color-glass-border: rgba(255, 255, 255, 0.10);
-$font-heading: 'Instrument Serif', Georgia, serif;
-$font-body: 'DM Sans', Arial, sans-serif;
+
+// Only 2 Font Families Across the Entire Site:
+$font-title: 'New Spirit Condensed', 'New Spirit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-desc: 'ABC Social', 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+$font-owners: $font-title;
+$font-heading: $font-title;
+$font-serif: $font-title;
+$font-body: $font-desc;
+$font-mono: $font-desc;
+$font-sans: $font-desc;
+
+$pw-serif: $font-title;
+$pw-mono: $font-desc;
+
+$ab-serif: $font-title;
+$ab-sans: $font-desc;
+$ab-mono: $font-desc;
+
+$ar-serif: $font-title;
+$ar-sans: $font-desc;
+$ar-mono: $font-desc;
+
 $ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 $ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -191,11 +243,12 @@ $h-dark: #0C0C0C;
   }
 
   &__wordmark {
-    font-family: $font-heading;
+    font-family: $font-owners;
     font-size: 0.85rem;
-    font-weight: 400;
+    font-weight: 700;
     color: $h-secondary;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     white-space: nowrap;
     min-width: 120px;
     transition: color 0.4s $ease-smooth;
@@ -363,12 +416,13 @@ $h-dark: #0C0C0C;
 
   &__headline-line {
     display: block;
-    font-family: $font-heading;
-    font-size: clamp(3.5rem, 9vw, 5.5rem);
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.015em;
+    font-family: $font-owners;
+    font-size: clamp(3rem, 7.5vw, 5.2rem);
+    font-style: normal;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
     color: #ffffff;
     text-shadow:
       0 0 6px rgba(255, 255, 255, 0.5),
@@ -449,7 +503,7 @@ $h-dark: #0C0C0C;
 }
 
 .fs_loader_counter {
-  font-family: 'Space Mono', monospace;
+  font-family: $font-desc;
   font-size: 16px;
   color: #FFFFFF;
   letter-spacing: 2px;
@@ -581,10 +635,12 @@ $h-dark: #0C0C0C;
 }
 
 .fs_slice {
-  font-family: 'Instrument Serif', serif;
+  font-family: $font-owners;
   font-size: 250px;
   line-height: 250px;
-  font-style: italic;
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
   color: #FFFFFF;
   position: absolute;
   top: 0px;
@@ -625,8 +681,8 @@ $h-dark: #0C0C0C;
 }
 
 .fs_counter_label {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px;
+  font-family: $font-mono;
+  font-size: 13px;
   color: #A0A0A0;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -634,7 +690,7 @@ $h-dark: #0C0C0C;
 
 .fs_counter_num,
 .fs_counter_symbol {
-  font-family: 'Space Mono', monospace;
+  font-family: $font-mono;
   font-size: 14px;
   color: #F9C176;
 }
@@ -658,11 +714,11 @@ $h-dark: #0C0C0C;
 }
 
 .minimal-hook {
-  font-family: 'Instrument Serif', serif;
+  font-family: $font-owners;
   font-size: 80px;
   line-height: 1.3;
   color: #FFFFFF;
-  font-weight: 400;
+  font-weight: 800;
   letter-spacing: -1px;
 }
 
@@ -693,9 +749,9 @@ $h-dark: #0C0C0C;
 }
 
 .pill-text {
-  font-family: 'Syne', sans-serif;
+  font-family: $font-owners;
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 800;
   color: #C96121;
   letter-spacing: 0px;
   text-transform: uppercase;
@@ -703,7 +759,7 @@ $h-dark: #0C0C0C;
 
 .px-measure {
   position: absolute;
-  font-family: 'Space Mono', monospace;
+  font-family: $font-mono;
   font-size: 14px;
   color: #A3652A;
   opacity: 0;
@@ -846,19 +902,21 @@ $h-dark: #0C0C0C;
 
 // â”€â”€ Proof text â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 .fs_proof_text {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(60px, 10vw, 140px);
+  font-family: $font-owners;
+  font-size: clamp(48px, 8vw, 110px);
   color: #F5F1E8;
-  font-style: italic;
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
   margin: 0;
-  line-height: 1;
-  letter-spacing: -0.03em;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
   text-align: center;
   will-change: transform, opacity;
 }
 
 .fs_proof_sub {
-  font-family: 'Space Mono', monospace;
+  font-family: $font-mono;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 5px;
@@ -924,7 +982,7 @@ $h-dark: #0C0C0C;
 }
 
 .fs_pill_text {
-  font-family: 'Space Mono', monospace;
+  font-family: $font-desc;
   font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -952,8 +1010,8 @@ $pw-fg-dim: rgba(245, 241, 232, 0.45);
 $pw-fg-muted: rgba(245, 241, 232, 0.28);
 $pw-accent: #C96121;
 $pw-line: rgba(245, 241, 232, 0.10);
-$pw-mono: 'Space Mono', monospace;
-$pw-serif: 'Instrument Serif', Georgia, serif;
+$pw-mono: $font-desc;
+$pw-serif: $font-title;
 $pw-ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
@@ -983,14 +1041,15 @@ $pw-ease-smth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
 .pw_tagline {
   font-family: $pw-serif;
-  font-style: italic;
-  font-size: clamp(36px, 5.5vw, 72px);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-style: normal;
+  font-size: clamp(32px, 4.5vw, 64px);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   text-align: center;
   margin: 0 auto 56px auto;
-  max-width: 18ch;
+  max-width: 22ch;
   // Flesh-orange gradient: peach → amber → accent → burnt sienna
   background: linear-gradient(120deg,
       #F4D0A8 0%,
@@ -1373,9 +1432,9 @@ $ab-ink-soft: rgba(255, 255, 255, 0.82);
 $ab-ink-dim: rgba(255, 255, 255, 0.66);
 $ab-ink-faint: rgba(255, 255, 255, 0.38);
 $ab-accent: #c96121;
-$ab-mono: 'Space Mono', monospace;
-$ab-serif: 'Instrument Serif', serif;
-$ab-sans: 'DM Sans', sans-serif;
+$ab-mono: $font-desc;
+$ab-serif: $font-title;
+$ab-sans: $font-desc;
 
 .fs_trionn_master {
   width: 100%;
@@ -1451,12 +1510,12 @@ $ab-sans: 'DM Sans', sans-serif;
 }
 
 .fs_intro_name {
-  font-family: 'Syne', sans-serif;
+  font-family: $font-owners;
   font-size: clamp(3.2rem, 6.5vw, 6rem);
-  font-weight: 800;
+  font-weight: 900;
   line-height: 0.85;
   text-transform: uppercase;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
   margin: 0;
   color: rgba(255, 255, 255, 0.95);
 }
@@ -1516,7 +1575,7 @@ $ab-sans: 'DM Sans', sans-serif;
 
 .fs_badge_text {
   max-width: 250px;
-  font-family: 'Syne', sans-serif;
+  font-family: $font-title;
   font-size: 0.85rem;
   font-weight: 700;
   line-height: 1.3;
@@ -1547,7 +1606,7 @@ $ab-sans: 'DM Sans', sans-serif;
 }
 
 .fs_stat_num {
-  font-family: 'Syne', sans-serif;
+  font-family: $font-title;
   font-size: 2.2rem;
   font-weight: 800;
   color: #fff;
@@ -1608,11 +1667,12 @@ $ab-sans: 'DM Sans', sans-serif;
   grid-area: quote;
   justify-self: end;
   max-width: 780px;
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(2.8rem, 5vw, 4.6rem);
-  line-height: 1.05;
-  font-weight: 400;
-  font-style: italic;
+  font-family: $font-owners;
+  font-size: clamp(2.4rem, 4.2vw, 4rem);
+  line-height: 1.1;
+  font-weight: 800;
+  font-style: normal;
+  text-transform: uppercase;
   margin: 0;
   color: rgba(255, 255, 255, 0.95);
 }
@@ -1819,10 +1879,12 @@ $ab-sans: 'DM Sans', sans-serif;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-style: italic;
-    font-size: 250px;
-    letter-spacing: 0px;
+    font-family: $font-owners;
+    font-style: normal;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: clamp(100px, 16vw, 220px);
+    letter-spacing: -0.01em;
     color: #FFFFFF;
     white-space: nowrap;
     user-select: none;
@@ -1892,13 +1954,14 @@ $ab-sans: 'DM Sans', sans-serif;
 
 .hud-narrative {
   margin: 0px;
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 32px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 42px;
+  font-family: $font-owners;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 32px;
   color: #FFFFFF;
-  letter-spacing: 0px;
+  letter-spacing: 0.04em;
 }
 
 .hud-grid-col {
@@ -1909,7 +1972,7 @@ $ab-sans: 'DM Sans', sans-serif;
 
   &__header {
     display: block;
-    font-family: 'Space Mono', monospace;
+    font-family: $font-mono;
     font-size: 11px;
     color: #C96121;
     letter-spacing: 2px;
@@ -1918,7 +1981,7 @@ $ab-sans: 'DM Sans', sans-serif;
 
   &__value {
     display: block;
-    font-family: 'Inter', 'Arial', sans-serif;
+    font-family: $font-body;
     font-size: 13px;
     color: #FFFFFF;
     letter-spacing: 0px;
@@ -1926,7 +1989,7 @@ $ab-sans: 'DM Sans', sans-serif;
 
   &__link {
     display: block;
-    font-family: 'Inter', 'Arial', sans-serif;
+    font-family: $font-body;
     font-size: 13px;
     color: #FFFFFF;
     letter-spacing: 0px;
@@ -2133,9 +2196,9 @@ $ar-gold: #F9C176;
 $ar-rule: #333333;
 $ar-rule-dim: #222222;
 $ar-label: #666666;
-$ar-mono: 'Space Mono', monospace;
-$ar-serif: 'Instrument Serif', serif;
-$ar-sans: 'Syne', sans-serif;
+$ar-mono: $font-desc;
+$ar-serif: $font-title;
+$ar-sans: $font-desc;
 
 .fs_archive_section {
   width: 100vw;
@@ -2158,12 +2221,13 @@ $ar-sans: 'Syne', sans-serif;
 
 .fs_archive_title {
   font-family: $ar-serif;
-  font-size: 80px;
-  font-style: italic;
-  font-weight: 400;
+  font-size: clamp(48px, 6vw, 80px);
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
   margin: 0;
-  line-height: 1;
-  letter-spacing: -1px;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
   color: $ar-fg;
 }
 
@@ -2206,12 +2270,13 @@ $ar-sans: 'Syne', sans-serif;
 
 .fs_col_client {
   font-family: $ar-serif;
-  font-size: 48px;
-  font-weight: 400;
+  font-size: 36px;
+  font-weight: 800;
+  text-transform: uppercase;
   margin: 0;
   line-height: 1;
   color: $ar-fg;
-  transition: color 0.3s ease, font-style 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .fs_col_role {
@@ -2394,14 +2459,124 @@ $ar-sans: 'Syne', sans-serif;
   }
 }
 
-// â”€â”€â”€ MANIFESTO TRANSITION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-.manifesto-pin-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: visible;
+// --- MANIFESTO TRANSITION ---
+.fs_mh_eyebrow {
+  font-family: $font-mono;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #F9C176;
+  margin: 0 0 24px 0;
+  opacity: 0.75;
+  text-align: center;
 }
 
-// â”€â”€â”€ CINEMATIC PROCESS SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.fs_mh_title {
+  font-family: $font-owners;
+  font-style: normal;
+  font-size: clamp(2.5rem, 5vw, 5.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0 auto;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-align: center;
+  background: linear-gradient(120deg,
+      #F4D0A8 0%,
+      #ECA06A 28%,
+      #D97535 55%,
+      #C96121 75%,
+      #9B3E0E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.fs_mh_line {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.08);
+  margin-top: 40px;
+}
+
+// ── Split layout ─────────────────────────────────────────────────────────────
+
+.fs_split_container {
+  display: flex;
+  width: 100vw;
+  padding: 0 5vw;
+  box-sizing: border-box;
+  position: relative;
+  align-items: stretch;
+}
+
+.fs_split_left {
+  width: 50%;
+  padding-right: 5vw;
+  padding-top: 10vh; // visual breathing room before first step
+  padding-bottom: 20vh;
+  box-sizing: border-box;
+}
+
+.fs_split_right {
+  width: 50%;
+  position: relative;
+}
+
+// ── Text step blocks ─────────────────────────────────────────────────────────
+
+.fs_step_block {
+  display: flex;
+  padding: 22vh 0;
+  opacity: 0.2;
+  will-change: opacity;
+  gap: 0;
+}
+
+.fs_step_meta {
+  width: 60px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding-top: 4px;
+}
+
+.fs_step_num {
+  font-family: $font-mono;
+  color: #666;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.fs_step_indicator {
+  width: 8px;
+  height: 8px;
+  background-color: #F9C176;
+  opacity: 0;
+  transform: scale(0);
+  will-change: transform, opacity;
+  border-radius: 1px;
+}
+
+.fs_step_content {
+  flex-grow: 1;
+}
+
+.fs_step_title {
+  font-family: $font-owners;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: -4px 0 18px 0;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: #F5F1E8;
+}
+
+// ─── CINEMATIC PROCESS SECTION ──────────────────────────────────────────────
 
 // -- Keyframe Animations ------------------------------------------------------
 @keyframes fs-spin {
@@ -2417,13 +2592,11 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 @keyframes fs-pulse {
-
   0%,
   100% {
     transform: scale(1);
     opacity: 1;
   }
-
   50% {
     transform: scale(1.06);
     opacity: 0.75;
@@ -2431,24 +2604,20 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 @keyframes fs-float {
-
   0%,
   100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-18px);
   }
 }
 
 @keyframes fs-icon-glow {
-
   0%,
   100% {
     filter: drop-shadow(0 0 12px rgba(249, 193, 118, 0.15));
   }
-
   50% {
     filter: drop-shadow(0 0 28px rgba(249, 193, 118, 0.35));
   }
@@ -2561,7 +2730,7 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 .fs_indicator_num {
-  font-family: 'Space Mono', monospace;
+  font-family: $font-desc;
   font-size: 10px;
   color: #888;
   letter-spacing: 1px;
@@ -2579,7 +2748,7 @@ $ar-sans: 'Syne', sans-serif;
   gap: 14px;
 
   span:first-child {
-    font-family: 'Space Mono', monospace;
+    font-family: $font-desc;
     font-size: 10px;
     color: rgba(255, 255, 255, 0.25);
     letter-spacing: 3px;
@@ -2643,7 +2812,7 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 .fs_pt_step {
-  font-family: 'Space Mono', monospace;
+  font-family: $font-desc;
   font-size: 12px;
   color: #F9C176;
   letter-spacing: 3px;
@@ -2663,14 +2832,15 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 .fs_pt_title {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(4rem, 8vw, 9rem);
-  font-style: italic;
-  font-weight: 400;
-  line-height: 0.92;
+  font-family: $font-owners;
+  font-size: clamp(3rem, 6vw, 7rem);
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.95;
   margin: 0 0 40px;
   color: #FFF;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   text-shadow:
     0 10px 40px rgba(0, 0, 0, 0.9),
     0 0 60px rgba(0, 0, 0, 0.4);
@@ -2683,9 +2853,9 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 .fs_pt_desc {
-  font-family: 'DM Sans', Arial, sans-serif;
+  font-family: $font-body;
   font-size: clamp(14px, 1.1vw, 17px);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
   color: rgba(200, 200, 200, 0.75);
   max-width: 420px;
@@ -2706,7 +2876,7 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 .fs_pt_cta_num {
-  font-family: 'Space Mono', monospace;
+  font-family: $font-mono;
   font-size: 11px;
   color: rgba(255, 255, 255, 0.2);
   letter-spacing: 2px;
@@ -2796,7 +2966,7 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 .fs_mh_eyebrow {
-  font-family: 'Space Mono', monospace;
+  font-family: $font-desc;
   font-size: 11px;
   letter-spacing: 0.22em;
   color: #F9C176;
@@ -2806,7 +2976,7 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 .fs_mh_title {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: $font-title;
   font-style: italic;
   font-size: clamp(3rem, 6vw, 6.5rem);
   font-weight: 400;
@@ -2877,7 +3047,7 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 .fs_step_num {
-  font-family: 'Space Mono', monospace;
+  font-family: $font-desc;
   color: #666;
   font-size: 12px;
   letter-spacing: 0.08em;
@@ -2899,7 +3069,7 @@ $ar-sans: 'Syne', sans-serif;
 }
 
 .fs_step_title {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: $font-title;
   font-size: clamp(1.5rem, 2.2vw, 2.2rem);
   font-weight: 400;
   margin: -4px 0 18px 0;

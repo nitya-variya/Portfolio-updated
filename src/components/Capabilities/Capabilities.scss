@@ -1,446 +1,210 @@
-// ── Capabilities / What I Do Section (Ultra-Smooth Hardware-Accelerated Animations) ──
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root {
+  --hairline-plate: #0b0b0b;
+}
 
-$font-owners: 'Owners', sans-serif;
-$font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-$font-script: 'Scribo', 'Caveat', cursive;
+$font-title: 'New Spirit Condensed', 'New Spirit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-desc: 'ABC Social', 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-mono: 'ABC Social', 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
 $color-bg: #000000;
 $color-warm-white: #F5F1E8;
 $color-accent: #C96121;
 $color-accent-bright: #FF4D00;
-$color-pill-bg: rgba(255, 255, 255, 0.06);
-$color-pill-border: rgba(255, 255, 255, 0.12);
-$color-card-active: rgba(255, 255, 255, 0.08);
-$color-card-border-active: rgba(201, 97, 33, 0.45);
 
+// ── Section ──────────────────────────────────────────────────────────────────
 .cap-section {
-  position: relative;
-  background-color: $color-bg;
+  background: $color-bg;
   color: $color-warm-white;
   width: 100%;
-  min-height: 100vh;
+  padding: clamp(72px, 11vh, 130px) clamp(24px, 5vw, 96px) clamp(72px, 11vh, 130px);
   box-sizing: border-box;
-  overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-// ── Viewport Container ──────────────────────────────────────────────────────
-.cap-sticky {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  max-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: clamp(24px, 4.5vh, 60px) clamp(28px, 5vw, 100px);
-  box-sizing: border-box;
-  z-index: 2;
-  overflow: hidden;
-
-  &--mobile {
-    height: auto;
-    max-height: none;
-    padding: 60px 20px 80px;
-    overflow: visible;
-  }
-}
-
-// ── Main Layout: Generous Width & Spacing ───────────────────────────────────
-.cap-layout {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1540px;
-  height: 100%;
-  max-height: 840px;
-  margin: 0 auto;
-  gap: clamp(40px, 5vw, 80px);
-}
-
-// ── LEFT COLUMN: Accordion & Pills (Centered Stack with Min-Width) ──────────
-.cap-left {
+// ── Header ───────────────────────────────────────────────────────────────────
+.cap-header {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 44%;
-  max-width: 580px;
-  z-index: 3;
+  gap: 14px;
+  margin-bottom: clamp(44px, 6vh, 80px);
 }
 
-.cap-accordion {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(14px, 1.8vh, 18px);
-  width: 100%;
+.cap-eyebrow {
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $color-accent;
+  margin: 0;
 }
 
-// Individual Accordion Item (Each Closed Pill takes its Natural Max-Content Width)
-.cap-item {
-  display: flex;
-  flex-direction: column;
-  width: max-content;
-  max-width: max-content;
-  border-radius: 20px;
-  background-color: $color-pill-bg;
-  border: 1px solid $color-pill-border;
-  cursor: pointer;
-  outline: none;
-  user-select: none;
-  box-sizing: border-box;
-  backdrop-filter: blur(10px);
-  padding: 12px 14px 12px 24px;
-  transition:
-    width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-
-  &:hover:not(.cap-item--active) {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.24);
-    transform: translateY(-2px);
-  }
-
-  // Active State: Expands into full-width card
-  &--active {
-    width: 100%;
-    max-width: 520px;
-    border-radius: 24px;
-    background-color: $color-card-active;
-    border-color: $color-card-border-active;
-    padding: clamp(26px, 3vh, 34px) clamp(26px, 2.5vw, 36px);
-    cursor: default;
-    box-shadow:
-      0 24px 50px rgba(0, 0, 0, 0.6),
-      0 0 35px rgba(201, 97, 33, 0.1);
-
-    &:hover {
-      transform: none;
-    }
-
-    .cap-item-header {
-      width: 100%;
-      justify-content: space-between;
-    }
-
-    .cap-pill-icon {
-      display: none;
-    }
-
-    .cap-item-title {
-      font-size: clamp(17px, 1.45vw, 22px);
-      letter-spacing: 0.05em;
-    }
-
-    .cap-card-body {
-      display: grid;
-      grid-template-rows: 1fr;
-      margin-top: 14px;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .cap-card-body-inner {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.1s;
-    }
-  }
-}
-
-// Header Row inside each Item
-.cap-item-header {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  width: max-content;
-}
-
-.cap-item-title {
-  font-family: $font-owners;
-  font-size: clamp(13px, 1.05vw, 15.5px);
-  font-weight: 800;
-  letter-spacing: 0.07em;
+.cap-heading {
+  font-family: $font-title;
+  font-size: clamp(38px, 5vw, 80px);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 0.9;
   text-transform: uppercase;
   color: $color-warm-white;
-  line-height: 1.2;
   margin: 0;
-  white-space: nowrap;
-  transition: font-size 0.35s cubic-bezier(0.16, 1, 0.3, 1), letter-spacing 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-// Plus Icon Button (Matching Soft Squircle Badge)
-.cap-pill-icon {
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  min-height: 32px;
-  max-width: 32px;
-  max-height: 32px;
-  aspect-ratio: 1 / 1;
-  border-radius: 10px;
-  flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: $color-warm-white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  transition:
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.35s ease,
-    background-color 0.25s ease;
+// ── 4-Column Grid ────────────────────────────────────────────────────────────
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.8vw, 24px);
+  align-items: stretch;
+}
 
-  svg {
-    width: 12px;
-    height: 12px;
-    display: block;
-    flex-shrink: 0;
+// ── Card ─────────────────────────────────────────────────────────────────────
+.cap-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  background: #080808;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    border-color: rgba(201, 97, 33, 0.4);
+    box-shadow:
+      0 0 0 1px rgba(201, 97, 33, 0.15),
+      0 24px 60px rgba(0, 0, 0, 0.7),
+      0 0 50px rgba(201, 97, 33, 0.05);
+    transform: translateY(-6px);
+
+    .cap-card-accent-bar {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .cap-card-num {
+      color: $color-accent;
+    }
   }
 }
 
-// Collapsible Body
-.cap-card-body {
-  display: none;
-  grid-template-rows: 0fr;
-  width: 0;
-  max-width: 0;
-  overflow: hidden;
-  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1), margin-top 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+// Orange top accent bar — slides in on hover
+.cap-card-accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, $color-accent 0%, $color-accent-bright 100%);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
 }
 
-.cap-card-body-inner {
-  min-height: 0;
-  opacity: 0;
-  transform: translateY(8px);
+// ── Card Visual (SVG animation area) ─────────────────────────────────────────
+.cap-card-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--hairline-plate, #0b0b0b);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  flex-shrink: 0;
+
+  svg {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y;
+  }
+
+  // Subtle radial glow
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201, 97, 33, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+// ── Card Body ─────────────────────────────────────────────────────────────────
+.cap-card-body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  transition:
-    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: clamp(18px, 2.2vw, 28px) clamp(16px, 2vw, 26px) clamp(22px, 2.5vw, 32px);
+  flex: 1;
+}
+
+.cap-card-num {
+  display: block;
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: rgba(245, 241, 232, 0.28);
+  transition: color 0.3s ease;
+  margin-bottom: 2px;
+}
+
+.cap-card-title {
+  font-family: $font-title;
+  font-size: clamp(12px, 1vw, 15px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $color-warm-white;
+  margin: 0;
+  line-height: 1.25;
 }
 
 .cap-card-subtitle {
-  font-family: $font-body;
-  font-size: clamp(14px, 1.1vw, 16.5px);
-  font-weight: 500;
+  font-family: $font-desc;
+  font-size: clamp(12px, 0.95vw, 14px);
+  font-weight: 400;
   color: $color-accent;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .cap-card-desc {
-  font-family: $font-body;
-  font-size: clamp(13.5px, 1.02vw, 15px);
+  font-family: $font-desc;
+  font-size: clamp(11.5px, 0.88vw, 13.5px);
   font-weight: 300;
-  color: rgba(245, 241, 232, 0.85);
+  color: rgba(245, 241, 232, 0.55);
   margin: 0;
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
-// ── RIGHT COLUMN: Prominent & Large Image Showcase ──────────────────────────
-.cap-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 55%;
-  height: 100%;
-  position: relative;
-  z-index: 2;
-}
-
-.cap-image-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 780px;
-  height: clamp(480px, 72vh, 680px);
-}
-
-// ── Big Gradient Title Fixed at Bottom Left ─────────────────────────────────
-.cap-bottom-title {
-  position: absolute;
-  bottom: clamp(12px, 1.5vh, 28px);
-  left: clamp(28px, 0vw, 100px);
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  z-index: 1;
-  user-select: none;
-  pointer-events: none;
-}
-
-.cap-bottom-title-text {
-  font-family: $font-owners;
-  font-size: clamp(56px, 8vw, 124px);
-  font-weight: 900;
-  letter-spacing: 0;
-  line-height: 0.85;
-  text-transform: uppercase;
-  white-space: nowrap;
-  background: linear-gradient(135deg, #e0e0e0 0%, #606060 50%, #151515 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  opacity: 0.2;
-}
-
-// Close Button (top-right 'X')
-.cap-image-close-btn {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(15, 15, 15, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 15;
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
-
-  &:hover {
-    transform: scale(1.08);
-    background: rgba(0, 0, 0, 0.95);
-    border-color: rgba(201, 97, 33, 0.7);
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 1100px) {
+  .cap-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(12px, 2vw, 20px);
   }
 }
 
-// Large Single Image Frame with Rounded Corners
-.cap-image-frame {
-  width: 100%;
-  height: 100%;
-  border-radius: 26px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background-color: #0a0a0a;
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.85),
-    0 0 40px rgba(201, 97, 33, 0.08);
-  position: relative;
-}
-
-// Butter-Smooth Stacked Image Crossfade Slides
-.cap-image-slide {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transform: scale(1.05) translateY(8px);
-  transition:
-    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-  z-index: 1;
-
-  &--active {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    z-index: 2;
-    pointer-events: auto;
-  }
-}
-
-.cap-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  filter: contrast(1.06) saturate(1.05);
-}
-
-// ── Responsive Mobile ───────────────────────────────────────────────────────
-@media (max-width: 1080px) {
-  .cap-layout {
-    gap: 32px;
-  }
-
-  .cap-bottom-title-text {
-    font-size: clamp(38px, 4.8vw, 68px);
-  }
-
-  .cap-image-wrapper {
-    max-width: 580px;
-    height: 520px;
-  }
-}
-
-@media (max-width: 900px) {
+@media (max-width: 600px) {
   .cap-section {
-    min-height: auto;
+    padding: 56px 20px 64px;
   }
 
-  .cap-sticky--mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    padding: 60px 20px 80px;
+  .cap-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
-  .cap-layout {
-    flex-direction: column;
-    max-height: none;
-    height: auto;
-    gap: 48px;
-  }
-
-  .cap-left {
-    width: 100%;
-    max-width: 100%;
-    align-items: center;
-  }
-
-  .cap-bottom-title {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    justify-content: center;
-    margin-top: 24px;
-  }
-
-  .cap-bottom-title-text {
-    font-size: clamp(36px, 7vw, 54px);
-    text-align: center;
-  }
-
-  .cap-accordion {
-    align-items: center;
-    width: 100%;
-  }
-
-  .cap-item--active {
-    max-width: 100%;
-  }
-
-  .cap-right {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .cap-image-wrapper {
-    max-width: 100%;
-    height: 420px;
+  .cap-card-visual {
+    aspect-ratio: 3 / 2;
   }
 }
