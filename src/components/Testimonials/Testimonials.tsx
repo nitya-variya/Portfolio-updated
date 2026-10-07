@@ -19,18 +19,18 @@ const TESTIMONIALS: TestimonialItem[] = [
   {
     id: 'client-1',
     quote:
-      'Nitya turned our complex technical requirements into an exceptionally smooth, fluid digital experience. The attention to motion precision and frontend architecture was world-class.',
-    author: 'Client Name',
-    role: 'Founder & CEO',
+      'I had a great experience working with Nitya on our website. He is humble, professional, and always open to suggestions. He understands requirements well and is very cooperative when it comes to making changes or improvements. What I appreciate the most is that he delivers work on time and is always responsive.',
+    author: 'Sourav',
+    role: 'Client',
     company: 'Book My Farmhouse',
-    project: 'Full-Stack Platform',
+    project: 'Website Development',
   },
   {
     id: 'client-2',
     quote:
-      'Working with Nitya was effortless. High design maturity, pixel-perfect fidelity from Figma to code, and animations that truly elevated our brand perception.',
-    author: 'Client Name',
-    role: 'Creative Director',
+      'Nitya is an incredibly talented designer with a sharp eye for detail and modern aesthetics. Easy to collaborate with, super responsive, and delivered polished designs that exceeded expectations.',
+    author: 'Mohammad',
+    role: 'Client',
     company: 'Skymaharaja',
     project: 'Luxury Web Experience',
   },
